@@ -2,11 +2,11 @@
 
 This project was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
 closed source "bots" to procure large quantities of NVIDIA GPU's and most consumers were left without being able to purchase the product. This 
-project attempts will provide a short term solution so that customers can ensure they can manually buy a GPU and actually compete with these scalpers.
+project will provide a short term solution so that customers can ensure they can buy a GPU and compete with these scalpers.
 
-NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs and automatically adds a card
-to your cart and drops your browser to the checkout page whenever they become avaliable. The clerk can also notify you of this process if you provide
-Twilio API information (I currently am not interested in running an entire service for users, so this feature is limited to users aware of how to setup
+NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs and automatically adds a GPU
+to your checkout/cart and navigates your browser checkout page whenever they become avaliable. The clerk can also notify you of this process if you provide
+Twilio API information (I am not interested in running an entire service for users, so this feature is limited to users aware of how to setup
 such things).
 
 ## Usage
