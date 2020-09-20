@@ -83,7 +83,7 @@ jobs:
 
     # Upload Release Assets
     - name: Upload Windows Assets
-      id: upload-release-asset 
+      id: upload-release-asset-windows
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -94,7 +94,7 @@ jobs:
         asset_content_type: application/octet-stream
 
     - name: Upload Linux Assets
-      id: upload-release-asset 
+      id: upload-release-asset-linux
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -105,7 +105,7 @@ jobs:
         asset_content_type: application/octet-stream
 
     - name: Upload Darwin Assets
-      id: upload-release-asset 
+      id: upload-release-asset-darwin
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
