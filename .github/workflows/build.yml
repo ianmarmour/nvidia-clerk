@@ -32,7 +32,7 @@ jobs:
 
     # Per Architecture Static Builds
     - name: Build Windows
-      run: env GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk.exe
+      run: env GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
     
     - name: Build Linux
       run: go build -a -o nvidia-clerk-linux
@@ -48,7 +48,7 @@ jobs:
 
 
     # Copy Build Artifacts to Artifact Upload Directories
-    - run: cp nvidia-clerk.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk.exe
+    - run: cp nvidia-clerk.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
     - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
     - run: cp nvidia-clerk-darwin ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
     
@@ -56,19 +56,19 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: nvidia-clerk-windows
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-windows
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
     
     # Publish Artifacts Linux
     - uses: actions/upload-artifact@v2
       with:
         name: nvidia-clerk-linux
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux    
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
 
     # Publish Artifacts Darwin
     - uses: actions/upload-artifact@v2
       with:
         name: nvidia-clerk-darwin
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
 
     # Create Release
     - name: Create Release
