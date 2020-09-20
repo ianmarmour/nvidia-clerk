@@ -41,8 +41,12 @@ jobs:
     - name: Build Darwin
       run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
 
-    # Create Artifact Upload Directory
+    # Create Artifact Upload Directories
     - run: mkdir -p ianmarmour/nvidia-clerk/build
+    - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-windows
+    - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-linux
+    - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin
+
 
     # Copy Build Artifacts to Artifact Upload Directories
     - run: cp nvidia-clerk.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk.exe
