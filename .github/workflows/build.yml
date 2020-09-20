@@ -53,17 +53,5 @@ jobs:
     # Publish Windows Artifact
     - uses: actions/upload-artifact@v2
       with:
-        name: nvidia-clerk-windows
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk.exe
-
-    # Publish Linux Artifact
-    - uses: actions/upload-artifact@v2
-      with:
-        name: nvidia-clerk-windows
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux
-
-    # Publish Darwin Artifact
-    - uses: actions/upload-artifact@v2
-      with:
-        name: nvidia-clerk-windows
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin
+        name: nvidia-clerk
+        path: ianmarmour/nvidia-clerk/build
