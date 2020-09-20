@@ -25,42 +25,101 @@ single SKU per an instance)
 
 ### Windows
 
-#### Setup Configuration
+#### Without SMS Notification
+
+##### Setup Configuration
 ```
 set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
-#### Run Nvidia Clerk
+##### Run Nvidia Clerk
 ```
 nvidia-clerk.exe
 ```
 
+#### With SMS Notification
+
+##### Setup Configuration
+```
+set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
+set TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
+set TWILIO_SERVICE_SID=YOUR_TWILIO_SERVICE_SID_HERE
+set TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
+set TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
+set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
+```
+
+##### Run Nvidia Clerk
+```
+nvidia-clerk.exe -sms
+```
+
 ### Mac OSX
 
-#### Setup Configuration
+#### Without SMS Notification
+
+##### Setup Configuration
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
-#### Run Nvidia Clerk
+##### Run Nvidia Clerk
 ```
 chmod +x ./nvidia-clerk
 
 ./nvidia-clerk
+```
+
+#### With SMS Notification
+
+##### Setup Configuration
+```
+export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
+export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
+export TWILIO_SERVICE_SID=YOUR_TWILIO_SERVICE_SID_HERE
+export TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
+export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
+export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
+```
+
+##### Run Nvidia Clerk
+```
+chmod +x ./nvidia-clerk
+
+./nvidia-clerk -sms
 ```
 
 ### Linux
 
-#### Setup Configuration
+#### Without SMS Notification
+
+##### Setup Configuration
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
-#### Run Nvidia Clerk
+##### Run Nvidia Clerk
 ```
 chmod +x ./nvidia-clerk
 
 ./nvidia-clerk
+```
+
+#### With SMS Notification
+
+##### Setup Configuration
+```
+export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
+export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
+export TWILIO_SERVICE_SID=YOUR_TWILIO_SERVICE_SID_HERE
+export TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
+export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
+export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
+```
+
+##### Run Nvidia Clerk
+```
+chmod +x ./nvidia-clerk
+
+./nvidia-clerk -sms
 ```
