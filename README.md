@@ -25,6 +25,8 @@ single SKU per an instance)
 
 ### Windows
 
+Build or download the latest release
+
 #### Without SMS Notification
 
 ##### Setup Configuration
@@ -55,6 +57,9 @@ nvidia-clerk.exe -sms
 ```
 
 ### Mac OSX
+
+Build or download the latest release
+
 
 #### Without SMS Notification
 
@@ -90,6 +95,8 @@ chmod +x ./nvidia-clerk
 ```
 
 ### Linux
+
+Build or download the latest release
 
 #### Without SMS Notification
 
