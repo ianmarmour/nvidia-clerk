@@ -27,29 +27,28 @@ func main() {
 			fmt.Printf("Error getting SKU Information retrying...\n")
 			continue
 		}
-
-		fmt.Println("Product Name: " + skuInfo.Products.Product[0].Name)
-		fmt.Println("Product Status: " + skuInfo.Products.Product[0].InventoryStatus.Status)
-
+		skuName := skuInfo.Products.Product[0].Name
+		skuStatus := skuInfo.Products.Product[0].InventoryStatus.Status
 		skuInventory, skuInventoryErr := rest.GetSkuInventory(config.SKU, httpClient)
 		if skuInventoryErr != nil {
 			fmt.Printf("Error getting SKU Inventory retrying...\n")
 			continue
 		}
 
-		fmt.Printf("Product Inventory: %d", skuInventory.Product.AvailableQuantity)
-		fmt.Printf("\n")
-		fmt.Printf("\n")
+		fmt.Println("SKU Name: " + skuName)
+		fmt.Println("SKU Status: " + skuStatus)
+		fmt.Printf("Product Inventory: %d \n\n", skuInventory.Product.AvailableQuantity)
 
-		if skuInfo.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
+		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
 			browser.NavigateTo(fmt.Sprintf("https://store.nvidia.com/store/nvidia/en_US/buy/productID.%s/clearCart.yes/nextPage.QuickBuyCartPage", config.SKU))
 
-			textErr := alert.SendText(skuInfo.Products.Product[0].DisplayName, config.TwilioConfig, httpClient)
+			textErr := alert.SendText(skuName, config.TwilioConfig, httpClient)
 			if textErr != nil {
 				fmt.Printf("Error sending notification retrying...\n")
 				continue
 			}
 
+			// Exit clean after a SKU was added to checkout cart.
 			os.Exit(0)
 		}
 
