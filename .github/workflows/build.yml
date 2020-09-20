@@ -48,7 +48,7 @@ jobs:
 
 
     # Copy Build Artifacts to Artifact Upload Directories
-    - run: cp nvidia-clerk.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
+    - run: cp nvidia-clerk-windows.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
     - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
     - run: cp nvidia-clerk-darwin ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
     
