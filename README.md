@@ -11,6 +11,10 @@ such things).
 
 ## Install
 
+### Requirements
+
+This program requires Google Chrome to be installed on your system (no we cannot and will not support other browsers)
+
 ### Download
 
 Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest) 
@@ -33,6 +37,8 @@ single SKU per an instance)
 
 ### Windows
 
+All commands in this section should be executed inside of a Command Prompt.
+
 #### Base Configuration
 ```
 set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
@@ -48,6 +54,8 @@ set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
 ### Mac OSX
+
+All commands in this section should be executed inside of a Terminal Prompt.
 
 #### Base Configuration
 ```
@@ -66,6 +74,8 @@ export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 
 ### Linux
 
+All commands in this section should be executed inside of a Terminal Prompt.
+
 #### Base Configuration
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
@@ -83,6 +93,8 @@ export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 
 
 ## Usage
+
+Once you execute the below commands make sure to leave the Google Chrome browser that it launches open!
 
 ### Windows
 
