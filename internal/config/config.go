@@ -26,6 +26,7 @@ type Config struct {
 	TwilioConfig TwilioConfig
 }
 
+// Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
 var skuBasedConfig = map[string]RegionalConfig{
 	"5438481700": {
 		SKU:      "5438481700",

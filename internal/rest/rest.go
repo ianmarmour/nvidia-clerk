@@ -2,6 +2,7 @@ package rest
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -107,6 +108,12 @@ func GetSkuInfo(sku string, locale string, currency string, client *http.Client)
 		return nil, err
 	}
 
+	if r.StatusCode == 500 {
+		message := fmt.Sprintf("Rate Limited Exceeded for URL: %s", endpoint)
+		fmt.Println(message)
+		return nil, errors.New("Rate Limited Exceeded Error")
+	}
+
 	if r.Body != nil {
 		defer r.Body.Close()
 	}
@@ -150,7 +157,7 @@ func GetSkuInventory(sku string, locale string, client *http.Client) (*Inventory
 	inventory := Inventory{}
 	jsonErr := json.Unmarshal(body, &inventory)
 	if jsonErr != nil {
-		fmt.Println(jsonErr)
+		fmt.Println(fmt.Sprintf("Error decoding JSON response: %s", jsonErr))
 		return nil, jsonErr
 	}
 
