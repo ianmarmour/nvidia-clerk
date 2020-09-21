@@ -14,6 +14,9 @@ import (
 )
 
 func main() {
+	browser.StartChromeDebugMode()
+	sessionContext := browser.StartSession()
+
 	useSms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	flag.Parse()
 
@@ -40,7 +43,8 @@ func main() {
 		fmt.Printf("Product Inventory: %d \n\n", skuInventory.Product.AvailableQuantity)
 
 		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
-			browser.NavigateTo(fmt.Sprintf("https://store.nvidia.com/store/nvidia/en_US/buy/productID.%s/clearCart.yes/nextPage.QuickBuyCartPage", config.SKU))
+			browser.AddToCart(sessionContext, config.SKU)
+			browser.Checkout(sessionContext)
 
 			if *useSms == true {
 				textErr := alert.SendText(skuName, config.TwilioConfig, httpClient)
