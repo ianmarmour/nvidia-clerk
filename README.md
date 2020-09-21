@@ -140,6 +140,24 @@ set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ./nvidia-clerk-windows.exe -sms
 ```
 
+## Discord Notifications
+
+### Configuration
+```Batchfile
+set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
+```
+
+### Testing
+```shell
+./nvidia-clerk-windows.exe -discord -test
+```
+
+### Usage
+
+```shell
+./nvidia-clerk-windows.exe -discord
+```
+
 ## Unsupported Regions
 
 You can attempt to manually configure you're sku, locale and currency options using the following steps support for your region may be limited, if you manage to get a new region working please cut a GitHub issue and include the SKU, LOCALE and Currency settings that you used so we can add first party support for this region.

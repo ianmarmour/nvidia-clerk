@@ -19,11 +19,16 @@ type TwilioConfig struct {
 	DestinationNumber string
 }
 
+type DiscordConfig struct {
+	WebhookURL string
+}
+
 type Config struct {
 	Locale       string
 	Currency     string
 	SKU          string
 	TwilioConfig TwilioConfig
+	DiscordConfig DiscordConfig
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
@@ -90,8 +95,22 @@ func GetTwilioConfig() TwilioConfig {
 	return configuration
 }
 
+//GetDiscordConfig Generates DiscordConfiguration for application from environmental variables.
+func GetDiscordConfig() DiscordConfig {
+	configuration := DiscordConfig{}
+
+	webhookURL, webhookURLOk := os.LookupEnv("DISCORD_WEBHOOK_URL")
+	if webhookURLOk == false {
+		log.Fatal("DISCORD_WEBHOOK_URL Environment Variable is unset, exiting.")
+	}
+
+	configuration.WebhookURL = webhookURL
+
+	return configuration
+}
+
 //GetConfig Generates Configuration for application from environmental variables.
-func GetConfig(smsEnabled bool) Config {
+func GetConfig(smsEnabled bool, discordEnabled bool) Config {
 	configuration := Config{}
 
 	sku, skuOk := os.LookupEnv("NVIDIA_CLERK_SKU")
@@ -119,6 +138,10 @@ func GetConfig(smsEnabled bool) Config {
 
 	if smsEnabled == true {
 		configuration.TwilioConfig = GetTwilioConfig()
+	}
+
+	if discordEnabled == true {
+		configuration.DiscordConfig = GetDiscordConfig()
 	}
 
 	return configuration
