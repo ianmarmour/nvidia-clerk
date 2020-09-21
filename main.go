@@ -42,10 +42,12 @@ func main() {
 		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
 			browser.NavigateTo(fmt.Sprintf("https://store.nvidia.com/store/nvidia/en_US/buy/productID.%s/clearCart.yes/nextPage.QuickBuyCartPage", config.SKU))
 
-			textErr := alert.SendText(skuName, config.TwilioConfig, httpClient)
-			if textErr != nil {
-				fmt.Printf("Error sending notification retrying...\n")
-				continue
+			if *useSms == true {
+				textErr := alert.SendText(skuName, config.TwilioConfig, httpClient)
+				if textErr != nil {
+					fmt.Printf("Error sending notification retrying...\n")
+					continue
+				}
 			}
 
 			// Exit clean after a SKU was added to checkout cart.
