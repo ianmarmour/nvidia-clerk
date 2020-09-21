@@ -89,7 +89,8 @@ export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
 ## Usage
-!! Once you execute the below commands make sure to leave the Google Chrome browser that it launches open!
+| :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
+|-----------------------------------------|
 
 ### Windows
 | :memo:        | All commands should be executed inside of cmd.exe |
