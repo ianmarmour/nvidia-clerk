@@ -57,6 +57,13 @@ single SKU per an instance)
 | Nvidia RTX 3080 FE  | 5438795200 |
 | Nvidia RTX 3090 FE  | N/A |
 
+**Sweden**
+| Product Name | SKU |
+|---|---|
+| Nvidia RTX 3070 FE  | N/A |
+| Nvidia RTX 3080 FE  | 5438798100 |
+| Nvidia RTX 3090 FE  | N/A |
+
 ### Windows
 
 All commands in this section should be executed inside of a Command Prompt.
