@@ -7,7 +7,6 @@ import (
 
 type TwilioConfig struct {
 	AccountSID        string
-	ServiceSID        string
 	Token             string
 	SourceNumber      string
 	DestinationNumber string
@@ -28,13 +27,6 @@ func GetTwilioConfig() TwilioConfig {
 	}
 
 	configuration.AccountSID = accountSid
-
-	serviceSid, serviceSidOk := os.LookupEnv("TWILIO_SERVICE_SID")
-	if serviceSidOk == false {
-		log.Fatal("TWILIO_SERVICE_SID Environment Variable is unset, exiting.")
-	}
-
-	configuration.ServiceSID = serviceSid
 
 	token, tokenOk := os.LookupEnv("TWILIO_TOKEN")
 	if tokenOk == false {
