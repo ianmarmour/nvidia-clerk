@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"errors"
 
 	"github.com/chromedp/chromedp"
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
@@ -36,15 +37,25 @@ func exists(name string) bool {
 }
 
 //getWindowsChromeLocation Determines different Google Chrome install locations.
-func getWindowsChromeLocation() string {
-	if exists("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe") == true {
-		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
-	} else if exists("C:/Program Files/Google/Chrome/Application/chrome.exe") == true {
-		return "C:/Program Files/Google/Chrome/Application/chrome.exe"
-	} else {
-		log.Fatal("Unable to determine Google Chrome install location.")
-		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+func getWindowsChromeLocation() (string, error) {
+	if dest := "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"; exists(dest) {
+		return dest, nil
 	}
+
+	if dest := "C:/Program Files/Google/Chrome/Application/chrome.exe"; exists(dest) {
+		return dest, nil
+	}
+
+	userDir, userDirOk := os.LookupEnv("userprofile")
+	if !userDirOk {
+		return "", errors.New("Unable to determine Google Chrome install location. userprofile env var not set.")
+	}
+
+	if dest := userDir + "/AppData/Local/Google/Chrome/Application/chrome.exe"; exists(dest) {
+		return dest, nil
+	}
+
+	return "", errors.New("Unable to determine Google Chrome install location.")
 }
 
 //updateSession Updates the session variable.
@@ -115,7 +126,11 @@ func StartChromeDebugMode() bool {
 	case "linux":
 		cmd = exec.Command("google-chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	case "windows":
-		cmd = exec.Command(getWindowsChromeLocation(), "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+		path, err := getWindowsChromeLocation()
+		if err != nil {
+			panic(err)
+		}
+		cmd = exec.Command(path, "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	case "darwin":
 		cmd = exec.Command("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	default:
