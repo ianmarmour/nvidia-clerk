@@ -6,6 +6,12 @@ import (
 	"os"
 )
 
+type RegionalConfig struct {
+	SKU      string
+	Locale   string
+	Currency string
+}
+
 type TwilioConfig struct {
 	AccountSID        string
 	Token             string
@@ -18,6 +24,29 @@ type Config struct {
 	Currency     string
 	SKU          string
 	TwilioConfig TwilioConfig
+}
+
+var skuBasedConfig = map[string]RegionalConfig{
+	"5438481700": {
+		SKU:      "5438481700",
+		Locale:   "en_us",
+		Currency: "USD",
+	},
+	"5438792800": {
+		SKU:      "5438792800",
+		Locale:   "en_gb",
+		Currency: "GBP",
+	},
+	"5438792300": {
+		SKU:      "5438792300",
+		Locale:   "de_de",
+		Currency: "EUR",
+	},
+	"5438795200": {
+		SKU:      "5438795200",
+		Locale:   "fr_fr",
+		Currency: "EUR",
+	},
 }
 
 //GetTwilioConfig Generates TwilioConfiguration for application from environmental variables.
@@ -59,28 +88,28 @@ func GetTwilioConfig() TwilioConfig {
 func GetConfig(smsEnabled bool) Config {
 	configuration := Config{}
 
-	locale, localeOk := os.LookupEnv("NVIDIA_CLERK_LOCALE")
-	if localeOk == false {
-		locale = "en_us"
-		fmt.Println("NVIDIA_CLERK_LOCALE unset defaulting locale to en_us.")
-	}
-
-	configuration.Locale = locale
-
-	currency, currencyOk := os.LookupEnv("NVIDIA_CLERK_CURRENCY")
-	if currencyOk == false {
-		currency = "USD"
-		fmt.Println("NVIDIA_CLERK_CURRENCY unset defaulting currency to USD.")
-	}
-
-	configuration.Currency = currency
-
 	sku, skuOk := os.LookupEnv("NVIDIA_CLERK_SKU")
 	if skuOk == false {
 		log.Fatal("NVIDIA_CLERK_SKU Environment Variable is unset, exiting.")
 	}
 
 	configuration.SKU = sku
+
+	locale, localeOk := os.LookupEnv("NVIDIA_CLERK_LOCALE")
+	if localeOk == false {
+		locale = skuBasedConfig[sku].Locale
+		fmt.Println(fmt.Sprintf("NVIDIA_CLERK_LOCALE unset defaulting locale to %s based on SKU", locale))
+	}
+
+	configuration.Locale = locale
+
+	currency, currencyOk := os.LookupEnv("NVIDIA_CLERK_CURRENCY")
+	if currencyOk == false {
+		currency = skuBasedConfig[sku].Currency
+		fmt.Println(fmt.Sprintf("NVIDIA_CLERK_CURRENCY unset defaulting currency to %s based on SKU", currency))
+	}
+
+	configuration.Currency = currency
 
 	if smsEnabled == true {
 		configuration.TwilioConfig = GetTwilioConfig()

@@ -13,7 +13,8 @@ such things).
 
 ### Requirements
 
-This program requires Google Chrome to be installed on your system (no we cannot and will not support other browsers)
+* Google Chrome
+* Administrator Access
 
 ### Download
 
@@ -26,47 +27,35 @@ we haven't paid for a signing certificate)
 ### Determining Your SKU
 
 In order to configure the nvidia-clerk you'll need to determine which SKU you would like the clerk to monitor (currently the clerk only supports monitoring a
-single SKU per an instance) this list is for US SKU's only (they will not work for other countries)
+single SKU per an instance)
 
-United States
-
+**United States**
 | Product Name | SKU |
 |---|---|
 | Nvidia RTX 3070 FE  | N/A |
 | Nvidia RTX 3080 FE  | 5438481700 |
 | Nvidia RTX 3090 FE  | N/A |
 
-Great Britain
-
+**Great Britain**
 | Product Name | SKU |
 |---|---|
 | Nvidia RTX 3070 FE  | N/A |
 | Nvidia RTX 3080 FE  | 5438792800 |
 | Nvidia RTX 3090 FE  | N/A |
 
-Germany
-
+**Germany**
 | Product Name | SKU |
 |---|---|
 | Nvidia RTX 3070 FE  | N/A |
 | Nvidia RTX 3080 FE  | 5438792300 |
 | Nvidia RTX 3090 FE  | N/A |
 
-France
-
+**France**
 | Product Name | SKU |
 |---|---|
 | Nvidia RTX 3070 FE  | N/A |
 | Nvidia RTX 3080 FE  | 5438795200 |
 | Nvidia RTX 3090 FE  | N/A |
-
-### Determining Your Locale
-
-US readers can ignore this section however if you are non-us please determine your locale from [this list](https://www.science.co.il/language/Locale-codes.php)
-
-### Determining Your Currency Code
-
-US readers can ignore this section however if you are non-us please determine your currency code from [this list](https://www.iban.com/currency-codes)
 
 ### Windows
 
@@ -83,16 +72,6 @@ set TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
 set TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
 set TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
-```
-
-#### Additional Locale Configuration
-```
-set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
-```
-
-#### Additional Currency Configuration
-```
-set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 ```
 
 ### Mac OSX
@@ -113,16 +92,6 @@ export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
-#### Additional Locale Configuration
-```
-set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
-```
-
-#### Additional Currency Configuration
-```
-set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
-```
-
 ### Linux
 
 All commands in this section should be executed inside of a Terminal Prompt.
@@ -139,16 +108,6 @@ export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
 export TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
 export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
-```
-
-#### Additional Locale Configuration
-```
-set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
-```
-
-#### Additional Currency Configuration
-```
-set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 ```
 
 ## Usage
@@ -197,4 +156,28 @@ chmod +x ./nvidia-clerk-linux
 chmod +x ./nvidia-clerk-linux
 
 ./nvidia-clerk-linux -sms
+```
+
+
+# Other Unsupported Regions
+
+You can attempt to manually configure you're locale and currency options from the following list (typically locales are 2 letters with an underscore and 2 more letters FYSA), support
+for this list of regions may be limited, please cut a GitHub issue once you determine the regional SKU and attempt to configure locale and currency settings if it's not working.
+
+### Determining Your Locale
+
+US readers can ignore this section however if you are non-us please determine your locale from [this list](https://www.science.co.il/language/Locale-codes.php)
+
+### Determining Your Currency Code
+
+US readers can ignore this section however if you are non-us please determine your currency code from [this list](https://www.iban.com/currency-codes)
+
+#### Additional Locale Configuration
+```
+set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
+```
+
+#### Additional Currency Configuration
+```
+set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 ```
