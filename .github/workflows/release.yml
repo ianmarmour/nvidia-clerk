@@ -75,12 +75,12 @@ jobs:
     - name: Create Release
       id: create_release
       uses: actions/create-release@latest
-      draft: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: latest
+        tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
+        draft: true
         body: |
           Official release
           draft: true
