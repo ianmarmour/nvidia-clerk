@@ -13,26 +13,52 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/internal/rest"
 )
 
-func main() {
-	browser.StartChromeDebugMode()
-	sessionContext := browser.StartSession()
+func runTest(name string, client *http.Client, config config.Config) {
+	switch name {
+	case "sms":
+		textErr := alert.SendText(config.SKU, config.TwilioConfig, client)
+		if textErr != nil {
+			fmt.Printf("Error testing SMS notification exiting...\n")
+			os.Exit(1)
+		} else {
+			fmt.Printf("SMS Notification testing completed succesfully")
+		}
+	default:
 
+	}
+
+	fmt.Printf("Testing completed succesfully exiting...\n")
+	os.Exit(0)
+}
+
+func main() {
+	// Parse Argument Flags
 	useSms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
+	useTest := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
 	config := config.GetConfig(*useSms)
-
 	httpClient := &http.Client{Timeout: 10 * time.Second}
 
+	// Execute Tests
+	if *useTest == true {
+		if *useSms == true {
+			runTest("sms", httpClient, config)
+		}
+	}
+
+	browser.StartChromeDebugMode()
+	sessionContext := browser.StartSession(config)
+
 	for {
-		skuInfo, skuInfoErr := rest.GetSkuInfo(config.SKU, httpClient)
+		skuInfo, skuInfoErr := rest.GetSkuInfo(config.SKU, config.Locale, config.Currency, httpClient)
 		if skuInfoErr != nil {
 			fmt.Printf("Error getting SKU Information retrying...\n")
 			continue
 		}
 		skuName := skuInfo.Products.Product[0].Name
 		skuStatus := skuInfo.Products.Product[0].InventoryStatus.Status
-		skuInventory, skuInventoryErr := rest.GetSkuInventory(config.SKU, httpClient)
+		skuInventory, skuInventoryErr := rest.GetSkuInventory(config.SKU, config.Locale, httpClient)
 		if skuInventoryErr != nil {
 			fmt.Printf("Error getting SKU Inventory retrying...\n")
 			continue

@@ -12,7 +12,7 @@ import (
 
 //SendText Sends an SMS notification using Twilio Service.
 func SendText(item string, config config.TwilioConfig, client *http.Client) error {
-	endpoint := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages", config.ServiceSID)
+	endpoint := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages", config.AccountSID)
 
 	msgData := url.Values{}
 	msgData.Set("To", config.DestinationNumber)

@@ -11,6 +11,7 @@ import (
 	"runtime"
 
 	"github.com/chromedp/chromedp"
+	"github.com/ianmarmour/nvidia-clerk/internal/config"
 )
 
 type Session struct {
@@ -22,7 +23,6 @@ type Session struct {
 
 var session Session
 
-const locale = "en_us"
 const nvidiaAPIKey = "9485fa7b159e42edb08a83bde0d83dia"
 
 //exists Determines if a file exists.
@@ -80,7 +80,7 @@ func getDebugURL() string {
 }
 
 // constructSessionURL Builds the session URL
-func constructSessionURL() string {
+func constructSessionURL(locale string) string {
 	baseURL := "https://store.nvidia.com/store/nvidia/SessionToken?format=json"
 	localeParam := fmt.Sprintf("&locale=%s", locale)
 	apiKeyParam := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
@@ -135,7 +135,7 @@ func StartChromeDebugMode() bool {
 }
 
 // StartSession Starts the ChromeRD browser session and returns it's context.
-func StartSession() context.Context {
+func StartSession(config config.Config) context.Context {
 	// create allocator context for use with creating a browser context later
 	allocatorContext, _ := chromedp.NewRemoteAllocator(context.Background(), getDebugURL())
 
@@ -145,7 +145,7 @@ func StartSession() context.Context {
 	var sessionResponse string
 
 	err := chromedp.Run(ctxt,
-		chromedp.Navigate(constructSessionURL()),
+		chromedp.Navigate(constructSessionURL(config.Locale)),
 		chromedp.WaitVisible("body", chromedp.ByQuery),
 		chromedp.Text(`body > pre`, &sessionResponse),
 	)
