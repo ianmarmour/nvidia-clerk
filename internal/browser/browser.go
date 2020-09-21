@@ -39,7 +39,7 @@ func exists(name string) bool {
 //getWindowsChromeLocation Determines different Google Chrome install locations.
 func getWindowsChromeLocation() (string, error) {
 	// if user set chrome path env, check that first
-	chromePath, chromePathFound := os.LookupEnv("CHROME_PATH")
+	chromePath, chromePathFound := os.LookupEnv("NVIDIA_CLERK_CHROME_PATH")
 	if chromePathFound && exists(chromePath) {
 		return chromePath, nil
 	}
@@ -67,7 +67,7 @@ func getWindowsChromeLocation() (string, error) {
 		return dest, nil
 	}
 
-	return "", errors.New("Unable to determine Google Chrome install location. Please set CHROME_PATH env var with full path location.")
+	return "", errors.New("Unable to determine Google Chrome install location. Please set NVIDIA_CLERK_CHROME_PATH env var with full path location.")
 }
 
 //updateSession Updates the session variable.

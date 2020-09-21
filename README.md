@@ -88,7 +88,7 @@ For example "C:/Program Files/Google/Chrome/Application/chrome.exe".
 You can find the path by right clicking on chrome in your start menu and choosing "Open File Location", right click the
 .exe file, select 'Properties', and copy and paste the Target.
 ```
-set CHROME_PATH=PATH_TO_YOUR_CHROME.EXE
+set NVIDIA_CLERK_CHROME_PATH=PATH/TO/YOUR/CHROME.EXE
 ```
 
 ### Mac OSX
