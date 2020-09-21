@@ -27,6 +27,8 @@ we haven't paid for a signing certificate)
 In order to configure the nvidia-clerk you'll need to determine which SKU you would like the clerk to monitor (currently the clerk only supports monitoring a
 single SKU per an instance)
 
+### Supported Region SKUs
+
 **United States**
 | Product Name | SKU |
 |---|---|
@@ -81,6 +83,7 @@ export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 
 ### Linux
 | :memo:        | All commands should be executed inside of Shell |
+|---------------|:------------------------|
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
@@ -107,6 +110,8 @@ chmod +x ./nvidia-clerk-darwin
 ### Linux
 | :memo:        | All commands should be executed inside of Shell |
 |---------------|:------------------------|
+
+
 ```
 chmod +x ./nvidia-clerk-linux
 
@@ -154,7 +159,7 @@ For more advanced users attempting to identify the SKU for their countris store 
 
 https://api.digitalriver.com/v1/shoppers/me/products?apiKey=9485fa7b159e42edb08a83bde0d83dia&locale=en_ca&format=json&expand=product&fields=product.id,product.displayName,product.pricing&pageNumber=1
 
-### Region Specific Configuration
+### Additional Configuration
 
 After you have your new SKU, Currency Code and Locale please set the configuration up as follows,
 
