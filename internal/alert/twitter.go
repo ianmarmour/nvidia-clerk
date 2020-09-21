@@ -2,6 +2,7 @@ package alert
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
@@ -15,13 +16,18 @@ func SendTweet(item string, config config.TwitterConfig) error {
 	httpClient := oauthConfig.Client(oauth1.NoContext, token)
 	client := twitter.NewClient(httpClient)
 
-	tweet, _, err := client.Statuses.Update(item, nil)
+	verifyParams := &twitter.AccountVerifyParams{
+		SkipStatus:   twitter.Bool(true),
+		IncludeEmail: twitter.Bool(true),
+	}
+	user, _, _ := client.Accounts.VerifyCredentials(verifyParams)
+	fmt.Printf("User's ACCOUNT:\n%+v\n", user)
+
+	_, _, err := client.Statuses.Update("A Test Tweet from a new Bot I'm building!", nil)
 	if err != nil {
-		fmt.Printf("Error Posting Tweet")
+		log.Println("Error attempting to Tweet")
 		return err
 	}
-
-	fmt.Printf("Posted Tweet\n%v\n", tweet)
 
 	return nil
 }

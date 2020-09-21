@@ -148,15 +148,37 @@ set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
 ```
 
 ### Testing
-```shell
+```Batchfile
 ./nvidia-clerk-windows.exe -discord -test
 ```
 
 ### Usage
 
-```shell
+```Batchfile
 ./nvidia-clerk-windows.exe -discord
 ```
+
+## Twitter Notifications
+
+### Configuration
+```Batchfile
+set TWITTER_CONSUMER_KEY=YOUR_TWITTER_CONSUMER_KEY_HERE
+set TWITTER_CONSUMER_SECRET=YOUR_TWITTER_CONSUMER_SECRET_HERE
+set TWITTER_ACCESS_TOKEN=YOUR_TWITTER_ACCESS_TOKEN_HERE
+set TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_HERE
+```
+
+### Testing
+```Batchfile
+./nvidia-clerk-windows.exe -twitter -test
+```
+
+### Usage
+
+```Batchfile
+./nvidia-clerk-windows.exe -twitter
+```
+
 
 ## Unsupported Regions
 
