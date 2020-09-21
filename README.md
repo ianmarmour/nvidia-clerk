@@ -28,10 +28,21 @@ we haven't paid for a signing certificate)
 In order to configure the nvidia-clerk you'll need to determine which SKU you would like the clerk to monitor (currently the clerk only supports monitoring a
 single SKU per an instance) this list is for US SKU's only (they will not work for other countries)
 
+United States
+
 | Product Name | SKU |
 |---|---|
 | Nvidia RTX 3070 FE  | N/A |
 | Nvidia RTX 3080 FE  | 5438481700 |
+| Nvidia RTX 3090 FE  | N/A |
+
+
+Germany
+
+| Product Name | SKU |
+|---|---|
+| Nvidia RTX 3070 FE  | N/A |
+| Nvidia RTX 3080 FE  | 5438792300 |
 | Nvidia RTX 3090 FE  | N/A |
 
 
