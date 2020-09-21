@@ -45,6 +45,13 @@ Germany
 | Nvidia RTX 3080 FE  | 5438792300 |
 | Nvidia RTX 3090 FE  | N/A |
 
+France
+
+| Product Name | SKU |
+|---|---|
+| Nvidia RTX 3070 FE  | N/A |
+| Nvidia RTX 3080 FE  | 5438795200 |
+| Nvidia RTX 3090 FE  | N/A |
 
 ### Determining Your Locale
 
