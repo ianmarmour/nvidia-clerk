@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
+	"runtime"
 
 	"github.com/chromedp/chromedp"
 )
@@ -85,9 +86,19 @@ func AddToCart(context context.Context, sku string) {
 
 //StartChromeDebugMode Starts a chrome instance in debug-mode
 func StartChromeDebugMode() bool {
-	chrome := "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+	var cmd *exec.Cmd
 
-	cmd := exec.Command(chrome, "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+	switch runtime.GOOS {
+	case "linux":
+		cmd = exec.Command("google-chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+	case "windows":
+		cmd = exec.Command("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+	case "darwin":
+		cmd = exec.Command("open", "-a", "/Applications/Google Chrome.app", "--args", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+	default:
+		log.Fatal("unsupported platform")
+	}
+
 	return cmd.Start() == nil
 }
 
