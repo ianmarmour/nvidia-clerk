@@ -1,8 +1,9 @@
-package discord
+package alert
 
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,14 +11,15 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 )
 
-//SendMessage Sends a notification message to a Discord Webhook.
-func SendMessage(item string, config config.DiscordConfig, client *http.Client) error {
+type DiscordPayload struct {
+	Content string `json:"content"`
+}
+
+//SendDiscordMessage Sends a notification message to a Discord Webhook.
+func SendDiscordMessage(item string, config config.DiscordConfig, client *http.Client) error {
 	content := fmt.Sprintf("%s Ready for Purchase", item)
 
-	payload := map[string]interface{}{
-		"content": &content,
-	}
-
+	payload := DiscordPayload{content}
 	payloadJSON, err := json.Marshal(payload)
 
 	if err != nil {
@@ -29,7 +31,8 @@ func SendMessage(item string, config config.DiscordConfig, client *http.Client) 
 
 	resp, _ := client.Do(req)
 	if resp.StatusCode >= 400 {
-		log.Fatal("Unable to send message to discord, bad request.")
+		fmt.Println("Unable to send message to discord, bad request.")
+		return errors.New("Bad Request")
 	}
 
 	return nil
