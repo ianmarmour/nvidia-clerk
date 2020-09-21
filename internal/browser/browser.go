@@ -41,10 +41,19 @@ func getWindowsChromeLocation() string {
 		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 	} else if exists("C:/Program Files/Google/Chrome/Application/chrome.exe") == true {
 		return "C:/Program Files/Google/Chrome/Application/chrome.exe"
-	} else {
-		log.Fatal("Unable to determine Google Chrome install location.")
-		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 	}
+
+	userDir, userDirOk := os.LookupEnv("userprofile")
+	if userDirOk == false {
+		log.Fatal("Unable to determine Google Chrome install location. userprofile env var not set.")
+	}
+
+	if exists(userDir + "/AppData/Local/Google/Chrome/Application/chrome.exe") == true {
+		return userDir + "/AppData/Local/Google/Chrome/Application/chrome.exe"
+	}
+
+	log.Fatal("Unable to determine Google Chrome install location.")
+	return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 }
 
 //updateSession Updates the session variable.
@@ -117,7 +126,7 @@ func StartChromeDebugMode() bool {
 	case "windows":
 		cmd = exec.Command(getWindowsChromeLocation(), "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	case "darwin":
-		cmd = exec.Command("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+		cmd = exec.Command("open", "-a", "/Applications/Google \\Chrome.app", "--args", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	default:
 		log.Fatal("unsupported platform")
 	}
