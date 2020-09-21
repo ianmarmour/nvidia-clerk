@@ -48,17 +48,17 @@ func main() {
 	}
 
 	browser.StartChromeDebugMode()
-	sessionContext := browser.StartSession()
+	sessionContext := browser.StartSession(config)
 
 	for {
-		skuInfo, skuInfoErr := rest.GetSkuInfo(config.SKU, httpClient)
+		skuInfo, skuInfoErr := rest.GetSkuInfo(config.SKU, config.Locale, config.Currency, httpClient)
 		if skuInfoErr != nil {
 			fmt.Printf("Error getting SKU Information retrying...\n")
 			continue
 		}
 		skuName := skuInfo.Products.Product[0].Name
 		skuStatus := skuInfo.Products.Product[0].InventoryStatus.Status
-		skuInventory, skuInventoryErr := rest.GetSkuInventory(config.SKU, httpClient)
+		skuInventory, skuInventoryErr := rest.GetSkuInventory(config.SKU, config.Locale, httpClient)
 		if skuInventoryErr != nil {
 			fmt.Printf("Error getting SKU Inventory retrying...\n")
 			continue

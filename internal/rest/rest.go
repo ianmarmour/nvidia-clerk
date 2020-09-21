@@ -97,8 +97,8 @@ type InventoryProduct struct {
 	AvailableQuantity int `json:"availableQuantity"`
 }
 
-func GetSkuInfo(sku string, client *http.Client) (*ProductsResponse, error) {
-	endpoint := fmt.Sprintf("https://in-and-ru-store-api.uk-e1.cloudhub.io/DR/products/en_us/USD/%s", sku)
+func GetSkuInfo(sku string, locale string, currency string, client *http.Client) (*ProductsResponse, error) {
+	endpoint := fmt.Sprintf("https://in-and-ru-store-api.uk-e1.cloudhub.io/DR/products/%s/%s/%s", locale, currency, sku)
 
 	r, err := client.Get(endpoint)
 	if err != nil {
@@ -127,8 +127,8 @@ func GetSkuInfo(sku string, client *http.Client) (*ProductsResponse, error) {
 	return &products, nil
 }
 
-func GetSkuInventory(sku string, client *http.Client) (*Inventory, error) {
-	endpoint := fmt.Sprintf("https://in-and-ru-store-api.uk-e1.cloudhub.io/DR/get-inventory/en_us/%s?format=json&expand=availablequantity", sku)
+func GetSkuInventory(sku string, locale string, client *http.Client) (*Inventory, error) {
+	endpoint := fmt.Sprintf("https://in-and-ru-store-api.uk-e1.cloudhub.io/DR/get-inventory/%s/%s?format=json&expand=availablequantity", locale, sku)
 
 	r, err := client.Get(endpoint)
 	if err != nil {

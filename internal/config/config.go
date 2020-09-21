@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 )
@@ -13,6 +14,8 @@ type TwilioConfig struct {
 }
 
 type Config struct {
+	Locale       string
+	Currency     string
 	SKU          string
 	TwilioConfig TwilioConfig
 }
@@ -55,6 +58,22 @@ func GetTwilioConfig() TwilioConfig {
 //GetConfig Generates Configuration for application from environmental variables.
 func GetConfig(smsEnabled bool) Config {
 	configuration := Config{}
+
+	locale, localeOk := os.LookupEnv("NVIDIA_CLERK_LOCALE")
+	if localeOk == false {
+		locale = "en_us"
+		fmt.Println("NVIDIA_CLERK_LOCALE unset defaulting locale to en_us.")
+	}
+
+	configuration.Locale = locale
+
+	currency, currencyOk := os.LookupEnv("NVIDIA_CLERK_CURRENCY")
+	if currencyOk == false {
+		currency = "USD"
+		fmt.Println("NVIDIA_CLERK_CURRENCY unset defaulting currency to USD.")
+	}
+
+	configuration.Currency = currency
 
 	sku, skuOk := os.LookupEnv("NVIDIA_CLERK_SKU")
 	if skuOk == false {
