@@ -12,6 +12,13 @@ type RegionalConfig struct {
 	Currency string
 }
 
+type TwitterConfig struct {
+	ConsumerKey    string
+	ConsumerSecret string
+	AccessToken    string
+	AccessSecret   string
+}
+
 type TwilioConfig struct {
 	AccountSID        string
 	Token             string
@@ -24,10 +31,11 @@ type DiscordConfig struct {
 }
 
 type Config struct {
-	Locale       string
-	Currency     string
-	SKU          string
-	TwilioConfig TwilioConfig
+	Locale        string
+	Currency      string
+	SKU           string
+	TwilioConfig  TwilioConfig
+	TwitterConfig TwitterConfig
 	DiscordConfig DiscordConfig
 }
 
@@ -58,6 +66,41 @@ var skuBasedConfig = map[string]RegionalConfig{
 		Locale:   "sv_se",
 		Currency: "SEK",
 	},
+}
+
+//TwitterConfig Generates TwitterConfiguration for application from environmental variables.
+func GetTwitterConfig() TwitterConfig {
+	configuration := TwitterConfig{}
+
+	consumerKey, consumerKeyOk := os.LookupEnv("TWITTER_CONSUMER_KEY")
+	if consumerKeyOk == false {
+		log.Fatal("TWITTER_CONSUMER_KEY Environment Variable is unset, exiting.")
+	}
+
+	configuration.ConsumerKey = consumerKey
+
+	consumerSecret, consumerSecretOk := os.LookupEnv("TWITTER_CONSUMER_SECRET")
+	if consumerSecretOk == false {
+		log.Fatal("TWITTER_CONSUMER_SECRET Environment Variable is unset, exiting.")
+	}
+
+	configuration.ConsumerSecret = consumerSecret
+
+	accessToken, accessTokenOk := os.LookupEnv("TWITTER_ACCESS_TOKEN")
+	if accessTokenOk == false {
+		log.Fatal("TWITTER_ACCESS_TOKEN Environment Variable is unset, exiting.")
+	}
+
+	configuration.AccessToken = accessToken
+
+	accessSecret, accessSecretOk := os.LookupEnv("TWITTER_ACCESS_SECRET")
+	if accessSecretOk == false {
+		log.Fatal("TWILIO_DESTINATION_NUMBER Environment Variable is unset, exiting.")
+	}
+
+	configuration.AccessSecret = accessSecret
+
+	return configuration
 }
 
 //GetTwilioConfig Generates TwilioConfiguration for application from environmental variables.
@@ -110,7 +153,7 @@ func GetDiscordConfig() DiscordConfig {
 }
 
 //GetConfig Generates Configuration for application from environmental variables.
-func GetConfig(smsEnabled bool, discordEnabled bool) Config {
+func GetConfig(smsEnabled bool, discordEnabled bool, twitterEnabled bool) Config {
 	configuration := Config{}
 
 	sku, skuOk := os.LookupEnv("NVIDIA_CLERK_SKU")
@@ -142,6 +185,10 @@ func GetConfig(smsEnabled bool, discordEnabled bool) Config {
 
 	if discordEnabled == true {
 		configuration.DiscordConfig = GetDiscordConfig()
+	}
+
+	if twitterEnabled == true {
+		configuration.TwitterConfig = GetTwitterConfig()
 	}
 
 	return configuration

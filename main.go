@@ -33,6 +33,14 @@ func runTest(name string, client *http.Client, config config.Config) {
 		} else {
 			fmt.Printf("Discord Notification testing completed successfully\n")
 		}
+	case "twitter":
+		tweetErr := alert.SendTweet(config.SKU, config.TwitterConfig)
+		if tweetErr != nil {
+			fmt.Printf("Error testing Twitter notification exiting...\n")
+			os.Exit(1)
+		} else {
+			fmt.Printf("Twitter Notification testing completed succesfully")
+		}
 	default:
 
 	}
@@ -40,12 +48,13 @@ func runTest(name string, client *http.Client, config config.Config) {
 
 func main() {
 	// Parse Argument Flags
+	useTwitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
 	useSms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	useDiscord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	useTest := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
-	config := config.GetConfig(*useSms, *useDiscord)
+	config := config.GetConfig(*useSms, *useDiscord, *useTwitter)
 	httpClient := &http.Client{Timeout: 10 * time.Second}
 
 	// Execute Tests
@@ -56,6 +65,10 @@ func main() {
 
 		if *useDiscord == true {
 			runTest("discord", httpClient, config)
+		}
+
+		if *useTwitter == true {
+			runTest("twitter", httpClient, config)
 		}
 
 		if testsHaveErrors == true {
@@ -95,7 +108,15 @@ func main() {
 			if *useSms == true {
 				textErr := alert.SendText(skuName, config.TwilioConfig, httpClient)
 				if textErr != nil {
-					fmt.Printf("Error sending notification retrying...\n")
+					fmt.Printf("Error sending SMS notification retrying...\n")
+					continue
+				}
+			}
+
+			if *useTwitter == true {
+				tweetErr := alert.SendTweet(skuName, config.TwitterConfig)
+				if tweetErr != nil {
+					fmt.Printf("Error sending Twitter notification retrying...\n")
 					continue
 				}
 			}
