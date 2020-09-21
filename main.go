@@ -10,34 +10,32 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/internal/alert"
 	"github.com/ianmarmour/nvidia-clerk/internal/browser"
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
-	"github.com/ianmarmour/nvidia-clerk/internal/discord"
 	"github.com/ianmarmour/nvidia-clerk/internal/rest"
 )
 
+var testsHaveErrors bool
+
 func runTest(name string, client *http.Client, config config.Config) {
 	switch name {
-	case "sms":
-		textErr := alert.SendText(config.SKU, config.TwilioConfig, client)
-		if textErr != nil {
-			fmt.Printf("Error testing SMS notification exiting...\n")
-			os.Exit(1)
-		} else {
-			fmt.Printf("SMS Notification testing completed succesfully")
-		}
-	case "discord":
-		textErr := discord.SendMessage(config.SKU, config.DiscordConfig, client)
-		if textErr != nil {
-			fmt.Printf("Error testing Discord notification exiting...\n")
-			os.Exit(1)
-		} else {
-			fmt.Printf("Discord Notification testing completed succesfully")
-		}
-	default:
+		case "sms":
+			textErr := alert.SendText(config.SKU, config.TwilioConfig, client)
+			if textErr != nil {
+				fmt.Printf("Error testing SMS notification...\n")
+				testsHaveErrors = true
+			} else {
+				fmt.Printf("SMS Notification testing completed successfully\n")
+			}
+		case "discord":
+			discordErr := alert.SendDiscordMessage(config.SKU, config.DiscordConfig, client)
+			if discordErr != nil {
+				fmt.Printf("Error testing Discord notification...\n")
+				testsHaveErrors = true
+			} else {
+				fmt.Printf("Discord Notification testing completed successfully\n")
+			}
+		default:
 
-	}
-
-	fmt.Printf("Testing completed succesfully exiting...\n")
-	os.Exit(0)
+		}
 }
 
 func main() {
@@ -58,6 +56,14 @@ func main() {
 
 		if *useDiscord == true {
 			runTest("discord", httpClient, config)
+		}
+
+		if testsHaveErrors == true {
+			fmt.Printf("Testing failed with errors, exiting...\n")
+			os.Exit(1)
+		} else {
+			fmt.Printf("Testing completed succesfully, exiting...\n")
+			os.Exit(0)
 		}
 	}
 
@@ -95,7 +101,7 @@ func main() {
 			}
 
 			if *useDiscord == true {
-				textErr := discord.SendMessage(skuName, config.DiscordConfig, httpClient)
+				textErr := alert.SendDiscordMessage(skuName, config.DiscordConfig, httpClient)
 				if textErr != nil {
 					fmt.Printf("Error sending discord notification retrying...\n")
 					continue
