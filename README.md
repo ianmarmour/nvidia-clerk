@@ -166,18 +166,42 @@ for this list of regions may be limited, please cut a GitHub issue once you dete
 
 ### Determining Your Locale
 
-US readers can ignore this section however if you are non-us please determine your locale from [this list](https://www.science.co.il/language/Locale-codes.php)
+US readers can ignore this section however if you are non-us please determine your locale from [this list](https://www.science.co.il/language/Locale-codes.php), make sure you format your local as xx_xx vs xx-xx otherwise the bot will fail.
 
 ### Determining Your Currency Code
 
-US readers can ignore this section however if you are non-us please determine your currency code from [this list](https://www.iban.com/currency-codes)
+US readers can ignore this section however if you are non-us please determine your currency code from [this list](https://www.iban.com/currency-codes), make sure you use the 3 letter currency code for your region from this list otherwise the bot will fail.
 
-#### Additional Locale Configuration
+### Determining Your SKU 
+
+For more advanced users attempting to identify the SKU for their countris store please update the below URL's locale to your respective locale and iterate through the pageNumbers by updating the page number at the end of the URL until you find the 3070/3080/3090 SKU number for your region (NOTE: NOT ALL REGIONS HAVE THE SKUS AVALIABLE YET)
+
+https://api.digitalriver.com/v1/shoppers/me/products?apiKey=9485fa7b159e42edb08a83bde0d83dia&locale=en_ca&format=json&expand=product&fields=product.id,product.displayName,product.pricing&pageNumber=1
+
+### Region Specific Configuration
+
+After you have your new SKU, Currency Code and Locale please set the configuration up as follows
+
+#### Windows
+
 ```
+set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
+set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 ```
 
-#### Additional Currency Configuration
+#### Mac
+
 ```
-set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
+export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
+export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
+export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
+```
+
+#### Linux
+
+```
+export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
+export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
+export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 ```
