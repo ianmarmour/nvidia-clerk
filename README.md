@@ -81,6 +81,11 @@ set TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
+#### Additional Discord Configuration
+```
+set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
+```
+
 ### Mac OSX
 
 All commands in this section should be executed inside of a Terminal Prompt.
@@ -99,6 +104,11 @@ export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
+#### Additional Discord Configuration
+```
+export DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
+```
+
 ### Linux
 
 All commands in this section should be executed inside of a Terminal Prompt.
@@ -115,6 +125,11 @@ export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
 export TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
 export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
+```
+
+#### Additional Discord Configuration
+```
+export DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
 ```
 
 ## Usage
@@ -133,6 +148,11 @@ Once you execute the below commands make sure to leave the Google Chrome browser
 ./nvidia-clerk-windows.exe -sms
 ```
 
+#### With Discord
+```
+./nvidia-clerk-windows.exe -discord
+```
+
 ### Mac OSX
 
 #### Without SMS
@@ -149,6 +169,13 @@ chmod +x ./nvidia-clerk-darwin
 ./nvidia-clerk-darwin -sms
 ```
 
+#### With Discord
+```
+chmod +x ./nvidia-clerk-darwin
+
+./nvidia-clerk-darwin -discord
+```
+
 ### Linux
 
 #### Without SMS
@@ -163,6 +190,13 @@ chmod +x ./nvidia-clerk-linux
 chmod +x ./nvidia-clerk-linux
 
 ./nvidia-clerk-linux -sms
+```
+
+#### With Discord
+```
+chmod +x ./nvidia-clerk-linux
+
+./nvidia-clerk-darwin -discord
 ```
 
 
