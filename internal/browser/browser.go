@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"runtime"
 
@@ -23,6 +24,28 @@ var session Session
 
 const locale = "en_us"
 const nvidiaAPIKey = "9485fa7b159e42edb08a83bde0d83dia"
+
+//exists Determines if a file exists.
+func exists(name string) bool {
+	if _, err := os.Stat(name); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
+}
+
+//getWindowsChromeLocation Determines different Google Chrome install locations.
+func getWindowsChromeLocation() string {
+	if exists("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe") == true {
+		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+	} else if exists("C:/Program Files/Google/Chrome/Application/chrome.exe") == true {
+		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+	} else {
+		log.Fatal("Unable to determine Google Chrome install location.")
+		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+	}
+}
 
 //updateSession Updates the session variable.
 func updateSession(sessionResponse string) {
@@ -92,7 +115,7 @@ func StartChromeDebugMode() bool {
 	case "linux":
 		cmd = exec.Command("google-chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	case "windows":
-		cmd = exec.Command("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+		cmd = exec.Command(getWindowsChromeLocation(), "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	case "darwin":
 		cmd = exec.Command("open", "-a", "/Applications/Google Chrome.app", "--args", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	default:
@@ -122,7 +145,6 @@ func StartSession() context.Context {
 	}
 
 	updateSession(sessionResponse)
-	fmt.Println(session)
 
 	return ctxt
 }
