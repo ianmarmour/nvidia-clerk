@@ -18,16 +18,16 @@ such things).
 
 ### Download
 
-Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest) 
-> Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project
-we haven't paid for a signing certificate)
+Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest)
+| :exclamation:  Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project we haven't paid for a signing certificate)   |
+|-----------------------------------------|
 
-## Configuration
-
-### Determining Your SKU
+## Determine Your SKU
 
 In order to configure the nvidia-clerk you'll need to determine which SKU you would like the clerk to monitor (currently the clerk only supports monitoring a
 single SKU per an instance)
+
+### Supported Region SKUs
 
 **United States**
 | Product Name | SKU |
@@ -64,143 +64,101 @@ single SKU per an instance)
 | Nvidia RTX 3080 FE  | 5438798100 |
 | Nvidia RTX 3090 FE  | N/A |
 
+
+## Configuration
+
 ### Windows
-
-All commands in this section should be executed inside of a Command Prompt.
-
-#### Base Configuration
-```
+| :memo:        | All commands should be executed inside of cmd.exe |
+|---------------|:------------------------|
+```Batchfile
 set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
-#### Additional SMS Configuration
+### Mac OSX
+| :memo:        | All commands should be executed inside of Terminal.app |
+|---------------|:------------------------|
+```shell
+export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
+
+### Linux
+| :memo:        | All commands should be executed inside of Shell |
+|---------------|:------------------------|
+```shell
+export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
+```
+
+## Usage
+| :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
+|-----------------------------------------|
+
+### Windows
+| :memo:        | All commands should be executed inside of cmd.exe |
+|---------------|:------------------------|
+```Batchfile
+./nvidia-clerk-windows.exe
+```
+
+### Mac OSX
+| :memo:        | All commands should be executed inside of Terminal.app |
+|---------------|:------------------------|
+```shell
+chmod +x ./nvidia-clerk-darwin
+
+./nvidia-clerk-darwin
+```
+
+### Linux
+| :memo:        | All commands should be executed inside of Shell |
+|---------------|:------------------------|
+```shell
+chmod +x ./nvidia-clerk-linux
+
+./nvidia-clerk-linux
+```
+
+# Advanced Usage
+
+## SMS Notifications
+
+### Configuration
+```Batchfile
 set TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
 set TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
 set TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
-#### Additional Discord Configuration
-```
-set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
-```
-
-### Mac OSX
-
-All commands in this section should be executed inside of a Terminal Prompt.
-
-#### Base Configuration
-```
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
+### Testing
+```shell
+./nvidia-clerk-windows.exe -sms -test
 ```
 
-#### Additional SMS Configuration
-```
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
-export TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
-export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
-export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
-```
+### Usage
 
-#### Additional Discord Configuration
-```
-export DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
-```
-
-### Linux
-
-All commands in this section should be executed inside of a Terminal Prompt.
-
-#### Base Configuration
-```
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-```
-
-#### Additional SMS Configuration
-```
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
-export TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
-export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
-export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
-```
-
-#### Additional Discord Configuration
-```
-export DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
-```
-
-## Usage
-
-Once you execute the below commands make sure to leave the Google Chrome browser that it launches open!
-
-### Windows
-
-#### Without SMS
-```
-./nvidia-clerk-windows.exe
-```
-
-#### With SMS
-```
+```shell
 ./nvidia-clerk-windows.exe -sms
 ```
 
-#### With Discord
+## Discord Notifications
+
+### Configuration
+```Batchfile
+set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
 ```
+
+### Testing
+```shell
+./nvidia-clerk-windows.exe -discord -test
+```
+
+### Usage
+
+```shell
 ./nvidia-clerk-windows.exe -discord
 ```
 
-### Mac OSX
-
-#### Without SMS
-```
-chmod +x ./nvidia-clerk-darwin
-
-./nvidia-clerk-darwin
-```
-
-#### With SMS
-```
-chmod +x ./nvidia-clerk-darwin
-
-./nvidia-clerk-darwin -sms
-```
-
-#### With Discord
-```
-chmod +x ./nvidia-clerk-darwin
-
-./nvidia-clerk-darwin -discord
-```
-
-### Linux
-
-#### Without SMS
-```
-chmod +x ./nvidia-clerk-linux
-
-./nvidia-clerk-linux
-```
-
-#### With SMS
-```
-chmod +x ./nvidia-clerk-linux
-
-./nvidia-clerk-linux -sms
-```
-
-#### With Discord
-```
-chmod +x ./nvidia-clerk-linux
-
-./nvidia-clerk-darwin -discord
-```
-
-
-# Other Unsupported Regions
+## Unsupported Regions
 
 You can attempt to manually configure you're sku, locale and currency options using the following steps support for your region may be limited, if you manage to get a new region working please cut a GitHub issue and include the SKU, LOCALE and Currency settings that you used so we can add first party support for this region.
 
@@ -218,13 +176,13 @@ For more advanced users attempting to identify the SKU for their countris store 
 
 https://api.digitalriver.com/v1/shoppers/me/products?apiKey=9485fa7b159e42edb08a83bde0d83dia&locale=en_ca&format=json&expand=product&fields=product.id,product.displayName,product.pricing&pageNumber=1
 
-### Region Specific Configuration
+### Additional Configuration
 
-After you have your new SKU, Currency Code and Locale please set the configuration up as follows
+After you have your new SKU, Currency Code and Locale please set the configuration up as follows,
 
 #### Windows
 
-```
+```Batchfile
 set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
 set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
@@ -232,7 +190,7 @@ set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 
 #### Mac
 
-```
+```shell
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
 export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
@@ -240,8 +198,23 @@ export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 
 #### Linux
 
-```
+```shell
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
 export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
+```
+
+# Troubleshooting
+
+## Windows
+
+#### Chrome install path configuration
+
+If you encounter an error about your chrome path but it is installed, set the `CHROME_PATH` env var to the location of its exe.
+For example "C:/Program Files/Google/Chrome/Application/chrome.exe".
+You can find the path by right clicking on chrome in your start menu and choosing "Open File Location", right click the
+.exe file, select 'Properties', and copy and paste the Target.
+
+```Batchfile
+set NVIDIA_CLERK_CHROME_PATH=PATH/TO/YOUR/CHROME.EXE
 ```
