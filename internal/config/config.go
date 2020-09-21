@@ -48,6 +48,11 @@ var skuBasedConfig = map[string]RegionalConfig{
 		Locale:   "fr_fr",
 		Currency: "EUR",
 	},
+	"5438798100": {
+		SKU:      "5438798100",
+		Locale:   "sv_se",
+		Currency: "SEK",
+	},
 }
 
 //GetTwilioConfig Generates TwilioConfiguration for application from environmental variables.
