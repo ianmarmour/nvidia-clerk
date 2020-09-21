@@ -122,8 +122,8 @@ func main() {
 			}
 
 			if *useDiscord == true {
-				textErr := alert.SendDiscordMessage(skuName, config.DiscordConfig, httpClient)
-				if textErr != nil {
+				discordErr := alert.SendDiscordMessage(skuName, config.DiscordConfig, httpClient)
+				if discordErr != nil {
 					fmt.Printf("Error sending discord notification retrying...\n")
 					continue
 				}
