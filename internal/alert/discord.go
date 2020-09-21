@@ -19,14 +19,13 @@ type DiscordPayload struct {
 func SendDiscordMessage(item string, config config.DiscordConfig, client *http.Client) error {
 	content := fmt.Sprintf("%s Ready for Purchase", item)
 
-	payload := DiscordPayload{content}
-	payloadJSON, err := json.Marshal(payload)
+	payload, err := json.Marshal(DiscordPayload{content})
 
 	if err != nil {
 		log.Fatalln("Unable to marshal discord payload.")
 	}
 
-	req, _ := http.NewRequest("POST", config.WebhookURL, bytes.NewBuffer(payloadJSON))
+	req, _ := http.NewRequest("POST", config.WebhookURL, bytes.NewBuffer(payload))
 	req.Header.Add("Content-Type", "application/json")
 
 	resp, _ := client.Do(req)
