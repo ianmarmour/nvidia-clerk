@@ -18,9 +18,9 @@ such things).
 
 ### Download
 
-Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest) 
-> Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project
-we haven't paid for a signing certificate)
+Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest)
+| :exclamation:  Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project we haven't paid for a signing certificate)   |
+|-----------------------------------------|
 
 ## Determine Your SKU
 
@@ -70,21 +70,21 @@ single SKU per an instance)
 ### Windows
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
-```
+```Batchfile
 set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
 ### Mac OSX
 | :memo:        | All commands should be executed inside of Terminal.app |
 |---------------|:------------------------|
-```
+```shell
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
 ### Linux
 | :memo:        | All commands should be executed inside of Shell |
 |---------------|:------------------------|
-```
+```shell
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
@@ -95,14 +95,14 @@ export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ### Windows
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
-```
+```Batchfile
 ./nvidia-clerk-windows.exe
 ```
 
 ### Mac OSX
 | :memo:        | All commands should be executed inside of Terminal.app |
 |---------------|:------------------------|
-```
+```shell
 chmod +x ./nvidia-clerk-darwin
 
 ./nvidia-clerk-darwin
@@ -111,9 +111,7 @@ chmod +x ./nvidia-clerk-darwin
 ### Linux
 | :memo:        | All commands should be executed inside of Shell |
 |---------------|:------------------------|
-
-
-```
+```shell
 chmod +x ./nvidia-clerk-linux
 
 ./nvidia-clerk-linux
@@ -124,7 +122,7 @@ chmod +x ./nvidia-clerk-linux
 ## SMS Notifications
 
 ### Configuration
-```
+```Batchfile
 set TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
 set TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
 set TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
@@ -132,13 +130,13 @@ set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
 ### Testing
-```
+```shell
 ./nvidia-clerk-windows.exe -sms -test
 ```
 
 ### Usage
 
-```
+```shell
 ./nvidia-clerk-windows.exe -sms
 ```
 
@@ -166,7 +164,7 @@ After you have your new SKU, Currency Code and Locale please set the configurati
 
 #### Windows
 
-```
+```Batchfile
 set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
 set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
@@ -174,7 +172,7 @@ set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 
 #### Mac
 
-```
+```shell
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
 export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
@@ -182,7 +180,7 @@ export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
 
 #### Linux
 
-```
+```shell
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
 export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
@@ -199,6 +197,6 @@ For example "C:/Program Files/Google/Chrome/Application/chrome.exe".
 You can find the path by right clicking on chrome in your start menu and choosing "Open File Location", right click the
 .exe file, select 'Properties', and copy and paste the Target.
 
-```
+```Batchfile
 set NVIDIA_CLERK_CHROME_PATH=PATH/TO/YOUR/CHROME.EXE
 ```
