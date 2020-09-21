@@ -1,0 +1,120 @@
+name: Go
+
+on:
+  push:
+    tags:
+      - 'v*.*'
+  pull_request:
+    tags:
+      - 'v*.*'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: |
+        go get -v -t -d ./...
+        if [ -f Gopkg.toml ]; then
+            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+            dep ensure
+        fi
+
+    # Per Architecture Static Builds
+    - name: Build Windows
+      run: env GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
+    
+    - name: Build Linux
+      run: go build -a -o nvidia-clerk-linux
+
+    - name: Build Darwin
+      run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
+
+    # Create Artifact Upload Directories
+    - run: mkdir -p ianmarmour/nvidia-clerk/build
+    - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-windows
+    - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-linux
+    - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin
+
+
+    # Copy Build Artifacts to Artifact Upload Directories
+    - run: cp nvidia-clerk-windows.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
+    - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
+    - run: cp nvidia-clerk-darwin ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
+    
+    # Publish Artifacts Windows
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nvidia-clerk-windows
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
+    
+    # Publish Artifacts Linux
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nvidia-clerk-linux
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
+
+    # Publish Artifacts Darwin
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nvidia-clerk-darwin
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
+
+    # Create Release
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: latest
+        release_name: Release ${{ github.ref }}
+        body: |
+          Official release
+          draft: false
+          prerelease: true
+
+    # Upload Release Assets
+    - name: Upload Windows Assets
+      id: upload-release-asset-windows
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
+        asset_name: nvidia-clerk-windows.exe
+        asset_content_type: application/octet-stream
+
+    - name: Upload Linux Assets
+      id: upload-release-asset-linux
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
+        asset_name: nvidia-clerk-linux
+        asset_content_type: application/octet-stream
+
+    - name: Upload Darwin Assets
+      id: upload-release-asset-darwin
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
+        asset_name: nvidia-clerk-darwin
+        asset_content_type: application/octet-stream
