@@ -161,8 +161,7 @@ chmod +x ./nvidia-clerk-linux
 
 # Other Unsupported Regions
 
-You can attempt to manually configure you're locale and currency options from the following list (typically locales are 2 letters with an underscore and 2 more letters FYSA), support
-for this list of regions may be limited, please cut a GitHub issue once you determine the regional SKU and attempt to configure locale and currency settings if it's not working.
+You can attempt to manually configure you're sku, locale and currency options using the following steps support for your region may be limited, if you manage to get a new region working please cut a GitHub issue and include the SKU, LOCALE and Currency settings that you used so we can add first party support for this region.
 
 ### Determining Your Locale
 
