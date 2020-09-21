@@ -23,7 +23,7 @@ func SendTweet(item string, config config.TwitterConfig) error {
 	user, _, _ := client.Accounts.VerifyCredentials(verifyParams)
 	fmt.Printf("User's ACCOUNT:\n%+v\n", user)
 
-	_, _, err := client.Statuses.Update("A Test Tweet from a new Bot I'm building!", nil)
+	_, _, err := client.Statuses.Update(fmt.Sprintf("%s is now in stock on the NVIDIA Store", item), nil)
 	if err != nil {
 		log.Println("Error attempting to Tweet")
 		return err
