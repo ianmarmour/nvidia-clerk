@@ -9,9 +9,17 @@ to your checkout/cart and navigates your browser checkout page whenever they bec
 Twilio API information (I am not interested in running an entire service for users, so this feature is limited to users aware of how to setup
 such things).
 
-## Usage
+## Install
 
-### SKUs
+### Download
+
+Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest) 
+> Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project
+we haven't paid for a signing certificate)
+
+## Configuration
+
+### Determining Your SKU
 
 In order to configure the nvidia-clerk you'll need to determine which SKU you would like the clerk to monitor (currently the clerk only supports monitoring a
 single SKU per an instance)
@@ -25,25 +33,13 @@ single SKU per an instance)
 
 ### Windows
 
-Build or download the latest release
-
-#### Without SMS Notification
-
-##### Setup Configuration
+#### Base Configuration
 ```
 set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
-##### Run Nvidia Clerk
+#### Additional SMS Configuration
 ```
-nvidia-clerk.exe
-```
-
-#### With SMS Notification
-
-##### Setup Configuration
-```
-set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 set TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
 set TWILIO_SERVICE_SID=YOUR_TWILIO_SERVICE_SID_HERE
 set TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
@@ -51,33 +47,14 @@ set TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
-##### Run Nvidia Clerk
-```
-nvidia-clerk.exe -sms
-```
-
 ### Mac OSX
 
-Build or download the latest release
-
-
-#### Without SMS Notification
-
-##### Setup Configuration
+#### Base Configuration
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
-##### Run Nvidia Clerk
-```
-chmod +x ./nvidia-clerk
-
-./nvidia-clerk
-```
-
-#### With SMS Notification
-
-##### Setup Configuration
+#### Additional SMS Configuration
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
@@ -85,36 +62,16 @@ export TWILIO_SERVICE_SID=YOUR_TWILIO_SERVICE_SID_HERE
 export TWILIO_TOKEN=YOUR_TWILIO_TOKEN_HERE
 export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
-```
-
-##### Run Nvidia Clerk
-```
-chmod +x ./nvidia-clerk
-
-./nvidia-clerk -sms
 ```
 
 ### Linux
 
-Build or download the latest release
-
-#### Without SMS Notification
-
-##### Setup Configuration
+#### Base Configuration
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```
 
-##### Run Nvidia Clerk
-```
-chmod +x ./nvidia-clerk
-
-./nvidia-clerk
-```
-
-#### With SMS Notification
-
-##### Setup Configuration
+#### Additional SMS Configuration
 ```
 export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 export TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID_HERE
@@ -124,9 +81,49 @@ export TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 export TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
-##### Run Nvidia Clerk
-```
-chmod +x ./nvidia-clerk
 
-./nvidia-clerk -sms
+## Usage
+
+### Windows
+
+#### Without SMS
+```
+./nvidia-clerk-windows.exe
+```
+
+#### With SMS
+```
+./nvidia-clerk-windows.exe -sms
+```
+
+### Mac OSX
+
+#### Without SMS
+```
+chmod +x ./nvidia-clerk-darwin
+
+./nvidia-clerk-darwin
+```
+
+#### With SMS
+```
+chmod +x ./nvidia-clerk-darwin
+
+./nvidia-clerk-darwin -sms
+```
+
+### Linux
+
+#### Without SMS
+```
+chmod +x ./nvidia-clerk-linux
+
+./nvidia-clerk-linux
+```
+
+#### With SMS
+```
+chmod +x ./nvidia-clerk-linux
+
+./nvidia-clerk-linux -sms
 ```
