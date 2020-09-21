@@ -17,25 +17,25 @@ var testsHaveErrors bool
 
 func runTest(name string, client *http.Client, config config.Config) {
 	switch name {
-		case "sms":
-			textErr := alert.SendText(config.SKU, config.TwilioConfig, client)
-			if textErr != nil {
-				fmt.Printf("Error testing SMS notification...\n")
-				testsHaveErrors = true
-			} else {
-				fmt.Printf("SMS Notification testing completed successfully\n")
-			}
-		case "discord":
-			discordErr := alert.SendDiscordMessage(config.SKU, config.DiscordConfig, client)
-			if discordErr != nil {
-				fmt.Printf("Error testing Discord notification...\n")
-				testsHaveErrors = true
-			} else {
-				fmt.Printf("Discord Notification testing completed successfully\n")
-			}
-		default:
-
+	case "sms":
+		textErr := alert.SendText(config.SKU, config.TwilioConfig, client)
+		if textErr != nil {
+			fmt.Printf("Error testing SMS notification...\n")
+			testsHaveErrors = true
+		} else {
+			fmt.Printf("SMS Notification testing completed successfully\n")
 		}
+	case "discord":
+		discordErr := alert.SendDiscordMessage(config.SKU, config.DiscordConfig, client)
+		if discordErr != nil {
+			fmt.Printf("Error testing Discord notification...\n")
+			testsHaveErrors = true
+		} else {
+			fmt.Printf("Discord Notification testing completed successfully\n")
+		}
+	default:
+
+	}
 }
 
 func main() {
