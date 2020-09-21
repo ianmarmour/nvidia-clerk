@@ -81,6 +81,16 @@ set TWILIO_SOURCE_NUMBER=YOUR_TWILIO_SERVICE_NUMBER_HERE
 set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
+#### Chrome install path configuration
+
+If you encounter an error about your chrome path but it is installed, set the `CHROME_PATH` env var to the location of its exe.
+For example "C:/Program Files/Google/Chrome/Application/chrome.exe".
+You can find the path by right clicking on chrome in your start menu and choosing "Open File Location", right click the
+.exe file, select 'Properties', and copy and paste the Target.
+```
+set CHROME_PATH=PATH_TO_YOUR_CHROME.EXE
+```
+
 ### Mac OSX
 
 All commands in this section should be executed inside of a Terminal Prompt.

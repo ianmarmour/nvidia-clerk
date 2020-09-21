@@ -38,6 +38,13 @@ func exists(name string) bool {
 
 //getWindowsChromeLocation Determines different Google Chrome install locations.
 func getWindowsChromeLocation() (string, error) {
+	// if user set chrome path env, check that first
+	chromePath, chromePathFound := os.LookupEnv("CHROME_PATH")
+	if chromePathFound && exists(chromePath) {
+		return chromePath, nil
+	}
+
+	// check common program files locations
 	if dest := "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"; exists(dest) {
 		return dest, nil
 	}
@@ -46,6 +53,7 @@ func getWindowsChromeLocation() (string, error) {
 		return dest, nil
 	}
 
+	// lastly check in user profile directories
 	userDir, userDirOk := os.LookupEnv("userprofile")
 	if !userDirOk {
 		return "", errors.New("Unable to determine Google Chrome install location. userprofile env var not set.")
@@ -55,7 +63,11 @@ func getWindowsChromeLocation() (string, error) {
 		return dest, nil
 	}
 
-	return "", errors.New("Unable to determine Google Chrome install location.")
+	if dest := userDir + "/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/chrome.exe"; exists(dest) {
+		return dest, nil
+	}
+
+	return "", errors.New("Unable to determine Google Chrome install location. Please set CHROME_PATH env var with full path location.")
 }
 
 //updateSession Updates the session variable.
