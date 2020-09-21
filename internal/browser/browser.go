@@ -40,7 +40,7 @@ func getWindowsChromeLocation() string {
 	if exists("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe") == true {
 		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 	} else if exists("C:/Program Files/Google/Chrome/Application/chrome.exe") == true {
-		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+		return "C:/Program Files/Google/Chrome/Application/chrome.exe"
 	} else {
 		log.Fatal("Unable to determine Google Chrome install location.")
 		return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
