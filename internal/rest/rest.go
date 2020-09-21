@@ -144,6 +144,12 @@ func GetSkuInventory(sku string, locale string, client *http.Client) (*Inventory
 		return nil, err
 	}
 
+	if r.StatusCode == 500 {
+		message := fmt.Sprintf("Error 500 Response From URL: %s", endpoint)
+		fmt.Println(message)
+		return nil, errors.New("Error 500 Response From URL")
+	}
+
 	if r.Body != nil {
 		defer r.Body.Close()
 	}
