@@ -117,7 +117,7 @@ func StartChromeDebugMode() bool {
 	case "windows":
 		cmd = exec.Command(getWindowsChromeLocation(), "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	case "darwin":
-		cmd = exec.Command("open", "-a", "/Applications/Google \\Chrome.app", "--args", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
+		cmd = exec.Command("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
 	default:
 		log.Fatal("unsupported platform")
 	}
