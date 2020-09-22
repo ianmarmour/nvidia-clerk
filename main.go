@@ -95,18 +95,18 @@ func main() {
 			fmt.Printf("Error getting SKU Information retrying...\n")
 			continue
 		}
-		skuName := skuInfo.Product.ID
+		productID := skuInfo.Product.ID
 		skuStatus := skuInfo.Status
 
-		fmt.Println("SKU Name: " + skuName)
-		fmt.Println("SKU Status: " + skuStatus)
+		fmt.Println("Product ID: " + productID)
+		fmt.Println("Product Status: " + skuStatus)
 
 		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
 			browser.AddToCart(sessionContext, config.SKU, config.Locale)
 			browser.Checkout(sessionContext, config.Locale)
 
 			if *useSms == true {
-				textErr := alert.SendText(skuName, config.TwilioConfig, httpClient)
+				textErr := alert.SendText(productID, config.TwilioConfig, httpClient)
 				if textErr != nil {
 					fmt.Printf("Error sending SMS notification retrying...\n")
 					continue
@@ -114,7 +114,7 @@ func main() {
 			}
 
 			if *useTwitter == true {
-				tweetErr := alert.SendTweet(skuName, config.TwitterConfig)
+				tweetErr := alert.SendTweet(productID, config.TwitterConfig)
 				if tweetErr != nil {
 					fmt.Printf("Error sending Twitter notification retrying...\n")
 					continue
@@ -122,7 +122,7 @@ func main() {
 			}
 
 			if *useDiscord == true {
-				discordErr := alert.SendDiscordMessage(skuName, config.DiscordConfig, httpClient)
+				discordErr := alert.SendDiscordMessage(productID, config.DiscordConfig, httpClient)
 				if discordErr != nil {
 					fmt.Printf("Error sending discord notification retrying...\n")
 					continue
