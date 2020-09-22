@@ -29,7 +29,7 @@ single SKU per an instance)
 
 ### Supported Region SKUs
 
-| Region/Country Name | 3070 FE | 3080 FE | 3090 FE |
+| Region/Country | 3070 FE | 3080 FE | 3090 FE |
 |---|---|---|---|
 | United States  | N/A 			| 5438481700 | N/A	|
 | Great Britain  | N/A 			| 5438792800 | N/A  |
