@@ -38,6 +38,7 @@ type TelegramConfig struct {
 }
 
 type Config struct {
+<<<<<<< HEAD
 	Locale         string
 	Currency       string
 	SKU            string
@@ -46,6 +47,16 @@ type Config struct {
 	TwitterConfig  TwitterConfig
 	DiscordConfig  DiscordConfig
 	TelegramConfig TelegramConfig
+=======
+	Locale        string
+	Delay         int64
+	Currency      string
+	SKU           string
+	TestSKU       string
+	TwilioConfig  TwilioConfig
+	TwitterConfig TwitterConfig
+	DiscordConfig DiscordConfig
+>>>>>>> Added delay parameter so users can manually control delay if required
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
@@ -272,11 +283,12 @@ func GetTelegramConfig() TelegramConfig {
 }
 
 //GetConfig Generates Configuration for application from environmental variables.
-func GetConfig(region string, smsEnabled bool, discordEnabled bool, twitterEnabled bool, telegramEnabled bool) (*Config, error) {
+func GetConfig(region string, delay int64, smsEnabled bool, discordEnabled bool, twitterEnabled bool, telegramEnabled bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
 		configuration := Config{}
 
 		configuration.SKU = regionConfig.SKU
+		configuration.Delay = delay
 		configuration.TestSKU = regionConfig.TestSKU
 		configuration.Locale = regionConfig.Locale
 		configuration.Currency = regionConfig.Currency

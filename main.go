@@ -58,9 +58,11 @@ func main() {
 	log.SetFlags(log.LstdFlags)
 
 	var region string
+	var delay int64
 
 	// Parse Argument Flags
 	flag.StringVar(&region, "region", "USA", "3 Letter region code")
+	flag.Int64Var(&delay, "delay", 500, "Delay for refreshing in miliseconds")
 	useTwitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
 	useSms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	useDiscord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
@@ -68,7 +70,7 @@ func main() {
 	useTest := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
-	config, configErr := config.GetConfig(region, *useSms, *useDiscord, *useTwitter, *useTelegram)
+	config, configErr := config.GetConfig(region, delay, *useSms, *useDiscord, *useTwitter, *useTelegram)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
@@ -103,7 +105,7 @@ func main() {
 	sessionContext := browser.StartSession(*config)
 
 	for {
-		skuInfo, skuInfoErr := browser.GetInventoryStatus(sessionContext, config.SKU, config.Locale)
+		skuInfo, skuInfoErr := browser.GetInventoryStatus(sessionContext, config.SKU, config.Locale, config.Delay)
 		if skuInfoErr != nil {
 			log.Printf("Error getting SKU Information retrying...\n")
 			continue

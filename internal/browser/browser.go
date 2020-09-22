@@ -69,7 +69,7 @@ func constructSessionURL(locale string) string {
 }
 
 // GetInventoryStatus Retrieves sku inventory information from digitalriver
-func GetInventoryStatus(ctx context.Context, sku string, locale string) (*InventoryStatus, error) {
+func GetInventoryStatus(ctx context.Context, sku string, locale string, delay int64) (*InventoryStatus, error) {
 	baseURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/products/%s/inventory-status?", sku)
 	apiKeyParam := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
 	localeParam := fmt.Sprintf("&locale=%s", locale)
@@ -96,7 +96,7 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string) (*Invent
 	err := chromedp.Run(ctx,
 		network.Enable(),
 		chromedp.Navigate(stockURL),
-		chromedp.Sleep(time.Millisecond*500),
+		chromedp.Sleep(time.Millisecond*time.Duration(delay)),
 		chromedp.ActionFunc(func(cxt context.Context) error {
 			body, err := network.GetResponseBody(stockRequestID).Do(cxt)
 			stockResponseBody = body

@@ -82,6 +82,12 @@ Testing is currenly only supported for the USA region but it should show you wha
 
 # Advanced Usage
 
+## Manual Delay Usage
+Example of setting a 1 second delay (delay is specificed in miliseconds)
+```Batch
+./nvidia-clerk-windows.exe -region=USA -delay=1000
+```
+
 ## SMS Notifications
 
 ### Configuration
