@@ -66,6 +66,11 @@ var skuBasedConfig = map[string]RegionalConfig{
 		Locale:   "sv_se",
 		Currency: "SEK",
 	},
+	"5438796700": {
+		SKU:      "5438796700",
+		Locale:   "nl_nl",
+		Currency: "EUR",
+	},
 }
 
 //TwitterConfig Generates TwitterConfiguration for application from environmental variables.
