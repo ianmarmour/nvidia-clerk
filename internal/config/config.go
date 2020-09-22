@@ -38,25 +38,16 @@ type TelegramConfig struct {
 }
 
 type Config struct {
-<<<<<<< HEAD
-	Locale         string
-	Currency       string
+	Locale   string
+	Currency string
+	Delay    int64
+
 	SKU            string
 	TestSKU        string
 	TwilioConfig   TwilioConfig
 	TwitterConfig  TwitterConfig
 	DiscordConfig  DiscordConfig
 	TelegramConfig TelegramConfig
-=======
-	Locale        string
-	Delay         int64
-	Currency      string
-	SKU           string
-	TestSKU       string
-	TwilioConfig  TwilioConfig
-	TwitterConfig TwitterConfig
-	DiscordConfig DiscordConfig
->>>>>>> Added delay parameter so users can manually control delay if required
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
