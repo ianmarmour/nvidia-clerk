@@ -37,6 +37,10 @@ single SKU per an instance)
 | France		 | N/A 			| 5438795200 | N/A 	|
 | Sweden		 | N/A 			| 5438798100 | N/A 	|
 | Netherlands	 | N/A 			| 5438796700 | N/A 	|
+| Italy			 | N/A 			| 5438796200 | N/A 	|
+| Spain			 | N/A 			| 5438794800 | N/A 	|
+| Poland		 | N/A 			| 5438797700 | N/A 	|
+| Norway		 | N/A 			| 5438797200 | N/A 	|
 
 
 ## Configuration
