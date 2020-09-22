@@ -29,40 +29,14 @@ single SKU per an instance)
 
 ### Supported Region SKUs
 
-**United States**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438481700 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**Great Britain**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438792800 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**Germany**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438792300 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**France**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438795200 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**Sweden**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438798100 |
-| Nvidia RTX 3090 FE  | N/A |
+| Region/Country Name | 3070 FE | 3080 FE | 3090 FE |
+|---|---|---|---|
+| United States  | N/A 			| 5438481700 | N/A	|
+| Great Britain  | N/A 			| 5438792800 | N/A  |
+| Germany		     | N/A 			| 5438792300 | N/A 	|
+| France		     | N/A 			| 5438795200 | N/A 	|
+| Sweden		     | N/A 			| 5438798100 | N/A 	|
+| Netherlands	   | N/A 			| 5438796700 | N/A 	|
 
 
 ## Configuration
