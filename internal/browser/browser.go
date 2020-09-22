@@ -3,17 +3,37 @@ package browser
 import (
 	"context"
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"log"
-	"net/http"
-	"os"
-	"os/exec"
-	"runtime"
-	"errors"
+	"time"
 
+	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/chromedp"
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 )
+
+type InventoryStatus struct {
+	XMLName                      xml.Name `xml:"inventoryStatus"`
+	URI                          string   `xml:"uri,attr"`
+	Product                      Product  `xml:"product"`
+	AvailableQuantityIsEstimated bool     `xml:"availableQuantityIsEstimated"`
+	ProductIsInStock             bool     `xml:"productIsInStock"`
+	ProductIsAllowsBackorders    bool     `xml:"productIsAllowsBackorders"`
+	ProductIsTracked             bool     `xml:"productIsTracked"`
+	RequestedQuantityAvailable   bool     `xml:"requestedQuantityAvailable"`
+	Status                       string   `xml:"status"`
+	StatusIsEstimated            bool     `xml:"statusIsEstimated"`
+	CustomStockMessage           string   `xml:"customStockMessage"`
+}
+
+type Product struct {
+	XMLName             xml.Name `xml:"product"`
+	URI                 string   `xml:"uri,attr"`
+	ID                  string   `xml:"id"`
+	ExternalReferenceID string   `xml:"externalReferenceId"`
+	CompanyID           string   `xml:"companyId"`
+}
 
 type Session struct {
 	AccessToken  string `json:"access_token"`
@@ -26,71 +46,12 @@ var session Session
 
 const nvidiaAPIKey = "9485fa7b159e42edb08a83bde0d83dia"
 
-//exists Determines if a file exists.
-func exists(name string) bool {
-	if _, err := os.Stat(name); err != nil {
-		if os.IsNotExist(err) {
-			return false
-		}
-	}
-	return true
-}
-
-//getWindowsChromeLocation Determines different Google Chrome install locations.
-func getWindowsChromeLocation() (string, error) {
-	// if user set chrome path env, check that first
-	chromePath, chromePathFound := os.LookupEnv("NVIDIA_CLERK_CHROME_PATH")
-	if chromePathFound && exists(chromePath) {
-		return chromePath, nil
-	}
-
-	// check common program files locations
-	if dest := "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"; exists(dest) {
-		return dest, nil
-	}
-
-	if dest := "C:/Program Files/Google/Chrome/Application/chrome.exe"; exists(dest) {
-		return dest, nil
-	}
-
-	// lastly check in user profile directories
-	userDir, userDirOk := os.LookupEnv("userprofile")
-	if !userDirOk {
-		return "", errors.New("Unable to determine Google Chrome install location. userprofile env var not set.")
-	}
-
-	if dest := userDir + "/AppData/Local/Google/Chrome/Application/chrome.exe"; exists(dest) {
-		return dest, nil
-	}
-
-	if dest := userDir + "/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/chrome.exe"; exists(dest) {
-		return dest, nil
-	}
-
-	return "", errors.New("Unable to determine Google Chrome install location. Please set NVIDIA_CLERK_CHROME_PATH env var with full path location.")
-}
-
 //updateSession Updates the session variable.
 func updateSession(sessionResponse string) {
 	jsonErr := json.Unmarshal([]byte(sessionResponse), &session)
 	if jsonErr != nil {
 		log.Fatal("Unable to unmarshal session token.")
 	}
-}
-
-//getDebugURL Returns the debug information from Chrome running in developer debug mode.
-func getDebugURL() string {
-	resp, err := http.Get("http://localhost:9222/json/version")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var result map[string]interface{}
-
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		log.Fatal(err)
-	}
-	return result["webSocketDebuggerUrl"].(string)
 }
 
 // constructSessionURL Builds the session URL
@@ -102,9 +63,60 @@ func constructSessionURL(locale string) string {
 	return baseURL + localeParam + apiKeyParam
 }
 
+// GetInventoryStatus Retrieves sku inventory information from digitalriver
+func GetInventoryStatus(ctx context.Context, sku string, locale string) (*InventoryStatus, error) {
+	baseURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/products/%s/inventory-status?", sku)
+	apiKeyParam := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
+	localeParam := fmt.Sprintf("&locale=%s", locale)
+	stockURL := baseURL + apiKeyParam + localeParam
+
+	var stockRequestID network.RequestID
+
+	// Have to establish a network listener here to get raw XML response.
+	chromedp.ListenTarget(
+		ctx,
+		func(event interface{}) {
+			switch responseReceivedEvent := event.(type) {
+			case *network.EventResponseReceived:
+				response := responseReceivedEvent.Response
+				if response.URL == stockURL {
+					stockRequestID = responseReceivedEvent.RequestID
+				}
+			}
+		},
+	)
+
+	var stockResponseBody []byte
+
+	err := chromedp.Run(ctx,
+		network.Enable(),
+		chromedp.Navigate(stockURL),
+		chromedp.Sleep(time.Second*1),
+		chromedp.ActionFunc(func(cxt context.Context) error {
+			body, err := network.GetResponseBody(stockRequestID).Do(cxt)
+			stockResponseBody = body
+			return err
+		}),
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	inventoryStatus := InventoryStatus{}
+
+	xmlErr := xml.Unmarshal(stockResponseBody, &inventoryStatus)
+	if xmlErr != nil {
+		log.Fatal("Unable to unmarshal inventory response data.")
+		return nil, xmlErr
+	}
+
+	return &inventoryStatus, nil
+}
+
 //Checkout Opens customer checkout
-func Checkout(context context.Context) {
-	checkoutURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/carts/active/web-checkout?token=%s", session.AccessToken)
+func Checkout(context context.Context, locale string) {
+	checkoutURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/carts/active/web-checkout?token=%s&locale=%s", session.AccessToken, locale)
 
 	err := chromedp.Run(context,
 		chromedp.Navigate(checkoutURL),
@@ -115,12 +127,13 @@ func Checkout(context context.Context) {
 }
 
 //AddToCart Automatically adds the item to the current cart.
-func AddToCart(context context.Context, sku string) {
+func AddToCart(context context.Context, sku string, locale string) {
 	baseURL := "https://api.digitalriver.com/v1/shoppers/me/carts/active/line-items?format=json&method=post"
 	productIDParam := fmt.Sprintf("&productId=%s", sku)
 	tokenParam := fmt.Sprintf("&token=%s", session.AccessToken)
 	quantityParam := "&quantity=1"
-	cartURL := baseURL + productIDParam + tokenParam + quantityParam
+	localeParam := fmt.Sprintf("&locale=%s", locale)
+	cartURL := baseURL + productIDParam + tokenParam + quantityParam + localeParam
 
 	err := chromedp.Run(context,
 		chromedp.Navigate(cartURL),
@@ -130,32 +143,11 @@ func AddToCart(context context.Context, sku string) {
 	}
 }
 
-//StartChromeDebugMode Starts a chrome instance in debug-mode
-func StartChromeDebugMode() bool {
-	var cmd *exec.Cmd
-
-	switch runtime.GOOS {
-	case "linux":
-		cmd = exec.Command("google-chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
-	case "windows":
-		path, err := getWindowsChromeLocation()
-		if err != nil {
-			panic(err)
-		}
-		cmd = exec.Command(path, "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
-	case "darwin":
-		cmd = exec.Command("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--remote-debugging-port=9222", "--user-data-dir=remote-profile")
-	default:
-		log.Fatal("unsupported platform")
-	}
-
-	return cmd.Start() == nil
-}
-
 // StartSession Starts the ChromeRD browser session and returns it's context.
 func StartSession(config config.Config) context.Context {
 	// create allocator context for use with creating a browser context later
-	allocatorContext, _ := chromedp.NewRemoteAllocator(context.Background(), getDebugURL())
+
+	allocatorContext, _ := chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("headless", false))...)
 
 	// create context
 	ctxt, _ := chromedp.NewContext(allocatorContext)

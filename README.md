@@ -27,66 +27,9 @@ Download the latest release from [Releases](https://github.com/ianmarmour/nvidia
 In order to configure the nvidia-clerk you'll need to determine which SKU you would like the clerk to monitor (currently the clerk only supports monitoring a
 single SKU per an instance)
 
-### Supported Region SKUs
+### Supported Regions
 
-**United States**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438481700 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**Great Britain**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438792800 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**Germany**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438792300 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**France**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438795200 |
-| Nvidia RTX 3090 FE  | N/A |
-
-**Sweden**
-| Product Name | SKU |
-|---|---|
-| Nvidia RTX 3070 FE  | N/A |
-| Nvidia RTX 3080 FE  | 5438798100 |
-| Nvidia RTX 3090 FE  | N/A |
-
-
-## Configuration
-
-### Windows
-| :memo:        | All commands should be executed inside of cmd.exe |
-|---------------|:------------------------|
-```Batchfile
-set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-```
-
-### Mac OSX
-| :memo:        | All commands should be executed inside of Terminal.app |
-|---------------|:------------------------|
-```shell
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-```
-
-### Linux
-| :memo:        | All commands should be executed inside of Shell |
-|---------------|:------------------------|
-```shell
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-```
+[insert region list here]
 
 ## Usage
 | :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
@@ -96,7 +39,7 @@ export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
 ```Batchfile
-./nvidia-clerk-windows.exe
+./nvidia-clerk-windows.exe -region=REGION_CODE_HERE
 ```
 
 ### Mac OSX
@@ -105,7 +48,7 @@ export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
 ```shell
 chmod +x ./nvidia-clerk-darwin
 
-./nvidia-clerk-darwin
+./nvidia-clerk-darwin -region=REGION_CODE_HERE
 ```
 
 ### Linux
@@ -114,7 +57,7 @@ chmod +x ./nvidia-clerk-darwin
 ```shell
 chmod +x ./nvidia-clerk-linux
 
-./nvidia-clerk-linux
+./nvidia-clerk-linux -region=REGION_CODE_HERE
 ```
 
 # Advanced Usage

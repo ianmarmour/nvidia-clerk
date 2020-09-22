@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -10,7 +11,6 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/internal/alert"
 	"github.com/ianmarmour/nvidia-clerk/internal/browser"
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
-	"github.com/ianmarmour/nvidia-clerk/internal/rest"
 )
 
 var testsHaveErrors bool
@@ -47,28 +47,35 @@ func runTest(name string, client *http.Client, config config.Config) {
 }
 
 func main() {
+	var region string
+
 	// Parse Argument Flags
+	flag.StringVar(&region, "region", "USA", "3 Letter region code")
 	useTwitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
 	useSms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	useDiscord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	useTest := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
-	config := config.GetConfig(*useSms, *useDiscord, *useTwitter)
+	config, configErr := config.GetConfig(region, *useSms, *useDiscord, *useTwitter)
+	if configErr != nil {
+		log.Fatal(configErr)
+	}
+
 	httpClient := &http.Client{Timeout: 10 * time.Second}
 
 	// Execute Tests
 	if *useTest == true {
 		if *useSms == true {
-			runTest("sms", httpClient, config)
+			runTest("sms", httpClient, *config)
 		}
 
 		if *useDiscord == true {
-			runTest("discord", httpClient, config)
+			runTest("discord", httpClient, *config)
 		}
 
 		if *useTwitter == true {
-			runTest("twitter", httpClient, config)
+			runTest("twitter", httpClient, *config)
 		}
 
 		if testsHaveErrors == true {
@@ -80,30 +87,23 @@ func main() {
 		}
 	}
 
-	browser.StartChromeDebugMode()
-	sessionContext := browser.StartSession(config)
+	sessionContext := browser.StartSession(*config)
 
 	for {
-		skuInfo, skuInfoErr := rest.GetSkuInfo(config.SKU, config.Locale, config.Currency, httpClient)
+		skuInfo, skuInfoErr := browser.GetInventoryStatus(sessionContext, config.SKU, config.Locale)
 		if skuInfoErr != nil {
 			fmt.Printf("Error getting SKU Information retrying...\n")
 			continue
 		}
-		skuName := skuInfo.Products.Product[0].Name
-		skuStatus := skuInfo.Products.Product[0].InventoryStatus.Status
-		skuInventory, skuInventoryErr := rest.GetSkuInventory(config.SKU, config.Locale, httpClient)
-		if skuInventoryErr != nil {
-			fmt.Printf("Error getting SKU Inventory retrying...\n")
-			continue
-		}
+		skuName := skuInfo.Product.ID
+		skuStatus := skuInfo.Status
 
 		fmt.Println("SKU Name: " + skuName)
 		fmt.Println("SKU Status: " + skuStatus)
-		fmt.Printf("Product Inventory: %d \n\n", skuInventory.Product.AvailableQuantity)
 
 		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
-			browser.AddToCart(sessionContext, config.SKU)
-			browser.Checkout(sessionContext)
+			browser.AddToCart(sessionContext, config.SKU, config.Locale)
+			browser.Checkout(sessionContext, config.Locale)
 
 			if *useSms == true {
 				textErr := alert.SendText(skuName, config.TwilioConfig, httpClient)

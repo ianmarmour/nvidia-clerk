@@ -1,15 +1,16 @@
 package config
 
 import (
-	"fmt"
+	"errors"
 	"log"
 	"os"
 )
 
 type RegionalConfig struct {
-	SKU      string
-	Locale   string
-	Currency string
+	SKU          string
+	Locale       string
+	NvidiaLocale string
+	Currency     string
 }
 
 type TwitterConfig struct {
@@ -40,31 +41,108 @@ type Config struct {
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
-var skuBasedConfig = map[string]RegionalConfig{
-	"5438481700": {
-		SKU:      "5438481700",
-		Locale:   "en_us",
-		Currency: "USD",
+var regionalConfig = map[string]RegionalConfig{
+	"AUT": {
+		SKU:          "5440853700",
+		Locale:       "de_de",
+		NvidiaLocale: "de_de",
+		Currency:     "EUR",
 	},
-	"5438792800": {
-		SKU:      "5438792800",
-		Locale:   "en_gb",
-		Currency: "GBP",
+	"BEL": {
+		SKU:          "5438795700",
+		Locale:       "fr_fr",
+		NvidiaLocale: "fr_fr",
+		Currency:     "EUR",
 	},
-	"5438792300": {
-		SKU:      "5438792300",
-		Locale:   "de_de",
-		Currency: "EUR",
+	"CAN": {
+		SKU:          "5438481700",
+		Locale:       "en_us",
+		NvidiaLocale: "en_ca",
+		Currency:     "CAN",
 	},
-	"5438795200": {
-		SKU:      "5438795200",
-		Locale:   "fr_fr",
-		Currency: "EUR",
+	"CZE": {
+		SKU:          "5438793800",
+		Locale:       "en_gb",
+		NvidiaLocale: "en_gb",
+		Currency:     "EUR",
 	},
-	"5438798100": {
-		SKU:      "5438798100",
-		Locale:   "sv_se",
-		Currency: "SEK",
+	"DNK": {
+		SKU:          "5438793300",
+		Locale:       "en_gb",
+		NvidiaLocale: "en_gb",
+		Currency:     "EUR",
+	},
+	"FIN": {
+		SKU:          "5438793300",
+		Locale:       "en_gb",
+		NvidiaLocale: "en_gb",
+		Currency:     "EUR",
+	},
+	"FRA": {
+		SKU:          "5438795200",
+		Locale:       "fr_fr",
+		NvidiaLocale: "fr_fr",
+		Currency:     "EUR",
+	},
+	"DEU": {
+		SKU:          "5438792300",
+		Locale:       "de_de",
+		NvidiaLocale: "de_de",
+		Currency:     "EUR",
+	},
+	"USA": {
+		SKU:          "5438481700",
+		Locale:       "en_us",
+		NvidiaLocale: "en_us",
+		Currency:     "USD",
+	},
+	"GBR": {
+		SKU:          "5438792800",
+		Locale:       "en_gb",
+		NvidiaLocale: "en_gb",
+		Currency:     "GBP",
+	},
+	"IRL": {
+		SKU:          "5438792800",
+		Locale:       "en_gb",
+		NvidiaLocale: "en_gb",
+		Currency:     "GBP",
+	},
+	"ITA": {
+		SKU:          "5438796200",
+		Locale:       "it_it",
+		NvidiaLocale: "it_it",
+		Currency:     "EUR",
+	},
+	"SWE": {
+		SKU:          "5438798100",
+		Locale:       "sv_SE",
+		NvidiaLocale: "sv_se",
+		Currency:     "SEK",
+	},
+	"LUX": {
+		SKU:          "5438795700",
+		Locale:       "fr_fr",
+		NvidiaLocale: "fr_fr",
+		Currency:     "EUR",
+	},
+	"POL": {
+		SKU:          "5438797700",
+		Locale:       "pl_pl",
+		NvidiaLocale: "pl_pl",
+		Currency:     "PLN",
+	},
+	"PRT": {
+		SKU:          "5438794300",
+		Locale:       "en_gb",
+		NvidiaLocale: "en_gb",
+		Currency:     "EUR",
+	},
+	"ESP": {
+		SKU:          "5438794800",
+		Locale:       "es_es",
+		NvidiaLocale: "es_es",
+		Currency:     "EUR",
 	},
 }
 
@@ -153,43 +231,28 @@ func GetDiscordConfig() DiscordConfig {
 }
 
 //GetConfig Generates Configuration for application from environmental variables.
-func GetConfig(smsEnabled bool, discordEnabled bool, twitterEnabled bool) Config {
-	configuration := Config{}
+func GetConfig(region string, smsEnabled bool, discordEnabled bool, twitterEnabled bool) (*Config, error) {
+	if regionConfig, ok := regionalConfig[region]; ok {
+		configuration := Config{}
 
-	sku, skuOk := os.LookupEnv("NVIDIA_CLERK_SKU")
-	if skuOk == false {
-		log.Fatal("NVIDIA_CLERK_SKU Environment Variable is unset, exiting.")
+		configuration.SKU = regionConfig.SKU
+		configuration.Locale = regionConfig.Locale
+		configuration.Currency = regionConfig.Currency
+
+		if smsEnabled == true {
+			configuration.TwilioConfig = GetTwilioConfig()
+		}
+
+		if discordEnabled == true {
+			configuration.DiscordConfig = GetDiscordConfig()
+		}
+
+		if twitterEnabled == true {
+			configuration.TwitterConfig = GetTwitterConfig()
+		}
+
+		return &configuration, nil
 	}
 
-	configuration.SKU = sku
-
-	locale, localeOk := os.LookupEnv("NVIDIA_CLERK_LOCALE")
-	if localeOk == false {
-		locale = skuBasedConfig[sku].Locale
-		fmt.Println(fmt.Sprintf("NVIDIA_CLERK_LOCALE unset defaulting locale to %s based on SKU", locale))
-	}
-
-	configuration.Locale = locale
-
-	currency, currencyOk := os.LookupEnv("NVIDIA_CLERK_CURRENCY")
-	if currencyOk == false {
-		currency = skuBasedConfig[sku].Currency
-		fmt.Println(fmt.Sprintf("NVIDIA_CLERK_CURRENCY unset defaulting currency to %s based on SKU", currency))
-	}
-
-	configuration.Currency = currency
-
-	if smsEnabled == true {
-		configuration.TwilioConfig = GetTwilioConfig()
-	}
-
-	if discordEnabled == true {
-		configuration.DiscordConfig = GetDiscordConfig()
-	}
-
-	if twitterEnabled == true {
-		configuration.TwitterConfig = GetTwitterConfig()
-	}
-
-	return configuration
+	return nil, errors.New("unsupported region providing")
 }
