@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/chromedp/cdproto/network"
@@ -110,6 +111,13 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string) (*Invent
 	}
 
 	inventoryStatus := InventoryStatus{}
+
+	if strings.HasPrefix(string(stockResponseBody), "Rate limit exceeded") {
+		log.Print("Rate limit exceeded, pausing for one second.")
+		time.Sleep(1 * time.Second)
+
+		return GetInventoryStatus(ctx, sku, locale)
+	}
 
 	xmlErr := xml.Unmarshal(stockResponseBody, &inventoryStatus)
 	if xmlErr != nil {
