@@ -115,8 +115,17 @@ func main() {
 		log.Println("Product Status: " + skuStatus)
 
 		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
-			browser.AddToCart(sessionContext, config.SKU, config.Locale)
-			browser.Checkout(sessionContext, config.Locale)
+			cartErr := browser.AddToCart(sessionContext, config.SKU, config.Locale)
+			if cartErr != nil {
+				log.Printf("Error adding item to cart retrying...\n")
+				continue
+			}
+
+			checkoutErr := browser.Checkout(sessionContext, config.Locale)
+			if checkoutErr != nil {
+				log.Printf("Error adding item to checkout retrying...\n")
+				continue
+			}
 
 			if *useSms == true {
 				textErr := alert.SendText(productID, config.TwilioConfig, httpClient)

@@ -23,7 +23,7 @@ Download the latest release from [Releases](https://github.com/ianmarmour/nvidia
 
 ### Supported Region Codes
 
-AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR
+AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR, NLD
 
 ## Usage
 | :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
