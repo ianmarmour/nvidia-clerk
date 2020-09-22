@@ -47,6 +47,8 @@ func runTest(name string, client *http.Client, config config.Config) {
 }
 
 func main() {
+	log.SetFlags(log.LstdFlags)
+
 	var region string
 
 	// Parse Argument Flags
@@ -80,7 +82,7 @@ func main() {
 		}
 
 		if testsHaveErrors == true {
-			fmt.Printf("Testing failed with errors, exiting...\n")
+			log.Printf("Testing failed with errors, exiting...\n")
 			os.Exit(1)
 		}
 	}
@@ -90,14 +92,14 @@ func main() {
 	for {
 		skuInfo, skuInfoErr := browser.GetInventoryStatus(sessionContext, config.SKU, config.Locale)
 		if skuInfoErr != nil {
-			fmt.Printf("Error getting SKU Information retrying...\n")
+			log.Printf("Error getting SKU Information retrying...\n")
 			continue
 		}
 		productID := skuInfo.Product.ID
 		skuStatus := skuInfo.Status
 
-		fmt.Println("Product ID: " + productID)
-		fmt.Println("Product Status: " + skuStatus)
+		log.Println("Product ID: " + productID)
+		log.Println("Product Status: " + skuStatus)
 
 		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
 			browser.AddToCart(sessionContext, config.SKU, config.Locale)
@@ -106,7 +108,7 @@ func main() {
 			if *useSms == true {
 				textErr := alert.SendText(productID, config.TwilioConfig, httpClient)
 				if textErr != nil {
-					fmt.Printf("Error sending SMS notification retrying...\n")
+					log.Printf("Error sending SMS notification retrying...\n")
 					continue
 				}
 			}
@@ -114,7 +116,7 @@ func main() {
 			if *useTwitter == true {
 				tweetErr := alert.SendTweet(productID, config.TwitterConfig)
 				if tweetErr != nil {
-					fmt.Printf("Error sending Twitter notification retrying...\n")
+					log.Printf("Error sending Twitter notification retrying...\n")
 					continue
 				}
 			}
@@ -122,7 +124,7 @@ func main() {
 			if *useDiscord == true {
 				discordErr := alert.SendDiscordMessage(productID, config.DiscordConfig, httpClient)
 				if discordErr != nil {
-					fmt.Printf("Error sending discord notification retrying...\n")
+					log.Printf("Error sending discord notification retrying...\n")
 					continue
 				}
 			}
