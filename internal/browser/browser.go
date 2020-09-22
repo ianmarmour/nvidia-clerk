@@ -105,14 +105,15 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string) (*Invent
 	)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Println("Error retrieving inventory status")
+		return nil, err
 	}
 
 	inventoryStatus := InventoryStatus{}
 
 	xmlErr := xml.Unmarshal(stockResponseBody, &inventoryStatus)
 	if xmlErr != nil {
-		log.Fatal("Unable to unmarshal inventory response data.")
+		log.Println("Erorr unmarshalling inventory XML")
 		return nil, xmlErr
 	}
 
@@ -120,19 +121,21 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string) (*Invent
 }
 
 //Checkout Opens customer checkout
-func Checkout(context context.Context, locale string) {
+func Checkout(context context.Context, locale string) error {
 	checkoutURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/carts/active/web-checkout?token=%s&locale=%s", session.AccessToken, locale) + uniqueParam()
 
 	err := chromedp.Run(context,
 		chromedp.Navigate(checkoutURL),
 	)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+
+	return nil
 }
 
 //AddToCart Automatically adds the item to the current cart.
-func AddToCart(context context.Context, sku string, locale string) {
+func AddToCart(context context.Context, sku string, locale string) error {
 	baseURL := "https://api.digitalriver.com/v1/shoppers/me/carts/active/line-items?format=json&method=post"
 	productIDParam := fmt.Sprintf("&productId=%s", sku)
 	tokenParam := fmt.Sprintf("&token=%s", session.AccessToken)
@@ -144,8 +147,10 @@ func AddToCart(context context.Context, sku string, locale string) {
 		chromedp.Navigate(cartURL),
 	)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+
+	return nil
 }
 
 // StartSession Starts the ChromeRD browser session and returns it's context.
