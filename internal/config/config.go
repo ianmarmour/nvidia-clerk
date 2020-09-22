@@ -32,14 +32,20 @@ type DiscordConfig struct {
 	WebhookURL string
 }
 
+type TelegramConfig struct {
+	APIKey string
+	ChatID string
+}
+
 type Config struct {
-	Locale        string
-	Currency      string
-	SKU           string
-	TestSKU       string
-	TwilioConfig  TwilioConfig
-	TwitterConfig TwitterConfig
-	DiscordConfig DiscordConfig
+	Locale         string
+	Currency       string
+	SKU            string
+	TestSKU        string
+	TwilioConfig   TwilioConfig
+	TwitterConfig  TwitterConfig
+	DiscordConfig  DiscordConfig
+	TelegramConfig TelegramConfig
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
@@ -245,8 +251,28 @@ func GetDiscordConfig() DiscordConfig {
 	return configuration
 }
 
+//GetTelegramConfig Generates TelegramConfiguration for application from environmental variables.
+func GetTelegramConfig() TelegramConfig {
+	configuration := TelegramConfig{}
+
+	APIKey, APIKeyOk := os.LookupEnv("TELEGRAM_API_KEY")
+	if APIKeyOk == false {
+		log.Fatal("TELEGRAM_API_KEY Environment Variable is unset, exiting.")
+	}
+
+	ChatID, ChatIDOk := os.LookupEnv("TELEGRAM_CHAT_ID")
+	if ChatIDOk == false {
+		log.Fatal("TELEGRAM_CHAT_ID Environment Variable is unset, exiting.")
+	}
+
+	configuration.APIKey = APIKey
+	configuration.ChatID = ChatID
+
+	return configuration
+}
+
 //GetConfig Generates Configuration for application from environmental variables.
-func GetConfig(region string, smsEnabled bool, discordEnabled bool, twitterEnabled bool) (*Config, error) {
+func GetConfig(region string, smsEnabled bool, discordEnabled bool, twitterEnabled bool, telegramEnabled bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
 		configuration := Config{}
 
@@ -265,6 +291,10 @@ func GetConfig(region string, smsEnabled bool, discordEnabled bool, twitterEnabl
 
 		if twitterEnabled == true {
 			configuration.TwitterConfig = GetTwitterConfig()
+		}
+
+		if telegramEnabled == true {
+			configuration.TelegramConfig = GetTelegramConfig()
 		}
 
 		return &configuration, nil

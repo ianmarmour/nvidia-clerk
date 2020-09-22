@@ -41,6 +41,14 @@ func runTest(name string, client *http.Client, config config.Config) {
 		} else {
 			fmt.Printf("Twitter Notification testing completed succesfully")
 		}
+	case "telegram":
+		telegramErr := alert.SendTelegramMessage(config.SKU, config.TelegramConfig, client)
+		if telegramErr != nil {
+			fmt.Printf("Error testing Telegram notification exiting...\n")
+			os.Exit(1)
+		} else {
+			fmt.Printf("Telegram Notification testing completed succesfully")
+		}
 	default:
 
 	}
@@ -56,10 +64,11 @@ func main() {
 	useTwitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
 	useSms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	useDiscord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
+	useTelegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	useTest := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
-	config, configErr := config.GetConfig(region, *useSms, *useDiscord, *useTwitter)
+	config, configErr := config.GetConfig(region, *useSms, *useDiscord, *useTwitter, *useTelegram)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
@@ -79,6 +88,10 @@ func main() {
 
 		if *useTwitter == true {
 			runTest("twitter", httpClient, *config)
+		}
+
+		if *useTelegram == true {
+			runTest("telegram", httpClient, *config)
 		}
 
 		if testsHaveErrors == true {
@@ -125,6 +138,14 @@ func main() {
 				discordErr := alert.SendDiscordMessage(productID, config.DiscordConfig, httpClient)
 				if discordErr != nil {
 					log.Printf("Error sending discord notification retrying...\n")
+					continue
+				}
+			}
+
+			if *useTelegram == true {
+				telegramErr := alert.SendTelegramMessage(productID, config.TelegramConfig, httpClient)
+				if telegramErr != nil {
+					log.Printf("Error sending telegram notification retrying...\n")
 					continue
 				}
 			}
