@@ -151,6 +151,11 @@ set TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_HERE
 ## Telegram Notifications
 
 ### Configuration
+1. In Telegram, create a new bot by contacting the `@BotFather` and either creating a new bot or getting an existing bot token.
+2. Once you have your token (e.g. `123456789:LaeQH7pvhJbqmqV9_akkVbClpsSZr7su63o`), add your bot to a group or channel.
+3. Get the chat id of your group or channel by following the instructions [available on GitHub here](https://github.com/GabrielRF/telegram-id). This will be either in the format `-10012345678` or `@my_channel_or_group`.
+4. Use the full token, including the `:`, as your API key, and use the full chat id, including the `-` or `@`, as your chat id.
+
 ```Batchfile
 set TELEGRAM_API_KEY=YOUR_TELEGRAM_API_KEY_HERE
 set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
