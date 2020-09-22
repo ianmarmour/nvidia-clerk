@@ -54,6 +54,32 @@ chmod +x ./nvidia-clerk-linux
 ./nvidia-clerk-linux -region=REGION_CODE_HERE
 ```
 
+## Testing
+
+Testing is currenly only supported for the USA region but it should show you what the automated checkout will look like.
+
+### Windows
+| :memo:        | All commands should be executed inside of cmd.exe |
+|---------------|:------------------------|
+```Batchfile
+./nvidia-clerk-windows.exe -region=USA -test
+```
+
+### Mac OSX
+| :memo:        | All commands should be executed inside of Terminal.app |
+|---------------|:------------------------|
+```shell
+./nvidia-clerk-darwin -region=USA -test
+```
+
+### Linux
+| :memo:        | All commands should be executed inside of Shell |
+|---------------|:------------------------|
+```shell
+./nvidia-clerk-linux -region=USA -test
+```
+
+
 # Advanced Usage
 
 ## SMS Notifications

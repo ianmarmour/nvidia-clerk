@@ -66,6 +66,7 @@ func main() {
 
 	// Execute Tests
 	if *useTest == true {
+		config.SKU = config.TestSKU
 		if *useSms == true {
 			runTest("sms", httpClient, *config)
 		}
@@ -81,9 +82,6 @@ func main() {
 		if testsHaveErrors == true {
 			fmt.Printf("Testing failed with errors, exiting...\n")
 			os.Exit(1)
-		} else {
-			fmt.Printf("Testing completed succesfully, exiting...\n")
-			os.Exit(0)
 		}
 	}
 

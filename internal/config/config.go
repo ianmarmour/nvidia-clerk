@@ -11,6 +11,7 @@ type RegionalConfig struct {
 	Locale       string
 	NvidiaLocale string
 	Currency     string
+	TestSKU      string
 }
 
 type TwitterConfig struct {
@@ -35,6 +36,7 @@ type Config struct {
 	Locale        string
 	Currency      string
 	SKU           string
+	TestSKU       string
 	TwilioConfig  TwilioConfig
 	TwitterConfig TwitterConfig
 	DiscordConfig DiscordConfig
@@ -95,6 +97,7 @@ var regionalConfig = map[string]RegionalConfig{
 		Locale:       "en_us",
 		NvidiaLocale: "en_us",
 		Currency:     "USD",
+		TestSKU:      "5379432500",
 	},
 	"GBR": {
 		SKU:          "5438792800",
@@ -236,6 +239,7 @@ func GetConfig(region string, smsEnabled bool, discordEnabled bool, twitterEnabl
 		configuration := Config{}
 
 		configuration.SKU = regionConfig.SKU
+		configuration.TestSKU = regionConfig.TestSKU
 		configuration.Locale = regionConfig.Locale
 		configuration.Currency = regionConfig.Currency
 
