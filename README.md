@@ -33,10 +33,10 @@ single SKU per an instance)
 |---|---|---|---|
 | United States  | N/A 			| 5438481700 | N/A	|
 | Great Britain  | N/A 			| 5438792800 | N/A  |
-| Germany		     | N/A 			| 5438792300 | N/A 	|
-| France		     | N/A 			| 5438795200 | N/A 	|
-| Sweden		     | N/A 			| 5438798100 | N/A 	|
-| Netherlands	   | N/A 			| 5438796700 | N/A 	|
+| Germany		 | N/A 			| 5438792300 | N/A 	|
+| France		 | N/A 			| 5438795200 | N/A 	|
+| Sweden		 | N/A 			| 5438798100 | N/A 	|
+| Netherlands	 | N/A 			| 5438796700 | N/A 	|
 
 
 ## Configuration
