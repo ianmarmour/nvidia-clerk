@@ -20,7 +20,7 @@ type TelegramPayload struct {
 func SendTelegramMessage(item string, config config.TelegramConfig, client *http.Client) error {
 	content := fmt.Sprintf("%s Ready for Purchase", item)
 
-	payload, err := json.Marshal(TelegramPayload{fmt.Sprintf("@%s", config.ChatID), content})
+	payload, err := json.Marshal(TelegramPayload{config.ChatID, content})
 	if err != nil {
 		log.Fatalln("Unable to marshal telegram payload.")
 	}
