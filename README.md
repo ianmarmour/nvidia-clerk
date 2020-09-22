@@ -141,3 +141,22 @@ set TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_HERE
 ```Batchfile
 ./nvidia-clerk-windows.exe -twitter -region=REGION_CODE_HERE
 ```
+
+## Telegram Notifications
+
+### Configuration
+```Batchfile
+set TELEGRAM_API_KEY=YOUR_TELEGRAM_API_KEY_HERE
+set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
+```
+
+### Testing
+```Batchfile
+./nvidia-clerk-windows.exe -telegram -test
+```
+
+### Usage
+
+```Batchfile
+./nvidia-clerk-windows.exe -telegram -region=REGION_CODE_HERE
+```
