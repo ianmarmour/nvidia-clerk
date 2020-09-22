@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -22,7 +21,6 @@ func SendTelegramMessage(item string, config config.TelegramConfig, client *http
 	content := fmt.Sprintf("%s Ready for Purchase", item)
 
 	payload, err := json.Marshal(TelegramPayload{fmt.Sprintf("@%s", config.ChatID), content})
-
 	if err != nil {
 		log.Fatalln("Unable to marshal telegram payload.")
 	}
@@ -34,14 +32,7 @@ func SendTelegramMessage(item string, config config.TelegramConfig, client *http
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 400 {
-		bodyBytes, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-		bodyString := string(bodyBytes)
-
-		fmt.Println(bodyString)
-		fmt.Println("Unable to send message to telegram, bad request.")
+		log.Println("Unable to send message to telegram, bad request.")
 		return errors.New("Bad Request")
 	}
 
