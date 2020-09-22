@@ -254,5 +254,5 @@ func GetConfig(region string, smsEnabled bool, discordEnabled bool, twitterEnabl
 		return &configuration, nil
 	}
 
-	return nil, errors.New("unsupported region providing")
+	return nil, errors.New("unsupported region provided")
 }

@@ -91,7 +91,7 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string) (*Invent
 	err := chromedp.Run(ctx,
 		network.Enable(),
 		chromedp.Navigate(stockURL),
-		chromedp.Sleep(time.Second*1),
+		chromedp.Sleep(time.Millisecond*500),
 		chromedp.ActionFunc(func(cxt context.Context) error {
 			body, err := network.GetResponseBody(stockRequestID).Do(cxt)
 			stockResponseBody = body

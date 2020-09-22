@@ -17,19 +17,13 @@ such things).
 * Administrator Access
 
 ### Download
-
 Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest)
 | :exclamation:  Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project we haven't paid for a signing certificate)   |
 |-----------------------------------------|
 
-## Determine Your SKU
+### Supported Region Codes
 
-In order to configure the nvidia-clerk you'll need to determine which SKU you would like the clerk to monitor (currently the clerk only supports monitoring a
-single SKU per an instance)
-
-### Supported Regions
-
-[insert region list here]
+AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP
 
 ## Usage
 | :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
@@ -80,7 +74,7 @@ set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ### Usage
 
 ```shell
-./nvidia-clerk-windows.exe -sms
+./nvidia-clerk-windows.exe -sms -region=REGION_CODE_HERE
 ```
 
 ## Discord Notifications
@@ -98,7 +92,7 @@ set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
 ### Usage
 
 ```Batchfile
-./nvidia-clerk-windows.exe -discord
+./nvidia-clerk-windows.exe -discord -region=REGION_CODE_HERE
 ```
 
 ## Twitter Notifications
@@ -119,67 +113,5 @@ set TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_HERE
 ### Usage
 
 ```Batchfile
-./nvidia-clerk-windows.exe -twitter
-```
-
-
-## Unsupported Regions
-
-You can attempt to manually configure you're sku, locale and currency options using the following steps support for your region may be limited, if you manage to get a new region working please cut a GitHub issue and include the SKU, LOCALE and Currency settings that you used so we can add first party support for this region.
-
-### Determining Your Locale
-
-US readers can ignore this section however if you are non-us please determine your locale from [this list](https://www.science.co.il/language/Locale-codes.php), make sure you format your local as xx_xx vs xx-xx otherwise the bot will fail.
-
-### Determining Your Currency Code
-
-US readers can ignore this section however if you are non-us please determine your currency code from [this list](https://www.iban.com/currency-codes), make sure you use the 3 letter currency code for your region from this list otherwise the bot will fail.
-
-### Determining Your SKU 
-
-For more advanced users attempting to identify the SKU for their countris store please update the below URL's locale to your respective locale and iterate through the pageNumbers by updating the page number at the end of the URL until you find the 3070/3080/3090 SKU number for your region (NOTE: NOT ALL REGIONS HAVE THE SKUS AVALIABLE YET)
-
-https://api.digitalriver.com/v1/shoppers/me/products?apiKey=9485fa7b159e42edb08a83bde0d83dia&locale=en_ca&format=json&expand=product&fields=product.id,product.displayName,product.pricing&pageNumber=1
-
-### Additional Configuration
-
-After you have your new SKU, Currency Code and Locale please set the configuration up as follows,
-
-#### Windows
-
-```Batchfile
-set NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-set NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
-set NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
-```
-
-#### Mac
-
-```shell
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
-export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
-```
-
-#### Linux
-
-```shell
-export NVIDIA_CLERK_SKU=YOUR_DESIRED_SKU_HERE
-export NVIDIA_CLERK_LOCALE=YOUR_LOCALE_HERE
-export NVIDIA_CLERK_CURRENCY=YOUR_CURRENCY_HERE
-```
-
-# Troubleshooting
-
-## Windows
-
-#### Chrome install path configuration
-
-If you encounter an error about your chrome path but it is installed, set the `CHROME_PATH` env var to the location of its exe.
-For example "C:/Program Files/Google/Chrome/Application/chrome.exe".
-You can find the path by right clicking on chrome in your start menu and choosing "Open File Location", right click the
-.exe file, select 'Properties', and copy and paste the Target.
-
-```Batchfile
-set NVIDIA_CLERK_CHROME_PATH=PATH/TO/YOUR/CHROME.EXE
+./nvidia-clerk-windows.exe -twitter -region=REGION_CODE_HERE
 ```

@@ -132,7 +132,5 @@ func main() {
 			// Exit clean after a SKU was added to checkout cart.
 			os.Exit(0)
 		}
-
-		time.Sleep(time.Second)
 	}
 }
