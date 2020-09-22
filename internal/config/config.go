@@ -147,6 +147,12 @@ var regionalConfig = map[string]RegionalConfig{
 		NvidiaLocale: "es_es",
 		Currency:     "EUR",
 	},
+	"NOR": {
+		SKU:          "5438797200",
+		Locale:       "no_NO",
+		NvidiaLocale: "no_NO",
+		Currency:     "NOK",
+	},
 }
 
 //TwitterConfig Generates TwitterConfiguration for application from environmental variables.
