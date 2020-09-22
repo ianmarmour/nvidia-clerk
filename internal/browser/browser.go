@@ -46,6 +46,11 @@ var session Session
 
 const nvidiaAPIKey = "9485fa7b159e42edb08a83bde0d83dia"
 
+func uniqueParam() string {
+	sec := time.Now().Unix()
+	return fmt.Sprintf("&=%v", sec)
+}
+
 //updateSession Updates the session variable.
 func updateSession(sessionResponse string) {
 	jsonErr := json.Unmarshal([]byte(sessionResponse), &session)
@@ -60,7 +65,7 @@ func constructSessionURL(locale string) string {
 	localeParam := fmt.Sprintf("&locale=%s", locale)
 	apiKeyParam := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
 
-	return baseURL + localeParam + apiKeyParam
+	return baseURL + localeParam + apiKeyParam + uniqueParam()
 }
 
 // GetInventoryStatus Retrieves sku inventory information from digitalriver
@@ -68,7 +73,7 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string) (*Invent
 	baseURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/products/%s/inventory-status?", sku)
 	apiKeyParam := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
 	localeParam := fmt.Sprintf("&locale=%s", locale)
-	stockURL := baseURL + apiKeyParam + localeParam
+	stockURL := baseURL + apiKeyParam + localeParam + uniqueParam()
 
 	var stockRequestID network.RequestID
 
@@ -116,7 +121,7 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string) (*Invent
 
 //Checkout Opens customer checkout
 func Checkout(context context.Context, locale string) {
-	checkoutURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/carts/active/web-checkout?token=%s&locale=%s", session.AccessToken, locale)
+	checkoutURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/carts/active/web-checkout?token=%s&locale=%s", session.AccessToken, locale) + uniqueParam()
 
 	err := chromedp.Run(context,
 		chromedp.Navigate(checkoutURL),
@@ -133,7 +138,7 @@ func AddToCart(context context.Context, sku string, locale string) {
 	tokenParam := fmt.Sprintf("&token=%s", session.AccessToken)
 	quantityParam := "&quantity=1"
 	localeParam := fmt.Sprintf("&locale=%s", locale)
-	cartURL := baseURL + productIDParam + tokenParam + quantityParam + localeParam
+	cartURL := baseURL + productIDParam + tokenParam + quantityParam + localeParam + uniqueParam()
 
 	err := chromedp.Run(context,
 		chromedp.Navigate(cartURL),
