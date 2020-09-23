@@ -1,5 +1,5 @@
-9/23/2020 3:34PM - BROKEN UPDATES COMING LATER TODAY (3080's came and went right after Nvidia completely changed their API's Keys Throttling ETC
-NEW LINK WITH BUY NOW BUTTON - https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3080/
+# 9/23/2020 3:34PM - BROKEN UPDATES COMING LATER TODAY (3080's came and went right after Nvidia completely changed their API's Keys Throttling ETC
+# NEW LINK WITH BUY NOW BUTTON - https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3080/
 
 # nvidia-clerk
 
