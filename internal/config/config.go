@@ -5,6 +5,11 @@ import (
 	"os"
 )
 
+func strPtr(in string) *string {
+	i := in
+	return &i
+}
+
 type RegionError struct {
 	Code string
 }
@@ -22,8 +27,12 @@ func (w *ConfigError) Error() string {
 	return fmt.Sprintf("%s: %v Environment variable not found", w.Type, w.Name)
 }
 
+type Model struct {
+	SKU *string
+}
+
 type RegionalConfig struct {
-	SKU          string
+	Models       map[string]Model
 	Locale       string
 	NvidiaLocale string
 	Currency     string
@@ -58,8 +67,8 @@ type Config struct {
 	Currency string
 	Delay    int64
 
-	SKU            string
-	TestSKU        string
+	SKU            *string
+	TestSKU        *string
 	TwilioConfig   TwilioConfig
 	TwitterConfig  TwitterConfig
 	DiscordConfig  DiscordConfig
@@ -69,116 +78,234 @@ type Config struct {
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
 var regionalConfig = map[string]RegionalConfig{
 	"AUT": {
-		SKU:          "5440853700",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5440853700"),
+			},
+			"3090": {},
+		},
 		Locale:       "de_de",
 		NvidiaLocale: "de_de",
 		Currency:     "EUR",
 	},
 	"BEL": {
-		SKU:          "5438795700",
+		Models: map[string]Model{
+			"3070": {
+				SKU: nil,
+			},
+			"3080": {
+				SKU: strPtr("5438795700"),
+			},
+			"3090": {
+				SKU: nil,
+			},
+		},
 		Locale:       "fr_fr",
 		NvidiaLocale: "fr_fr",
 		Currency:     "EUR",
 	},
 	"CAN": {
-		SKU:          "5438481700",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438481700"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_us",
 		NvidiaLocale: "en_ca",
 		Currency:     "CAN",
 	},
 	"CZE": {
-		SKU:          "5438793800",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438793800"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en_gb",
 		Currency:     "EUR",
 	},
 	"DNK": {
-		SKU:          "5438793300",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438793300"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en_gb",
 		Currency:     "EUR",
 	},
 	"FIN": {
-		SKU:          "5438793300",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438793300"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en_gb",
 		Currency:     "EUR",
 	},
 	"FRA": {
-		SKU:          "5438795200",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438795200"),
+			},
+			"3090": {},
+		},
 		Locale:       "fr_fr",
 		NvidiaLocale: "fr_fr",
 		Currency:     "EUR",
 	},
 	"DEU": {
-		SKU:          "5438792300",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438792300"),
+			},
+			"3090": {},
+		},
 		Locale:       "de_de",
 		NvidiaLocale: "de_de",
 		Currency:     "EUR",
 	},
 	"USA": {
-		SKU:          "5438481700",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438481700"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_us",
 		NvidiaLocale: "en_us",
 		Currency:     "USD",
 		TestSKU:      "5379432500",
 	},
 	"GBR": {
-		SKU:          "5438792800",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438792800"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en_gb",
 		Currency:     "GBP",
 	},
 	"IRL": {
-		SKU:          "5438792800",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438792800"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en_gb",
 		Currency:     "GBP",
 	},
 	"ITA": {
-		SKU:          "5438796200",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438796200"),
+			},
+			"3090": {},
+		},
 		Locale:       "it_it",
 		NvidiaLocale: "it_it",
 		Currency:     "EUR",
 	},
 	"SWE": {
-		SKU:          "5438798100",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438798100"),
+			},
+			"3090": {},
+		},
 		Locale:       "sv_SE",
 		NvidiaLocale: "sv_se",
 		Currency:     "SEK",
 	},
 	"LUX": {
-		SKU:          "5438795700",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438795700"),
+			},
+			"3090": {},
+		},
 		Locale:       "fr_fr",
 		NvidiaLocale: "fr_fr",
 		Currency:     "EUR",
 	},
 	"POL": {
-		SKU:          "5438797700",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438797700"),
+			},
+			"3090": {},
+		},
 		Locale:       "pl_pl",
 		NvidiaLocale: "pl_pl",
 		Currency:     "PLN",
 	},
 	"PRT": {
-		SKU:          "5438794300",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438794300"),
+			},
+			"3090": {},
+		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en_gb",
 		Currency:     "EUR",
 	},
 	"ESP": {
-		SKU:          "5438794800",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438794800"),
+			},
+			"3090": {},
+		},
 		Locale:       "es_es",
 		NvidiaLocale: "es_es",
 		Currency:     "EUR",
 	},
 	"NOR": {
-		SKU:          "5438797200",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438797200"),
+			},
+			"3090": {},
+		},
 		Locale:       "no_NO",
 		NvidiaLocale: "no_NO",
 		Currency:     "NOK",
 	},
 	"NLD": {
-		SKU:          "5438796700",
+		Models: map[string]Model{
+			"3070": {},
+			"3080": {
+				SKU: strPtr("5438796700"),
+			},
+			"3090": {},
+		},
 		Locale:       "nl_nl",
 		NvidiaLocale: "nl_nl",
 		Currency:     "EUR",
@@ -283,13 +410,13 @@ func getTelegram() (*TelegramConfig, error) {
 }
 
 //Get Generates Configuration for application from environmental variables.
-func Get(region string, delay int64, sms bool, discord bool, twitter bool, telegram bool) (*Config, error) {
+func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
 		configuration := Config{}
 
-		configuration.SKU = regionConfig.SKU
+		configuration.SKU = regionConfig.Models[model].SKU
+		configuration.TestSKU = &regionConfig.TestSKU
 		configuration.Delay = delay
-		configuration.TestSKU = regionConfig.TestSKU
 		configuration.Locale = regionConfig.Locale
 		configuration.Currency = regionConfig.Currency
 
