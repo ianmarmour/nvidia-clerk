@@ -70,7 +70,7 @@ func main() {
 	useTest := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
-	config, configErr := config.GetConfig(region, delay, *useSms, *useDiscord, *useTwitter, *useTelegram)
+	config, configErr := config.Get(region, delay, *useSms, *useDiscord, *useTwitter, *useTelegram)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}

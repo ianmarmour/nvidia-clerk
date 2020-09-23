@@ -1,10 +1,26 @@
 package config
 
 import (
-	"errors"
-	"log"
+	"fmt"
 	"os"
 )
+
+type RegionError struct {
+	Code string
+}
+
+func (w *RegionError) Error() string {
+	return fmt.Sprintf("%s: Region unsupported", w.Code)
+}
+
+type ConfigError struct {
+	Type string
+	Name string
+}
+
+func (w *ConfigError) Error() string {
+	return fmt.Sprintf("%s: %v Environment variable not found", w.Type, w.Name)
+}
 
 type RegionalConfig struct {
 	SKU          string
@@ -169,112 +185,105 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 }
 
-//TwitterConfig Generates TwitterConfiguration for application from environmental variables.
-func GetTwitterConfig() TwitterConfig {
-	configuration := TwitterConfig{}
+//twitter Generates TwitterConfiguration for application from environmental variables.
+func getTwitter() (*TwitterConfig, error) {
+	c := TwitterConfig{}
 
-	consumerKey, consumerKeyOk := os.LookupEnv("TWITTER_CONSUMER_KEY")
-	if consumerKeyOk == false {
-		log.Fatal("TWITTER_CONSUMER_KEY Environment Variable is unset, exiting.")
+	key, keyOk := os.LookupEnv("TWITTER_CONSUMER_KEY")
+	if keyOk == false {
+		return nil, &ConfigError{"Twitter", "TWITTER_CONSUMER_KEY"}
+	}
+	c.ConsumerKey = key
+
+	cs, csOk := os.LookupEnv("TWITTER_CONSUMER_SECRET")
+	if csOk == false {
+		return nil, &ConfigError{"Twitter", "TWITTER_CONSUMER_SECRET"}
+	}
+	c.ConsumerSecret = cs
+
+	at, atOk := os.LookupEnv("TWITTER_ACCESS_TOKEN")
+	if atOk == false {
+		return nil, &ConfigError{"Twitter", "TWITTER_ACCESS_TOKEN"}
 	}
 
-	configuration.ConsumerKey = consumerKey
+	c.AccessToken = at
 
-	consumerSecret, consumerSecretOk := os.LookupEnv("TWITTER_CONSUMER_SECRET")
-	if consumerSecretOk == false {
-		log.Fatal("TWITTER_CONSUMER_SECRET Environment Variable is unset, exiting.")
+	as, asOk := os.LookupEnv("TWITTER_ACCESS_SECRET")
+	if asOk == false {
+		return nil, &ConfigError{"Twitter", "TWITTER_ACCESS_SECRET"}
 	}
 
-	configuration.ConsumerSecret = consumerSecret
+	c.AccessSecret = as
 
-	accessToken, accessTokenOk := os.LookupEnv("TWITTER_ACCESS_TOKEN")
-	if accessTokenOk == false {
-		log.Fatal("TWITTER_ACCESS_TOKEN Environment Variable is unset, exiting.")
-	}
-
-	configuration.AccessToken = accessToken
-
-	accessSecret, accessSecretOk := os.LookupEnv("TWITTER_ACCESS_SECRET")
-	if accessSecretOk == false {
-		log.Fatal("TWILIO_DESTINATION_NUMBER Environment Variable is unset, exiting.")
-	}
-
-	configuration.AccessSecret = accessSecret
-
-	return configuration
+	return &c, nil
 }
 
-//GetTwilioConfig Generates TwilioConfiguration for application from environmental variables.
-func GetTwilioConfig() TwilioConfig {
-	configuration := TwilioConfig{}
+//twilio Generates TwilioConfiguration for application from environmental variables.
+func getTwilio() (*TwilioConfig, error) {
+	c := TwilioConfig{}
 
-	accountSid, accountSidOk := os.LookupEnv("TWILIO_ACCOUNT_SID")
-	if accountSidOk == false {
-		log.Fatal("TWLIO_ACCOUNT_SID Environment Variable is unset, exiting.")
+	id, idOk := os.LookupEnv("TWILIO_ACCOUNT_SID")
+	if idOk == false {
+		return nil, &ConfigError{"Twilio", "TWLIO_ACCOUNT_SID"}
 	}
+	c.AccountSID = id
 
-	configuration.AccountSID = accountSid
-
-	token, tokenOk := os.LookupEnv("TWILIO_TOKEN")
-	if tokenOk == false {
-		log.Fatal("TWILIO_TOKEN Environment Variable is unset, exiting.")
+	t, tOk := os.LookupEnv("TWILIO_TOKEN")
+	if tOk == false {
+		return nil, &ConfigError{"Twilio", "TWILIO_TOKEN"}
 	}
+	c.Token = t
 
-	configuration.Token = token
-
-	sourceNumber, sourceNumberOk := os.LookupEnv("TWILIO_SOURCE_NUMBER")
-	if sourceNumberOk == false {
-		log.Fatal("TWILIO_SOURCE_NUMBER Environment Variable is unset, exiting.")
+	sn, snOk := os.LookupEnv("TWILIO_SOURCE_NUMBER")
+	if snOk == false {
+		return nil, &ConfigError{"Twilio", "TWILIO_SOURCE_NUMBER"}
 	}
+	c.SourceNumber = sn
 
-	configuration.SourceNumber = sourceNumber
-
-	destinationNumber, destinationNumberOk := os.LookupEnv("TWILIO_DESTINATION_NUMBER")
-	if destinationNumberOk == false {
-		log.Fatal("TWILIO_DESTINATION_NUMBER Environment Variable is unset, exiting.")
+	dn, dnOk := os.LookupEnv("TWILIO_DESTINATION_NUMBER")
+	if dnOk == false {
+		return nil, &ConfigError{"Twilio", "TWILIO_DESTINATION_NUMBER"}
 	}
+	c.DestinationNumber = dn
 
-	configuration.DestinationNumber = destinationNumber
-
-	return configuration
+	return &c, nil
 }
 
-//GetDiscordConfig Generates DiscordConfiguration for application from environmental variables.
-func GetDiscordConfig() DiscordConfig {
-	configuration := DiscordConfig{}
+//discord Generates DiscordConfiguration for application from environmental variables.
+func getDiscord() (*DiscordConfig, error) {
+	c := DiscordConfig{}
 
-	webhookURL, webhookURLOk := os.LookupEnv("DISCORD_WEBHOOK_URL")
-	if webhookURLOk == false {
-		log.Fatal("DISCORD_WEBHOOK_URL Environment Variable is unset, exiting.")
+	u, uOk := os.LookupEnv("DISCORD_WEBHOOK_URL")
+	if uOk == false {
+		return nil, &ConfigError{"Discord", "DISCORD_WEBHOOK_URL"}
 	}
+	c.WebhookURL = u
 
-	configuration.WebhookURL = webhookURL
-
-	return configuration
+	return &c, nil
 }
 
-//GetTelegramConfig Generates TelegramConfiguration for application from environmental variables.
-func GetTelegramConfig() TelegramConfig {
-	configuration := TelegramConfig{}
+//getTelegram Generates TelegramConfiguration for application from environmental variables.
+func getTelegram() (*TelegramConfig, error) {
+	c := TelegramConfig{}
 
-	APIKey, APIKeyOk := os.LookupEnv("TELEGRAM_API_KEY")
-	if APIKeyOk == false {
-		log.Fatal("TELEGRAM_API_KEY Environment Variable is unset, exiting.")
+	a, aOk := os.LookupEnv("TELEGRAM_API_KEY")
+	if aOk == false {
+		return nil, &ConfigError{"Telegram", "TELEGRAM_API_KEY"}
+	}
+	c.APIKey = a
+
+	id, idOk := os.LookupEnv("TELEGRAM_CHAT_ID")
+	if idOk == false {
+		return nil, &ConfigError{"Telegram", "TELEGRAM_CHAT_ID"}
 	}
 
-	ChatID, ChatIDOk := os.LookupEnv("TELEGRAM_CHAT_ID")
-	if ChatIDOk == false {
-		log.Fatal("TELEGRAM_CHAT_ID Environment Variable is unset, exiting.")
-	}
+	c.ChatID = id
 
-	configuration.APIKey = APIKey
-	configuration.ChatID = ChatID
-
-	return configuration
+	return &c, nil
 }
 
-//GetConfig Generates Configuration for application from environmental variables.
-func GetConfig(region string, delay int64, smsEnabled bool, discordEnabled bool, twitterEnabled bool, telegramEnabled bool) (*Config, error) {
+//Get Generates Configuration for application from environmental variables.
+func Get(region string, delay int64, sms bool, discord bool, twitter bool, telegram bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
 		configuration := Config{}
 
@@ -284,24 +293,40 @@ func GetConfig(region string, delay int64, smsEnabled bool, discordEnabled bool,
 		configuration.Locale = regionConfig.Locale
 		configuration.Currency = regionConfig.Currency
 
-		if smsEnabled == true {
-			configuration.TwilioConfig = GetTwilioConfig()
+		if sms == true {
+			cfg, err := getTwilio()
+			if err != nil {
+				return nil, err
+			}
+			configuration.TwilioConfig = *cfg
 		}
 
-		if discordEnabled == true {
-			configuration.DiscordConfig = GetDiscordConfig()
+		if discord == true {
+			cfg, err := getDiscord()
+			if err != nil {
+				return nil, err
+			}
+			configuration.DiscordConfig = *cfg
 		}
 
-		if twitterEnabled == true {
-			configuration.TwitterConfig = GetTwitterConfig()
+		if twitter == true {
+			cfg, err := getTwitter()
+			if err != nil {
+				return nil, err
+			}
+			configuration.TwitterConfig = *cfg
 		}
 
-		if telegramEnabled == true {
-			configuration.TelegramConfig = GetTelegramConfig()
+		if telegram == true {
+			cfg, err := getTelegram()
+			if err != nil {
+				return nil, err
+			}
+			configuration.TelegramConfig = *cfg
 		}
 
 		return &configuration, nil
 	}
 
-	return nil, errors.New("unsupported region provided")
+	return nil, &RegionError{region}
 }
