@@ -173,7 +173,7 @@ func MonitorRelease(ctx context.Context, config *config.Config, twilio bool, dis
 				continue
 			}
 
-			checkoutErr := browser.Checkout(ctx, config.Locale)
+			checkoutErr := browser.Checkout(config.Locale)
 			if checkoutErr != nil {
 				log.Printf("Error adding item to checkout retrying...\n")
 				continue

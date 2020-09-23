@@ -137,7 +137,6 @@ type Session struct {
 }
 
 var session Session
-var allocCtx, _ = chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("enable-automation", false), chromedp.Flag("headless", false))...)
 
 const nvidiaAPIKey = "9485fa7b159e42edb08a83bde0d83dia"
 
@@ -359,10 +358,13 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string, delay in
 }
 
 //Checkout Opens customer checkout
-func Checkout(context context.Context, locale string) error {
+func Checkout(locale string) error {
+	var allocCtx, _ = chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("enable-automation", false), chromedp.Flag("headless", false))...)
+	ctx, _ := chromedp.NewContext(allocCtx)
+
 	checkoutURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/carts/active/web-checkout?token=%s&locale=%s", session.AccessToken, locale) + urlTime()
 
-	err := chromedp.Run(context,
+	err := chromedp.Run(ctx,
 		chromedp.Navigate(checkoutURL),
 	)
 	if err != nil {
@@ -391,6 +393,8 @@ func AddToCart(context context.Context, sku string, locale string) error {
 
 // Start Starts the ChromeRD browser session and returns it's context.
 func Start(config config.Config) (context.Context, error) {
+	var allocCtx, _ = chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("enable-automation", true), chromedp.Flag("headless", true))...)
+
 	ctx, _ := chromedp.NewContext(allocCtx)
 	var res string
 
