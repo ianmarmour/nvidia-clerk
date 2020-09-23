@@ -63,14 +63,14 @@ func main() {
 	// Parse Argument Flags
 	flag.StringVar(&region, "region", "USA", "3 Letter region code")
 	flag.Int64Var(&delay, "delay", 500, "Delay for refreshing in miliseconds")
-	useTwitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
-	useSms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
-	useDiscord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
-	useTelegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
-	useTest := flag.Bool("test", false, "Enable testing mode")
+	twitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
+	sms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
+	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
+	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
+	test := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
-	config, configErr := config.Get(region, delay, *useSms, *useDiscord, *useTwitter, *useTelegram)
+	config, configErr := config.Get(region, delay, *sms, *discord, *twitter, *telegram)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
@@ -78,21 +78,21 @@ func main() {
 	httpClient := &http.Client{Timeout: 10 * time.Second}
 
 	// Execute Tests
-	if *useTest == true {
+	if *test == true {
 		config.SKU = config.TestSKU
-		if *useSms == true {
+		if *sms == true {
 			runTest("sms", httpClient, *config)
 		}
 
-		if *useDiscord == true {
+		if *discord == true {
 			runTest("discord", httpClient, *config)
 		}
 
-		if *useTwitter == true {
+		if *twitter == true {
 			runTest("twitter", httpClient, *config)
 		}
 
-		if *useTelegram == true {
+		if *telegram == true {
 			runTest("telegram", httpClient, *config)
 		}
 
@@ -129,7 +129,7 @@ func main() {
 				continue
 			}
 
-			if *useSms == true {
+			if *sms == true {
 				textErr := alert.SendText(productID, config.TwilioConfig, httpClient)
 				if textErr != nil {
 					log.Printf("Error sending SMS notification retrying...\n")
@@ -137,7 +137,7 @@ func main() {
 				}
 			}
 
-			if *useTwitter == true {
+			if *twitter == true {
 				tweetErr := alert.SendTweet(productID, config.TwitterConfig)
 				if tweetErr != nil {
 					log.Printf("Error sending Twitter notification retrying...\n")
@@ -145,7 +145,7 @@ func main() {
 				}
 			}
 
-			if *useDiscord == true {
+			if *discord == true {
 				discordErr := alert.SendDiscordMessage(productID, config.DiscordConfig, httpClient)
 				if discordErr != nil {
 					log.Printf("Error sending discord notification retrying...\n")
@@ -153,7 +153,7 @@ func main() {
 				}
 			}
 
-			if *useTelegram == true {
+			if *telegram == true {
 				telegramErr := alert.SendTelegramMessage(productID, config.TelegramConfig, httpClient)
 				if telegramErr != nil {
 					log.Printf("Error sending telegram notification retrying...\n")

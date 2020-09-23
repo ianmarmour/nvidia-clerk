@@ -185,7 +185,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 }
 
-//twitter Generates TwitterConfiguration for application from environmental variables.
+//getTwitter Generates TwitterConfiguration for application from environmental variables.
 func getTwitter() (*TwitterConfig, error) {
 	c := TwitterConfig{}
 
@@ -218,7 +218,7 @@ func getTwitter() (*TwitterConfig, error) {
 	return &c, nil
 }
 
-//twilio Generates TwilioConfiguration for application from environmental variables.
+//getTwilio Generates TwilioConfiguration for application from environmental variables.
 func getTwilio() (*TwilioConfig, error) {
 	c := TwilioConfig{}
 
@@ -249,7 +249,7 @@ func getTwilio() (*TwilioConfig, error) {
 	return &c, nil
 }
 
-//discord Generates DiscordConfiguration for application from environmental variables.
+//getDiscord Generates DiscordConfiguration for application from environmental variables.
 func getDiscord() (*DiscordConfig, error) {
 	c := DiscordConfig{}
 
