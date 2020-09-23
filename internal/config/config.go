@@ -224,7 +224,7 @@ func getTwilio() (*TwilioConfig, error) {
 
 	id, idOk := os.LookupEnv("TWILIO_ACCOUNT_SID")
 	if idOk == false {
-		return nil, &ConfigError{"Twilio", "TWLIO_ACCOUNT_SID"}
+		return nil, &ConfigError{"Twilio", "TWILIO_ACCOUNT_SID"}
 	}
 	c.AccountSID = id
 

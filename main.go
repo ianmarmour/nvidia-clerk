@@ -17,7 +17,7 @@ var testsHaveErrors bool
 
 func runTest(name string, client *http.Client, config config.Config) {
 	switch name {
-	case "sms":
+	case "twilio":
 		textErr := alert.SendText(config.SKU, config.TwilioConfig, client)
 		if textErr != nil {
 			fmt.Printf("Error testing SMS notification...\n")
@@ -64,36 +64,36 @@ func main() {
 	flag.StringVar(&region, "region", "USA", "3 Letter region code")
 	flag.Int64Var(&delay, "delay", 500, "Delay for refreshing in miliseconds")
 	twitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
-	sms := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
+	twilio := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	test := flag.Bool("test", false, "Enable testing mode")
 	flag.Parse()
 
-	config, configErr := config.Get(region, delay, *sms, *discord, *twitter, *telegram)
+	config, configErr := config.Get(region, delay, *twilio, *discord, *twitter, *telegram)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
 
-	httpClient := &http.Client{Timeout: 10 * time.Second}
+	client := &http.Client{Timeout: 10 * time.Second}
 
 	// Execute Tests
 	if *test == true {
 		config.SKU = config.TestSKU
-		if *sms == true {
-			runTest("sms", httpClient, *config)
+		if *twilio == true {
+			runTest("twilio", client, *config)
 		}
 
 		if *discord == true {
-			runTest("discord", httpClient, *config)
+			runTest("discord", client, *config)
 		}
 
 		if *twitter == true {
-			runTest("twitter", httpClient, *config)
+			runTest("twitter", client, *config)
 		}
 
 		if *telegram == true {
-			runTest("telegram", httpClient, *config)
+			runTest("telegram", client, *config)
 		}
 
 		if testsHaveErrors == true {
@@ -102,35 +102,39 @@ func main() {
 		}
 	}
 
-	sessionContext := browser.StartSession(*config)
+	ctx, err := browser.Start(*config)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	for {
-		skuInfo, skuInfoErr := browser.GetInventoryStatus(sessionContext, config.SKU, config.Locale, config.Delay)
-		if skuInfoErr != nil {
+		invStatus, invStatusErr := browser.GetInventoryStatus(ctx, config.SKU, config.Locale, config.Delay)
+		if invStatusErr != nil {
 			log.Printf("Error getting SKU Information retrying...\n")
 			continue
 		}
-		productID := skuInfo.Product.ID
-		skuStatus := skuInfo.Status
+		id := invStatus.Product.ID
+		status := invStatus.Status
 
-		log.Println("Product ID: " + productID)
-		log.Println("Product Status: " + skuStatus)
+		log.Println("Product ID: " + id)
+		log.Println("Product Status: " + status)
 
-		if skuStatus == "PRODUCT_INVENTORY_IN_STOCK" {
-			cartErr := browser.AddToCart(sessionContext, config.SKU, config.Locale)
+		if status == "PRODUCT_INVENTORY_IN_STOCK" {
+			cartErr := browser.AddToCart(ctx, config.SKU, config.Locale)
+
 			if cartErr != nil {
 				log.Printf("Error adding item to cart retrying...\n")
 				continue
 			}
 
-			checkoutErr := browser.Checkout(sessionContext, config.Locale)
+			checkoutErr := browser.Checkout(ctx, config.Locale)
 			if checkoutErr != nil {
 				log.Printf("Error adding item to checkout retrying...\n")
 				continue
 			}
 
-			if *sms == true {
-				textErr := alert.SendText(productID, config.TwilioConfig, httpClient)
+			if *twilio == true {
+				textErr := alert.SendText(id, config.TwilioConfig, client)
 				if textErr != nil {
 					log.Printf("Error sending SMS notification retrying...\n")
 					continue
@@ -138,7 +142,7 @@ func main() {
 			}
 
 			if *twitter == true {
-				tweetErr := alert.SendTweet(productID, config.TwitterConfig)
+				tweetErr := alert.SendTweet(id, config.TwitterConfig)
 				if tweetErr != nil {
 					log.Printf("Error sending Twitter notification retrying...\n")
 					continue
@@ -146,7 +150,7 @@ func main() {
 			}
 
 			if *discord == true {
-				discordErr := alert.SendDiscordMessage(productID, config.DiscordConfig, httpClient)
+				discordErr := alert.SendDiscordMessage(id, config.DiscordConfig, client)
 				if discordErr != nil {
 					log.Printf("Error sending discord notification retrying...\n")
 					continue
@@ -154,15 +158,16 @@ func main() {
 			}
 
 			if *telegram == true {
-				telegramErr := alert.SendTelegramMessage(productID, config.TelegramConfig, httpClient)
+				telegramErr := alert.SendTelegramMessage(id, config.TelegramConfig, client)
 				if telegramErr != nil {
 					log.Printf("Error sending telegram notification retrying...\n")
 					continue
 				}
 			}
 
-			// Exit clean after a SKU was added to checkout cart.
-			os.Exit(0)
+			break
 		}
 	}
+
+	os.Exit(0)
 }
