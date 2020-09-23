@@ -3,35 +3,35 @@ package alert
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 )
 
-type DiscordPayload struct {
+type payload struct {
 	Content string `json:"content"`
 }
 
 //SendDiscordMessage Sends a notification message to a Discord Webhook.
 func SendDiscordMessage(item string, config config.DiscordConfig, client *http.Client) error {
-	content := fmt.Sprintf("%s Ready for Purchase", item)
+	body := fmt.Sprintf("%s Ready for Purchase", item)
 
-	payload, err := json.Marshal(DiscordPayload{content})
-
+	json, err := json.Marshal(payload{body})
 	if err != nil {
-		log.Fatalln("Unable to marshal discord payload.")
+		return err
 	}
 
-	req, _ := http.NewRequest("POST", config.WebhookURL, bytes.NewBuffer(payload))
+	req, err := http.NewRequest("POST", config.WebhookURL, bytes.NewBuffer(json))
+	if err != nil {
+		return err
+	}
+
 	req.Header.Add("Content-Type", "application/json")
 
-	resp, _ := client.Do(req)
-	if resp.StatusCode >= 400 {
-		fmt.Println("Unable to send message to discord, bad request.")
-		return errors.New("Bad Request")
+	_, err = client.Do(req)
+	if err != nil {
+		return err
 	}
 
 	return nil
