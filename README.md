@@ -1,3 +1,5 @@
+9/23/2020 3:34PM - BROKEN UPDATES COMING LATER TODAY (3080's came and went right after Nvidia completely changed their API's Keys Throttling ETC
+
 # nvidia-clerk
 
 This project was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
