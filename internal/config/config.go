@@ -208,12 +208,26 @@ func GetTwitterConfig() TwitterConfig {
 func GetTwilioConfig() TwilioConfig {
 	configuration := TwilioConfig{}
 
-	accountSid, accountSidOk := os.LookupEnv("TWILIO_ACCOUNT_SID")
-	if accountSidOk == false {
-		log.Fatal("TWLIO_ACCOUNT_SID Environment Variable is unset, exiting.")
-	}
+	authSID, authSIDOK := os.LookupEnv("TWILIO_ACCOUNT_AUTH_SID")
+	
+	if authSIDOK == true {
+		// check if the AUTH_SID value is set
 
-	configuration.AccountSID = accountSid
+		log.Print("Found an Auth_SID")
+
+		// just set the authSID equal to accountSid if they are interchangable. Needs to be verified though.
+		configuration.AccountSID = authSID
+	} else {
+		// else if the authSID doesn't exist, look up the account SID instead
+		accountSid, accountSidOk := os.LookupEnv("TWILIO_ACCOUNT_SID")
+		if accountSidOk == false {	
+			log.Fatal("TWLIO_ACCOUNT_SID Environment Variable is unset, exiting.")
+		}
+
+		log.Print("Found an Account_SID")
+
+		configuration.AccountSID = accountSid
+	}
 
 	token, tokenOk := os.LookupEnv("TWILIO_TOKEN")
 	if tokenOk == false {
