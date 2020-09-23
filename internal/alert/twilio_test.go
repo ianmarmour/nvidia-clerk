@@ -9,9 +9,9 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 )
 
-func TestSendDiscordMessage(t *testing.T) {
+func TestSendText(t *testing.T) {
 	client := NewTestClient(func(req *http.Request) *http.Response {
-		if req.URL.String() == "http://testurl/webhook/" {
+		if req.URL.String() == "https://api.twilio.com/2010-04-01/Accounts/1/Messages" {
 			return &http.Response{
 				StatusCode: 200,
 				Body:       ioutil.NopCloser(bytes.NewBufferString(`OK`)),
@@ -26,11 +26,14 @@ func TestSendDiscordMessage(t *testing.T) {
 		}
 	})
 
-	cfg := config.DiscordConfig{
-		WebhookURL: "http://testurl/webhook/",
+	cfg := config.TwilioConfig{
+		AccountSID:        "1",
+		Token:             "fake",
+		SourceNumber:      "fake",
+		DestinationNumber: "fake",
 	}
 
-	err := SendDiscordMessage("FAKE_SKU_NUMBER", cfg, client)
+	err := SendText("FAKE_SKU_NUMBER", cfg, client)
 	if err != nil {
 		t.Errorf(err.Error())
 	}

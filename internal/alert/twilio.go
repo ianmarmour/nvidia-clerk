@@ -1,7 +1,6 @@
 package alert
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -12,30 +11,26 @@ import (
 
 //SendText Sends an SMS notification using Twilio Service.
 func SendText(item string, config config.TwilioConfig, client *http.Client) error {
-	endpoint := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages", config.AccountSID)
+	api := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages", config.AccountSID)
+	data := url.Values{
+		"To":   {config.DestinationNumber},
+		"From": {config.SourceNumber},
+		"Body": {fmt.Sprintf("%s Ready for Purchase", item)},
+	}
+	reader := *strings.NewReader(data.Encode())
 
-	msgData := url.Values{}
-	msgData.Set("To", config.DestinationNumber)
-	msgData.Set("From", config.SourceNumber)
-	msgData.Set("Body", fmt.Sprintf("%s Ready for Purchase", item))
-	msgDataReader := *strings.NewReader(msgData.Encode())
+	req, err := http.NewRequest("POST", api, &reader)
+	if err != nil {
+		return err
+	}
 
-	req, _ := http.NewRequest("POST", endpoint, &msgDataReader)
 	req.SetBasicAuth(config.AccountSID, config.Token)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
-	resp, _ := client.Do(req)
-	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
-		var data map[string]interface{}
-		decoder := json.NewDecoder(resp.Body)
-		err := decoder.Decode(&data)
-		if err == nil {
-			fmt.Println(data["sid"])
-			return err
-		}
-	} else {
-		fmt.Println(resp.Body)
+	_, err = client.Do(req)
+	if err != nil {
+		return err
 	}
 
 	return nil
