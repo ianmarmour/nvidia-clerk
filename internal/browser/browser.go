@@ -70,23 +70,26 @@ func constructSessionURL(locale string) string {
 
 // GetInventoryStatus Retrieves sku inventory information from digitalriver
 func GetInventoryStatus(ctx context.Context, sku string, locale string, delay int64) (*InventoryStatus, error) {
-	baseURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/products/%s/inventory-status?", sku)
-	apiKeyParam := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
-	localeParam := fmt.Sprintf("&locale=%s", locale)
-	stockURL := baseURL + apiKeyParam + localeParam + uniqueParam()
+	bURL := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/products/%s/inventory-status?", sku)
+	apiP := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
+	locP := fmt.Sprintf("&locale=%s", locale)
+	sURL := bURL + apiP + locP + uniqueParam()
 
-	var stockRequestID network.RequestID
+	// Avoid race conditions in ActionFunc
+	rIDs := make(chan network.RequestID)
 
 	// Have to establish a network listener here to get raw XML response.
 	chromedp.ListenTarget(
 		ctx,
 		func(event interface{}) {
-			switch responseReceivedEvent := event.(type) {
+			switch ev := event.(type) {
 			case *network.EventResponseReceived:
-				response := responseReceivedEvent.Response
-				if response.URL == stockURL {
-					stockRequestID = responseReceivedEvent.RequestID
-				}
+				go func() {
+					response := ev.Response
+					if response.URL == sURL {
+						rIDs <- ev.RequestID
+					}
+				}()
 			}
 		},
 	)
@@ -95,15 +98,15 @@ func GetInventoryStatus(ctx context.Context, sku string, locale string, delay in
 
 	err := chromedp.Run(ctx,
 		network.Enable(),
-		chromedp.Navigate(stockURL),
+		chromedp.Navigate(sURL),
 		chromedp.Sleep(time.Millisecond*time.Duration(delay)),
 		chromedp.ActionFunc(func(cxt context.Context) error {
-			body, err := network.GetResponseBody(stockRequestID).Do(cxt)
+			rID := <-rIDs
+			body, err := network.GetResponseBody(rID).Do(cxt)
 			stockResponseBody = body
 			return err
 		}),
 	)
-
 	if err != nil {
 		log.Println("Error retrieving inventory status")
 		return nil, err
