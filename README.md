@@ -174,7 +174,7 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 
 ## FAQ
 
-#### `exec: "google-chrome": executable file not found in %PATH%`
+#### exec: "google-chrome": executable file not found in %PATH%
 The path to google chrome needs to be added to the path. While reinstalling Chrome can fix it, a quick search on Google will show you how to do exactly this.
 
 #### My environment variables are being unset
