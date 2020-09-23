@@ -171,9 +171,9 @@ func TestGet(t *testing.T) {
 	}
 
 	for name, test := range tests {
-		defer resetEnv(os.Environ())
-
 		t.Run(name, func(t *testing.T) {
+			defer resetEnv(os.Environ())
+
 			test.environment()
 
 			result, err := Get(test.region, test.delay, test.sms, test.discord, test.twitter, test.telegram)
