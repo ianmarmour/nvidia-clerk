@@ -13,21 +13,96 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 )
 
-type InventoryStatus struct {
-	XMLName                      xml.Name `xml:"inventoryStatus"`
-	URI                          string   `xml:"uri,attr"`
-	Product                      Product  `xml:"product"`
-	AvailableQuantityIsEstimated bool     `xml:"availableQuantityIsEstimated"`
-	ProductIsInStock             bool     `xml:"productIsInStock"`
-	ProductIsAllowsBackorders    bool     `xml:"productIsAllowsBackorders"`
-	ProductIsTracked             bool     `xml:"productIsTracked"`
-	RequestedQuantityAvailable   bool     `xml:"requestedQuantityAvailable"`
-	Status                       string   `xml:"status"`
-	StatusIsEstimated            bool     `xml:"statusIsEstimated"`
-	CustomStockMessage           string   `xml:"customStockMessage"`
+// Product Digital River product schema used for XML unmarshalling
+type Product struct {
+	XMLName                xml.Name         `xml:"product"`
+	URI                    string           `xml:"uri,attr"`
+	Categories             Categories       `xml:"categories"`
+	FamilyAttributes       FamilyAttributes `xml:"familyAttributes"`
+	ID                     string           `xml:"id"`
+	Name                   string           `xml:"name"`
+	DisplayName            string           `xml:"displayName"`
+	ShortDescription       string           `xml:"shortDescription"`
+	LongDescription        string           `xml:"longDescription"`
+	ProductType            string           `xml:"productType"`
+	SKU                    string           `xml:"sku"`
+	ExternalReferenceID    string           `xml:"externalReferenceId"`
+	CompanyID              string           `xml:"companyId"`
+	DisplayableProduct     bool             `xml:"displayableProduct"`
+	Purchasable            bool             `xml:"purchasable"`
+	ManufacturerName       string           `xml:"manufacturerName"`
+	ManufacturerPartNumber string           `xml:"manufacturerPartNumber"`
+	MinimumQuantity        int              `xml:"minimumQuantity"`
+	MaximumQuantity        int              `xml:"maximumQuantity"`
+	ThumbnailImage         string           `xml:"thumbnailImage"`
+	ProductImage           string           `xml:"productImage"`
+	Keywords               string           `xml:"keywords"`
+	BaseProduct            bool             `xml:"baseProduct"`
+	Pricing                ProductPricing   `xml:"pricing"`
+	AddProductToCart       AddProductToCart `xml:"addProductToCart"`
 }
 
-type Product struct {
+// ProductPricing Digital River pricing schema used for XML unmarshalling of Product
+type ProductPricing struct {
+	XMLName                        xml.Name              `xml:"pricing"`
+	URI                            string                `xml:"uri,attr"`
+	ListPrice                      ListPrice             `xml:"listPrice"`
+	SalePriceWithQuantity          SalePriceWithQuantity `xml:"salePriceWithQuantity"`
+	FormattedListPrice             string                `xml:"formattedListPrice"`
+	FormattedSalePriceWithQuantity string                `xml:"formattedSalePriceWithQuantity"`
+	ListPriceIncludesTax           bool                  `xml:"listPriceIncludesTax"`
+	MSRPPrice                      string                `xml:"msrpPrice"`
+	FormattedMSRPPrice             string                `xml:"formattedMsrpPrice"`
+}
+
+// Categories Digital River categories schema used for XML unmarshalling of Product
+type Categories struct {
+	XMLName xml.Name `xml:"categories"`
+	URI     string   `xml:"uri,attr"`
+}
+
+// FamilyAttributes Digital River familyAttributes schema used for XML unmarshalling of Product
+type FamilyAttributes struct {
+	XMLName xml.Name `xml:"familyAttributes"`
+	URI     string   `xml:"uri,attr"`
+}
+
+// ListPrice Digital River listPrice schema used for XML unmarshalling of Product
+type ListPrice struct {
+	XMLName  xml.Name `xml:"listPrice"`
+	Currency string   `xml:"currency,attr"`
+}
+
+// SalePriceWithQuantity Digital River salePriceWithQuantity schema used for XML unmarshalling of Product
+type SalePriceWithQuantity struct {
+	XMLName  xml.Name `xml:"salePriceWithQuantity"`
+	Currency string   `xml:"currency,attr"`
+}
+
+//AddProductToCart Digital River addProductToCart schema used for XML unmarshalling of Product
+type AddProductToCart struct {
+	XMLName xml.Name `xml:"addProductToCart"`
+	CartURI string   `xml:"cartUri,attr"`
+	URI     string   `xml:"uri,attr"`
+}
+
+//InventoryStatus Digital River inventoryStatus schema used for XML unmarshalling
+type InventoryStatus struct {
+	XMLName                      xml.Name         `xml:"inventoryStatus"`
+	URI                          string           `xml:"uri,attr"`
+	Product                      InventoryProduct `xml:"product"`
+	AvailableQuantityIsEstimated bool             `xml:"availableQuantityIsEstimated"`
+	ProductIsInStock             bool             `xml:"productIsInStock"`
+	ProductIsAllowsBackorders    bool             `xml:"productIsAllowsBackorders"`
+	ProductIsTracked             bool             `xml:"productIsTracked"`
+	RequestedQuantityAvailable   bool             `xml:"requestedQuantityAvailable"`
+	Status                       string           `xml:"status"`
+	StatusIsEstimated            bool             `xml:"statusIsEstimated"`
+	CustomStockMessage           string           `xml:"customStockMessage"`
+}
+
+//InventoryProduct Digital River product schema used for XML unmarshalling of inventoryStatus
+type InventoryProduct struct {
 	XMLName             xml.Name `xml:"product"`
 	URI                 string   `xml:"uri,attr"`
 	ID                  string   `xml:"id"`
@@ -35,6 +110,7 @@ type Product struct {
 	CompanyID           string   `xml:"companyId"`
 }
 
+//Session NVIDIA store session response used to authenticate in the browser
 type Session struct {
 	AccessToken  string `json:"access_token"`
 	TokenType    string `json:"token_type"`
@@ -69,6 +145,61 @@ func sessionURL(locale string) string {
 	api := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
 
 	return url + loc + api + urlTime()
+}
+
+// GetProduct Retrieves sku product information from digitalriver
+func GetProduct(ctx context.Context, sku string, locale string, delay int64) (*Product, error) {
+	url := fmt.Sprintf("https://api.digitalriver.com/v1/shoppers/me/products/%s?", sku)
+	api := fmt.Sprintf("&apiKey=%s", nvidiaAPIKey)
+	loc := fmt.Sprintf("&locale=%s", locale)
+	url = url + api + loc + urlTime()
+
+	// Avoid race conditions in ActionFunc
+	reqIDs := make(chan network.RequestID)
+
+	// Have to establish a network listener here to get raw XML response.
+	chromedp.ListenTarget(
+		ctx,
+		func(event interface{}) {
+			switch ev := event.(type) {
+			case *network.EventResponseReceived:
+				go func() {
+					response := ev.Response
+					if response.URL == url {
+						reqIDs <- ev.RequestID
+					}
+				}()
+			}
+		},
+	)
+
+	var resBody []byte
+
+	err := chromedp.Run(ctx,
+		network.Enable(),
+		chromedp.Navigate(url),
+		chromedp.Sleep(time.Millisecond*time.Duration(delay)),
+		chromedp.ActionFunc(func(cxt context.Context) error {
+			id := <-reqIDs
+			body, err := network.GetResponseBody(id).Do(cxt)
+			resBody = body
+			return err
+		}),
+	)
+	if err != nil {
+		log.Println("Error retrieving inventory status")
+		return nil, err
+	}
+
+	product := Product{}
+
+	xmlErr := xml.Unmarshal(resBody, &product)
+	if xmlErr != nil {
+		log.Println("Erorr unmarshalling inventory XML")
+		return nil, xmlErr
+	}
+
+	return &product, nil
 }
 
 // GetInventoryStatus Retrieves sku inventory information from digitalriver
@@ -159,7 +290,7 @@ func AddToCart(context context.Context, sku string, locale string) error {
 
 // Start Starts the ChromeRD browser session and returns it's context.
 func Start(config config.Config) (context.Context, error) {
-	allocCtx, _ := chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("headless", false))...)
+	allocCtx, _ := chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("enable-automation", false), chromedp.Flag("headless", false))...)
 	ctx, _ := chromedp.NewContext(allocCtx)
 	var res string
 

@@ -107,17 +107,24 @@ func main() {
 		log.Fatal(err)
 	}
 
+	product, productErr := browser.GetProduct(ctx, config.SKU, config.Locale, config.Delay)
+	if productErr != nil {
+		log.Printf("Error getting Product Information retrying...\n")
+	}
+
 	for {
 		invStatus, invStatusErr := browser.GetInventoryStatus(ctx, config.SKU, config.Locale, config.Delay)
 		if invStatusErr != nil {
-			log.Printf("Error getting SKU Information retrying...\n")
+			log.Printf("Error getting Iventory Status retrying...\n")
 			continue
 		}
 		id := invStatus.Product.ID
 		status := invStatus.Status
 
 		log.Println("Product ID: " + id)
-		log.Println("Product Status: " + status)
+		log.Println("Product Name: " + product.Name)
+		log.Println("Product Locale: " + config.Locale)
+		log.Println("Product Status: " + status + "\n")
 
 		if status == "PRODUCT_INVENTORY_IN_STOCK" {
 			cartErr := browser.AddToCart(ctx, config.SKU, config.Locale)
