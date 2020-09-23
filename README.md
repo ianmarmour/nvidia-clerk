@@ -25,6 +25,10 @@ Download the latest release from [Releases](https://github.com/ianmarmour/nvidia
 
 AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR, NLD
 
+### Supported Models
+
+3070, 3080, 3090 
+
 ## Usage
 | :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
 |-----------------------------------------|
@@ -33,7 +37,7 @@ AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR, NLD
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
 ```Batchfile
-nvidia-clerk-windows.exe -region=REGION_CODE_HERE
+nvidia-clerk-windows.exe -region=REGION_CODE_HERE -model=3080
 ```
 
 ### Mac OSX
@@ -42,7 +46,7 @@ nvidia-clerk-windows.exe -region=REGION_CODE_HERE
 ```shell
 chmod +x ./nvidia-clerk-darwin
 
-./nvidia-clerk-darwin -region=REGION_CODE_HERE
+./nvidia-clerk-darwin -region=REGION_CODE_HERE -model=3080
 ```
 
 ### Linux
@@ -51,7 +55,7 @@ chmod +x ./nvidia-clerk-darwin
 ```shell
 chmod +x ./nvidia-clerk-linux
 
-./nvidia-clerk-linux -region=REGION_CODE_HERE
+./nvidia-clerk-linux -region=REGION_CODE_HERE -model=3080
 ```
 
 ## Testing
@@ -106,7 +110,7 @@ nvidia-clerk-windows.exe -sms -test
 ### Usage
 
 ```shell
-nvidia-clerk-windows.exe -sms -region=REGION_CODE_HERE
+nvidia-clerk-windows.exe -sms -region=REGION_CODE_HERE -model=3080
 ```
 
 ## Discord Notifications
@@ -124,7 +128,7 @@ set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
 ### Usage
 
 ```Batchfile
-./nvidia-clerk-windows.exe -discord -region=REGION_CODE_HERE
+./nvidia-clerk-windows.exe -discord -region=REGION_CODE_HERE -model=3080
 ```
 
 ## Twitter Notifications
@@ -145,7 +149,7 @@ set TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_HERE
 ### Usage
 
 ```Batchfile
-./nvidia-clerk-windows.exe -twitter -region=REGION_CODE_HERE
+./nvidia-clerk-windows.exe -twitter -region=REGION_CODE_HERE -model=3080
 ```
 
 ## Telegram Notifications
@@ -169,7 +173,7 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 ### Usage
 
 ```Batchfile
-./nvidia-clerk-windows.exe -telegram -region=REGION_CODE_HERE
+./nvidia-clerk-windows.exe -telegram -region=REGION_CODE_HERE -model=3080
 ```
 
 ## FAQ
@@ -186,7 +190,7 @@ set TWILIO_TOKEN={YOUR_TWILIO_TOKEN}
 set TWILIO_SOURCE_NUMBER={YOUR_TWILIO_PHONE_NR}
 set TWILIO_DESTINATION_NUMBER={THE_NUMBER_TO_WHICH_TO_SEND_THE_NOTIFICATIONS}
 
-nvidia-clerk-windows.exe -region={REGION_CODE_HERE}
+nvidia-clerk-windows.exe -region={REGION_CODE_HERE} -model=3080
 ``` 
 
 #### The log says "Access Denied" and then quits
