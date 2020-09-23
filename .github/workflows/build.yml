@@ -39,3 +39,6 @@ jobs:
 
     - name: Build Darwin
       run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
+
+    - name: Test 
+      run: go test -v ./...
