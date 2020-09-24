@@ -1,7 +1,3 @@
-# 9/23/2020 3:34PM - NVIDIA Rotated Their API Keys Today And Adding Botting Protection 
-
-What this means for clerk, you won't get automatical checkout addition anymore just notifications of in stock inventory and the a browser open for you to add it to your cart. We added some basic randomization of request times too just in case (but it appears NVIDIA isn't blocking traffic that looks bot like). It also means more tragically that we can't scan for the new SKU numbers for the 3090 or 3070 prior to their launch. I'm still looking into any potential options, NVIDIA's API Key was leaked for many years but they've fixed that now without it I'm not sure that we can get the 3090/3070 SKUs.
-
 # nvidia-clerk
 
 `nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
@@ -13,10 +9,8 @@ What this means for clerk, you won't get automatical checkout addition anymore j
 private bots to procure large quantities of NVIDIA GPU's and most consumers were left without being able to purchase the product. This 
 project will provide a short term solution so that customers can ensure they can buy a GPU and compete with these scalpers.
 
-NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs and automatically adds a GPU
-to your checkout/cart and navigates your browser checkout page whenever they become avaliable. The clerk can also notify you of this process if you provide
-Twilio API information (I am not interested in running an entire service for users, so this feature is limited to users aware of how to setup
-such things).
+NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs and automatically opens your browser to the 
+page containing the add to cart link.The clerk can also notify you of avaliability through various services (See Advanced Configuration for setup details).
 
 ## Install
 
