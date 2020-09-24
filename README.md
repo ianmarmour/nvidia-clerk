@@ -12,7 +12,7 @@ All functionaly is restored and improved for adding cards to checkout, please se
 private bots to procure large quantities of NVIDIA GPU's and most consumers were left without being able to purchase the product. This 
 project will provide a short term solution so that customers can ensure they can buy a GPU and compete with these scalpers.
 
-NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs when a card becomes avaliable it can automatically notify you and open your browser to the page containing the add to cart link.
+NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs when a card becomes avaliable it can automatically notify you or open your browser to the page with a cart containing your item.
 
 ## Install
 
