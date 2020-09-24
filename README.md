@@ -1,4 +1,4 @@
-# UPDATE
+# UPDATE - Autocheckout is BACK
 All functionaly is restored and improved for adding cards to checkout, please see the new usage section for users who are away from their computer!
 
 # nvidia-clerk
