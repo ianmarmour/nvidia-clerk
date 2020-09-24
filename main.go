@@ -32,7 +32,8 @@ func main() {
 	twilio := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
-	test := flag.Bool("test", false, "Enable testing mode")
+	remote := flag.Bool("remote", false, "Enable notification only mode.")
+	test := flag.Bool("test", false, "Enable remote mode for when you're away from computer.")
 	flag.Parse()
 
 	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram)
@@ -41,6 +42,10 @@ func main() {
 	}
 
 	client := &http.Client{Timeout: 10 * time.Second}
+	token, err := rest.GetSessionToken(client)
+	if err != nil {
+		log.Fatal("Error getting session token from NVIDIA store.")
+	}
 
 	for {
 		sleep(delay)
@@ -62,17 +67,22 @@ func main() {
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" || *test == true {
-			url := productUrl(config.NvidiaLocale, model)
+			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.Locale)
+			if err != nil {
+				log.Fatal("Error adding card to checkout.")
+			}
 			id := info.Products.Product[0].Name
 
-			err := notify(id, url, config, client)
+			err = notify(id, cart.URL, config, client)
 			if err != nil {
 				log.Fatal("Error attempting to send notification.", err)
 			}
 
-			err = openbrowser(url)
-			if err != nil {
-				log.Fatal("Error attempting to open browser.", err)
+			if *remote != true {
+				err = openbrowser(cart.URL)
+				if err != nil {
+					log.Fatal("Error attempting to open browser.", err)
+				}
 			}
 
 			break
@@ -114,11 +124,6 @@ func notify(id string, url string, config *config.Config, client *http.Client) e
 	}
 
 	return nil
-}
-
-func productUrl(locale string, model string) string {
-	url := fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", locale, model)
-	return url
 }
 
 func openbrowser(url string) error {

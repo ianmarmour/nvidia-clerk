@@ -180,6 +180,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"USA": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5379432500"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438481700"),
