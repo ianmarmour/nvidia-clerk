@@ -109,17 +109,11 @@ func main() {
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
 			id := info.Products.Product[0].Name
-			ctx, err := browser.Start(*config)
-			if err != nil {
-				log.Fatal("Error attempting to open browser.")
-			}
-			browser.OpenProductPage(ctx, model, config.NvidiaLocale, *test)
 
 			if *twilio == true {
 				textErr := alert.SendText(id, config.TwilioConfig, client)
 				if textErr != nil {
 					log.Printf("Error sending SMS notification retrying...\n")
-					continue
 				}
 			}
 
@@ -127,7 +121,6 @@ func main() {
 				tweetErr := alert.SendTweet(id, config.TwitterConfig)
 				if tweetErr != nil {
 					log.Printf("Error sending Twitter notification retrying...\n")
-					continue
 				}
 			}
 
@@ -135,7 +128,6 @@ func main() {
 				discordErr := alert.SendDiscordMessage(id, config.DiscordConfig, client)
 				if discordErr != nil {
 					log.Printf("Error sending discord notification retrying...\n")
-					continue
 				}
 			}
 
@@ -143,9 +135,14 @@ func main() {
 				telegramErr := alert.SendTelegramMessage(id, config.TelegramConfig, client)
 				if telegramErr != nil {
 					log.Printf("Error sending telegram notification retrying...\n")
-					continue
 				}
 			}
+
+			ctx, err := browser.Start(*config)
+			if err != nil {
+				log.Fatal("Error attempting to open browser.")
+			}
+			browser.OpenProductPage(ctx, model, config.NvidiaLocale, *test)
 
 			break
 		}
