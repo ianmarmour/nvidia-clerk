@@ -15,11 +15,6 @@ such things).
 
 ## Install
 
-### Requirements
-
-* Google Chrome
-* Administrator Access
-
 ### Download
 Download the latest release from [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest)
 | :exclamation:  Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project we haven't paid for a signing certificate)   |
@@ -32,7 +27,7 @@ AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR, NLD
 ### Supported Models
 
 3080 (All regions)
-3090 (GBR and USA Only)
+3090 (GBR and USA Regions Only)
 
 ## Usage
 | :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
