@@ -1,3 +1,6 @@
+# UPDATE
+All functionaly is restored and improved for adding cards to checkout, please see the new usage section for users who are away from their computer!
+
 # nvidia-clerk
 
 `nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
@@ -83,6 +86,12 @@ nvidia-clerk-windows.exe -region=USA -test
 
 
 # Advanced Usage
+
+## Remote Mode
+Configures clerk to not open your browser but instead send you the checkout link via one of the below notification services.
+```
+nvidia-clerk-windows.exe -model=3090 -sms -remote
+```
 
 ## Manual Delay Usage
 Example of setting a 1 second delay (delay is specificed in miliseconds)
