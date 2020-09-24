@@ -67,7 +67,7 @@ func main() {
 	// Parse Argument Flags
 	flag.StringVar(&region, "region", "USA", "3 Letter region code")
 	flag.StringVar(&model, "model", "3080", "GPU Model number E.X. 3070, 3080, 3090")
-	flag.Int64Var(&delay, "delay", 500, "Delay for refreshing in miliseconds")
+	flag.Int64Var(&delay, "delay", 1, "Delay for refreshing in miliseconds")
 	twitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
 	twilio := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
