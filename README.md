@@ -1,5 +1,6 @@
-# 9/23/2020 3:34PM - BROKEN UPDATES COMING LATER TODAY (3080's came and went right after Nvidia completely changed their API's Keys Throttling ETC
-# NEW LINK WITH BUY NOW BUTTON - https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3080/
+# 9/23/2020 3:34PM - NVIDIA Rotated Their API Keys Today And Adding Botting Protection 
+
+What this means for clerk, you won't get automatical checkout addition anymore just notifications of in stock inventory and the a browser open for you to add it to your cart. We added some basic randomization of request times too just in case (but it appears NVIDIA isn't blocking traffic that looks bot like). It also means more tragically that we can't scan for the new SKU numbers for the 3090 or 3070 prior to their launch. I'm still looking into any potential options, NVIDIA's API Key was leaked for many years but they've fixed that now without it I'm not sure that we can get the 3090/3070 SKUs.
 
 # nvidia-clerk
 
