@@ -31,7 +31,8 @@ AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR, NLD
 
 ### Supported Models
 
-3080
+3080 (All regions)
+3090 (GBR and USA Only)
 
 ## Usage
 | :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
