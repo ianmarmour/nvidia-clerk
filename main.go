@@ -96,6 +96,11 @@ func main() {
 			continue
 		}
 
+		// HACK: Resolves https://github.com/ianmarmour/nvidia-clerk/issues/85
+		if len(info.Products.Product) < 1 {
+			continue
+		}
+
 		log.Println(fmt.Sprintf("Product ID: %v", info.Products.Product[0].ID))
 		log.Println("Product Name: " + info.Products.Product[0].Name)
 		log.Println("Product Locale: " + config.Locale)
