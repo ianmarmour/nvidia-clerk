@@ -4,8 +4,13 @@ What this means for clerk, you won't get automatical checkout addition anymore j
 
 # nvidia-clerk
 
-This project was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
-closed source "bots" to procure large quantities of NVIDIA GPU's and most consumers were left without being able to purchase the product. This 
+`nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
+
+[!alt text](.github/resources/images/example.png)
+
+## Background
+`nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
+private bots to procure large quantities of NVIDIA GPU's and most consumers were left without being able to purchase the product. This 
 project will provide a short term solution so that customers can ensure they can buy a GPU and compete with these scalpers.
 
 NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs and automatically adds a GPU
