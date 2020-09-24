@@ -87,9 +87,7 @@ func main() {
 	client := &http.Client{Timeout: 10 * time.Second}
 
 	for {
-		rand.Seed(time.Now().UnixNano())
-		n := rand.Intn(5)
-		time.Sleep(time.Duration(n) * time.Second)
+		sleep(delay)
 
 		info, err := rest.GetSkuInfo(*config.SKU, config.Locale, config.Currency, client)
 		if err != nil {
@@ -173,4 +171,14 @@ func ExecuteTests(config *config.Config, twilio bool, discord bool, twitter bool
 		log.Printf("Testing failed with errors, exiting...\n")
 		os.Exit(1)
 	}
+}
+
+func sleep(delay int64) {
+	// Force a randomized jitter of up to 5 seconds to avoid looking like a bot.
+	rand.Seed(time.Now().UnixNano())
+	n := rand.Intn(5)
+
+	ns := time.Duration(n) * time.Second
+	ds := time.Duration(delay/1000) * time.Second
+	time.Sleep(time.Duration(ns + ds))
 }

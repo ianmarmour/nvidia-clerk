@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -103,7 +104,7 @@ func GetSkuInfo(sku string, locale string, currency string, client *http.Client)
 	r, err := client.Get(endpoint)
 	if err != nil {
 		message := fmt.Sprintf("Error attempting to access URL: %s", endpoint)
-		fmt.Println(message)
+		log.Println(message)
 		return nil, err
 	}
 
@@ -113,14 +114,14 @@ func GetSkuInfo(sku string, locale string, currency string, client *http.Client)
 
 	body, readErr := ioutil.ReadAll(r.Body)
 	if readErr != nil {
-		fmt.Println(readErr)
+		log.Println(readErr)
 		return nil, readErr
 	}
 
 	products := ProductsResponse{}
 	jsonErr := json.Unmarshal(body, &products)
 	if jsonErr != nil {
-		fmt.Println(jsonErr)
+		log.Println(jsonErr)
 		return nil, jsonErr
 	}
 
