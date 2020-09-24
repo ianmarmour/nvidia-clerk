@@ -33,7 +33,7 @@ func TestSendText(t *testing.T) {
 		DestinationNumber: "fake",
 	}
 
-	err := SendText("FAKE_SKU_NUMBER", cfg, client)
+	err := SendText("FAKE_SKU_NUMBER", "fakeurl", cfg, client)
 	if err != nil {
 		t.Errorf(err.Error())
 	}

@@ -6,7 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"os"
 	"os/exec"
 	"runtime"
 	"time"
@@ -17,45 +16,6 @@ import (
 )
 
 var testsHaveErrors bool
-
-func runTest(name string, client *http.Client, config config.Config) {
-	switch name {
-	case "twilio":
-		textErr := alert.SendText(*config.SKU, config.TwilioConfig, client)
-		if textErr != nil {
-			fmt.Printf("Error testing SMS notification...\n")
-			testsHaveErrors = true
-		} else {
-			fmt.Printf("SMS Notification testing completed successfully\n")
-		}
-	case "discord":
-		discordErr := alert.SendDiscordMessage(*config.SKU, config.DiscordConfig, client)
-		if discordErr != nil {
-			fmt.Printf("Error testing Discord notification...\n")
-			testsHaveErrors = true
-		} else {
-			fmt.Printf("Discord Notification testing completed successfully\n")
-		}
-	case "twitter":
-		tweetErr := alert.SendTweet(*config.SKU, config.TwitterConfig)
-		if tweetErr != nil {
-			fmt.Printf("Error testing Twitter notification exiting...\n")
-			os.Exit(1)
-		} else {
-			fmt.Printf("Twitter Notification testing completed succesfully")
-		}
-	case "telegram":
-		telegramErr := alert.SendTelegramMessage(*config.SKU, config.TelegramConfig, client)
-		if telegramErr != nil {
-			fmt.Printf("Error testing Telegram notification exiting...\n")
-			os.Exit(1)
-		} else {
-			fmt.Printf("Telegram Notification testing completed succesfully")
-		}
-	default:
-
-	}
-}
 
 func main() {
 	log.SetFlags(log.LstdFlags)
@@ -80,11 +40,6 @@ func main() {
 		log.Fatal(configErr)
 	}
 
-	// Execute Tests
-	if *test == true {
-		ExecuteTests(config, *twilio, *discord, *twitter, *telegram)
-	}
-
 	client := &http.Client{Timeout: 10 * time.Second}
 
 	for {
@@ -106,41 +61,18 @@ func main() {
 		log.Println("Product Locale: " + config.Locale)
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
-		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
+		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" || *test == true {
+			url := productUrl(config.NvidiaLocale, model)
 			id := info.Products.Product[0].Name
 
-			if *twilio == true {
-				textErr := alert.SendText(id, config.TwilioConfig, client)
-				if textErr != nil {
-					log.Printf("Error sending SMS notification retrying...\n")
-				}
-			}
-
-			if *twitter == true {
-				tweetErr := alert.SendTweet(id, config.TwitterConfig)
-				if tweetErr != nil {
-					log.Printf("Error sending Twitter notification retrying...\n")
-				}
-			}
-
-			if *discord == true {
-				discordErr := alert.SendDiscordMessage(id, config.DiscordConfig, client)
-				if discordErr != nil {
-					log.Printf("Error sending discord notification retrying...\n")
-				}
-			}
-
-			if *telegram == true {
-				telegramErr := alert.SendTelegramMessage(id, config.TelegramConfig, client)
-				if telegramErr != nil {
-					log.Printf("Error sending telegram notification retrying...\n")
-				}
-			}
-
-			url := fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.NvidiaLocale, model)
-			err := openbrowser(url)
+			err := notify(id, url, config, client)
 			if err != nil {
-				log.Fatal("Error attempting to open browser.")
+				log.Fatal("Error attempting to send notification.", err)
+			}
+
+			err = openbrowser(url)
+			if err != nil {
+				log.Fatal("Error attempting to open browser.", err)
 			}
 
 			break
@@ -148,30 +80,45 @@ func main() {
 	}
 }
 
-func ExecuteTests(config *config.Config, twilio bool, discord bool, twitter bool, telegram bool) {
-	client := &http.Client{Timeout: 10 * time.Second}
-
-	config.SKU = config.TestSKU
-	if twilio == true {
-		runTest("twilio", client, *config)
+func notify(id string, url string, config *config.Config, client *http.Client) error {
+	if config.TwilioConfig != nil {
+		err := alert.SendText(id, url, *config.TwilioConfig, client)
+		if err != nil {
+			log.Printf("Error sending SMS notification\n")
+			return err
+		}
 	}
 
-	if discord == true {
-		runTest("discord", client, *config)
+	if config.TwitterConfig != nil {
+		err := alert.SendTweet(id, url, *config.TwitterConfig)
+		if err != nil {
+			log.Printf("Error sending Twitter notification\n")
+			return err
+		}
 	}
 
-	if twitter == true {
-		runTest("twitter", client, *config)
+	if config.DiscordConfig != nil {
+		err := alert.SendDiscordMessage(id, url, *config.DiscordConfig, client)
+		if err != nil {
+			log.Printf("Error sending Discord notification\n")
+			return err
+		}
 	}
 
-	if telegram == true {
-		runTest("telegram", client, *config)
+	if config.TelegramConfig != nil {
+		err := alert.SendTelegramMessage(id, url, *config.TelegramConfig, client)
+		if err != nil {
+			log.Printf("Error sending Telegram notification\n")
+			return err
+		}
 	}
 
-	if testsHaveErrors == true {
-		log.Printf("Testing failed with errors, exiting...\n")
-		os.Exit(1)
-	}
+	return nil
+}
+
+func productUrl(locale string, model string) string {
+	url := fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", locale, model)
+	return url
 }
 
 func openbrowser(url string) error {

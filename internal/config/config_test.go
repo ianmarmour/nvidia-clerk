@@ -104,7 +104,7 @@ func TestGet(t *testing.T) {
 				Delay:        0,
 				SKU:          strPtr("5438481700"),
 				TestSKU:      strPtr("5379432500"),
-				TwilioConfig: TwilioConfig{
+				TwilioConfig: &TwilioConfig{
 					AccountSID:        "1",
 					Token:             "2",
 					SourceNumber:      "3",
@@ -126,7 +126,7 @@ func TestGet(t *testing.T) {
 				Delay:        0,
 				SKU:          strPtr("5438481700"),
 				TestSKU:      strPtr("5379432500"),
-				DiscordConfig: DiscordConfig{
+				DiscordConfig: &DiscordConfig{
 					WebhookURL: "1",
 				},
 			},
@@ -145,7 +145,7 @@ func TestGet(t *testing.T) {
 				Delay:        0,
 				SKU:          strPtr("5438481700"),
 				TestSKU:      strPtr("5379432500"),
-				TwitterConfig: TwitterConfig{
+				TwitterConfig: &TwitterConfig{
 					ConsumerKey:    "1",
 					ConsumerSecret: "2",
 					AccessToken:    "3",
@@ -168,7 +168,7 @@ func TestGet(t *testing.T) {
 				Delay:    0,
 				SKU:      strPtr("5438481700"),
 				TestSKU:  strPtr("5379432500"),
-				TelegramConfig: TelegramConfig{
+				TelegramConfig: &TelegramConfig{
 					APIKey: "1",
 					ChatID: "2",
 				},

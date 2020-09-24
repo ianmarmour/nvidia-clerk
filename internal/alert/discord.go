@@ -14,8 +14,8 @@ type payload struct {
 }
 
 //SendDiscordMessage Sends a notification message to a Discord Webhook.
-func SendDiscordMessage(item string, config config.DiscordConfig, client *http.Client) error {
-	body := fmt.Sprintf("%s Ready for Purchase", item)
+func SendDiscordMessage(item string, nvidiaURL string, config config.DiscordConfig, client *http.Client) error {
+	body := fmt.Sprintf("%s Ready for Purchase: %s", item, nvidiaURL)
 
 	json, err := json.Marshal(payload{body})
 	if err != nil {

@@ -70,10 +70,10 @@ type Config struct {
 
 	SKU            *string
 	TestSKU        *string
-	TwilioConfig   TwilioConfig
-	TwitterConfig  TwitterConfig
-	DiscordConfig  DiscordConfig
-	TelegramConfig TelegramConfig
+	TwilioConfig   *TwilioConfig
+	TwitterConfig  *TwitterConfig
+	DiscordConfig  *DiscordConfig
+	TelegramConfig *TelegramConfig
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
@@ -431,7 +431,7 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 			if err != nil {
 				return nil, err
 			}
-			configuration.TwilioConfig = *cfg
+			configuration.TwilioConfig = cfg
 		}
 
 		if discord == true {
@@ -439,7 +439,7 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 			if err != nil {
 				return nil, err
 			}
-			configuration.DiscordConfig = *cfg
+			configuration.DiscordConfig = cfg
 		}
 
 		if twitter == true {
@@ -447,7 +447,7 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 			if err != nil {
 				return nil, err
 			}
-			configuration.TwitterConfig = *cfg
+			configuration.TwitterConfig = cfg
 		}
 
 		if telegram == true {
@@ -455,7 +455,7 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 			if err != nil {
 				return nil, err
 			}
-			configuration.TelegramConfig = *cfg
+			configuration.TelegramConfig = cfg
 		}
 
 		return &configuration, nil

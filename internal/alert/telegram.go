@@ -15,8 +15,8 @@ type TelegramPayload struct {
 }
 
 //SendTelegramMessage Sends a notification message to a Telegram Webhook.
-func SendTelegramMessage(item string, config config.TelegramConfig, client *http.Client) error {
-	body := fmt.Sprintf("%s Ready for Purchase", item)
+func SendTelegramMessage(item string, nvidiaURL string, config config.TelegramConfig, client *http.Client) error {
+	body := fmt.Sprintf("%s Ready for Purchase: %s", item, nvidiaURL)
 	payload, err := json.Marshal(TelegramPayload{config.ChatID, body})
 	if err != nil {
 		return err
