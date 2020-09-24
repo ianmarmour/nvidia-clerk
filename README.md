@@ -88,7 +88,7 @@ nvidia-clerk-windows.exe -region=USA -test
 # Advanced Usage
 
 ## Remote Mode
-Configures clerk to not open your browser but instead send you the checkout link via one of the below notification services.
+Disables browser automation and instead sends you the checkout link via one of the below notification services you can click the link on any device to get to your checkout with the card added. This is great for people who can't be at their computer during the day!
 ```
 nvidia-clerk-windows.exe -model=3090 -sms -remote
 ```
