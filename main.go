@@ -7,10 +7,11 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"os/exec"
+	"runtime"
 	"time"
 
 	"github.com/ianmarmour/nvidia-clerk/internal/alert"
-	"github.com/ianmarmour/nvidia-clerk/internal/browser"
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 	"github.com/ianmarmour/nvidia-clerk/internal/rest"
 )
@@ -136,11 +137,11 @@ func main() {
 				}
 			}
 
-			ctx, err := browser.Start(*config)
+			url := fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.NvidiaLocale, model)
+			err := openbrowser(url)
 			if err != nil {
 				log.Fatal("Error attempting to open browser.")
 			}
-			browser.OpenProductPage(ctx, model, config.NvidiaLocale, *test)
 
 			break
 		}
@@ -171,6 +172,26 @@ func ExecuteTests(config *config.Config, twilio bool, discord bool, twitter bool
 		log.Printf("Testing failed with errors, exiting...\n")
 		os.Exit(1)
 	}
+}
+
+func openbrowser(url string) error {
+	var err error
+
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func sleep(delay int64) {
