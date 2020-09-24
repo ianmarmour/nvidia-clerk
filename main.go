@@ -33,6 +33,7 @@ func main() {
 	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	remote := flag.Bool("remote", false, "Enable notification only mode.")
+	console := flag.Bool("console", false, "Enable running in non-interactive console mode.")
 	test := flag.Bool("test", false, "Enable remote mode for when you're away from computer.")
 	flag.Parse()
 
@@ -40,11 +41,20 @@ func main() {
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
-
 	client := &http.Client{Timeout: 10 * time.Second}
+
 	token, err := rest.GetSessionToken(client)
 	if err != nil {
-		log.Fatal("Error getting session token from NVIDIA store.")
+		log.Printf("Error getting session token from NVIDIA retrying...")
+	}
+
+	for token == nil {
+		sleep(delay)
+		token, err = rest.GetSessionToken(client)
+		if err != nil {
+			log.Printf("Error getting session token from NVIDIA retrying...")
+			continue
+		}
 	}
 
 	for {
@@ -67,13 +77,12 @@ func main() {
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" || *test == true {
-			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.Locale)
+			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.Locale, client)
 			if err != nil {
 				log.Fatal("Error adding card to checkout.")
 			}
-			id := info.Products.Product[0].Name
 
-			err = notify(id, cart.URL, config, client)
+			err = notify(info.Products.Product[0].Name, cart.URL, config, client)
 			if err != nil {
 				log.Fatal("Error attempting to send notification.", err)
 			}

@@ -3,17 +3,18 @@ package rest
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
 
+// ProductsResponse Used for unmarshalling JSON response from api.nvidia.partners
 type ProductsResponse struct {
 	Products Products `json:products`
 }
 
+// Products Used for unmarshalling JSON response from api.nvidia.partners
 type Products struct {
 	Product []Product `json:"product"`
 }
@@ -108,10 +109,16 @@ type AddToCartResponse struct {
 	URL string `json:"location"`
 }
 
+//GetSessionToken Retrieves the session token for NVIDIA store.
 func GetSessionToken(client *http.Client) (*SessionToken, error) {
 	url := "https://store.nvidia.com/store/nvidia/SessionToken?format=json"
 
-	resBody, err := getBody(url, client)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resBody, err := getBody(req, client)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -127,38 +134,26 @@ func GetSessionToken(client *http.Client) (*SessionToken, error) {
 	return &session, nil
 }
 
-func AddToCheckout(sku string, token string, locale string) (*AddToCartResponse, error) {
+//AddToCheckout Adds a product to a checkout cart for NVIDIA store.
+func AddToCheckout(sku string, token string, locale string, client *http.Client) (*AddToCartResponse, error) {
 	url := "https://api-prod.nvidia.com/direct-sales-shop/DR/add-to-cart"
-
-	body := []byte(fmt.Sprintf(`{"products": [{"productId":%s,"quantity": 1}]}`, sku))
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
+	reqBody := []byte(fmt.Sprintf(`{"products": [{"productId":%s,"quantity": 1}]}`, sku))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(reqBody))
 	if err != nil {
 		return nil, err
 	}
-
 	req.Header.Set("locale", locale)
 	req.Header.Set("content-type", "application/json")
 	req.Header.Set("nvidia_shop_id", token)
 
-	client := &http.Client{}
-	res, err := client.Do(req)
+	resBody, err := getBody(req, client)
 	if err != nil {
 		return nil, err
-	}
-	if res.StatusCode > 400 {
-		return nil, errors.New("Invalid response")
-	}
-	defer res.Body.Close()
-
-	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil {
-		log.Println(readErr)
-		return nil, readErr
 	}
 
 	cart := AddToCartResponse{}
 
-	jsonErr := json.Unmarshal(body, &cart)
+	jsonErr := json.Unmarshal(resBody, &cart)
 	if jsonErr != nil {
 		return nil, jsonErr
 	}
@@ -166,10 +161,16 @@ func AddToCheckout(sku string, token string, locale string) (*AddToCartResponse,
 	return &cart, nil
 }
 
+// GetSkuInfo Looks up SKU invormation from NVIDIAs API.
 func GetSkuInfo(sku string, locale string, currency string, client *http.Client) (*ProductsResponse, error) {
 	url := fmt.Sprintf("https://api-prod.nvidia.com/direct-sales-shop/DR/products/%s/%s/%s", locale, currency, sku)
 
-	resBody, err := getBody(url, client)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resBody, err := getBody(req, client)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -185,18 +186,19 @@ func GetSkuInfo(sku string, locale string, currency string, client *http.Client)
 	return &products, nil
 }
 
-func getBody(url string, client *http.Client) ([]byte, error) {
-	r, err := client.Get(url)
+// Gets the byte data out of a request body.
+func getBody(request *http.Request, client *http.Client) ([]byte, error) {
+	r, err := client.Do(request)
 	if err != nil {
-		message := fmt.Sprintf("Error attempting to access URL: %s", url)
-		log.Println(message)
+		return nil, err
+	}
+	if r.StatusCode > 400 {
 		return nil, err
 	}
 	defer r.Body.Close()
 
 	body, readErr := ioutil.ReadAll(r.Body)
 	if readErr != nil {
-		log.Println(readErr)
 		return nil, readErr
 	}
 
