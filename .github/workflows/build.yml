@@ -32,7 +32,7 @@ jobs:
 
     # Per Architecture Static Builds
     - name: Build Windows
-      run: env GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
+      run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
     
     - name: Build Linux
       run: go build -a -o nvidia-clerk-linux
