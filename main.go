@@ -33,7 +33,6 @@ func main() {
 	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	remote := flag.Bool("remote", false, "Enable notification only mode.")
-	console := flag.Bool("console", false, "Enable running in non-interactive console mode.")
 	test := flag.Bool("test", false, "Enable remote mode for when you're away from computer.")
 	flag.Parse()
 

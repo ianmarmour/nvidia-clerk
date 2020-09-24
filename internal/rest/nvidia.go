@@ -11,7 +11,7 @@ import (
 
 // ProductsResponse Used for unmarshalling JSON response from api.nvidia.partners
 type ProductsResponse struct {
-	Products Products `json:products`
+	Products Products `json:"products"`
 }
 
 // Products Used for unmarshalling JSON response from api.nvidia.partners
