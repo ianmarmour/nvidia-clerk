@@ -1,6 +1,6 @@
 # UPDATE - v3.0 Autocheckout is Back
 
-DOWNLOAD UPDATE HERE -> https://github.com/ianmarmour/nvidia-clerk/releases/tag/v3.0 <-
+DOWNLOAD UPDATE HERE -> [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest) <-
 
 All functionaly is restored and improved for adding cards to checkout, please see the new usage section for users who are away from their computer!
 
