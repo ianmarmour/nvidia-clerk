@@ -6,7 +6,7 @@ What this means for clerk, you won't get automatical checkout addition anymore j
 
 `nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
 
-[!alt text](.github/resources/images/example.png)
+![alt text](.github/resources/images/example.png)
 
 ## Background
 `nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
