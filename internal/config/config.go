@@ -184,7 +184,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438481700"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438481600")
+			},
 		},
 		Locale:       "en_us",
 		NvidiaLocale: "en-us",
@@ -197,7 +199,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438792800"),
 			},
-			"3090": {},
+			"3090": 
+				SKU: strPtr("5438792700")
+			},
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
