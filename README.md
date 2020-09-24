@@ -116,8 +116,9 @@ set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ```
 
 ### Testing
+Testing only works fully with an in-stock card.
 ```shell
-nvidia-clerk-windows.exe -sms -test
+nvidia-clerk-windows.exe -sms -test -model=2060
 ```
 
 ### Usage
