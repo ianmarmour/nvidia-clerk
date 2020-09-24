@@ -98,6 +98,7 @@ func main() {
 
 		// HACK: Resolves https://github.com/ianmarmour/nvidia-clerk/issues/85
 		if len(info.Products.Product) < 1 {
+			log.Printf("Error attempting to get product information retrying...\n")
 			continue
 		}
 
