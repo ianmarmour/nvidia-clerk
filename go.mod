@@ -3,6 +3,7 @@ module github.com/ianmarmour/nvidia-clerk
 go 1.14
 
 require (
+	fyne.io/fyne v1.3.3
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chromedp/cdproto v0.0.0-20200709115526-d1f6fc58448b
 	github.com/chromedp/chromedp v0.5.3
@@ -12,6 +13,7 @@ require (
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.0.4 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
-	github.com/stretchr/testify v1.3.0
-	golang.org/x/sys v0.0.0-20200922070232-aee5d888a860 // indirect
+	github.com/stretchr/testify v1.5.1
+	github.com/webview/webview v0.0.0-20200724072439-e0c01595b361 // indirect
+	golang.org/x/sys v0.0.0-20200923182605-d9f96fdee20d // indirect
 )

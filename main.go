@@ -1,18 +1,18 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/ianmarmour/nvidia-clerk/internal/alert"
 	"github.com/ianmarmour/nvidia-clerk/internal/browser"
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
+	"github.com/ianmarmour/nvidia-clerk/internal/rest"
 )
 
 var testsHaveErrors bool
@@ -84,18 +84,66 @@ func main() {
 		ExecuteTests(config, *twilio, *discord, *twitter, *telegram)
 	}
 
-	ctx, err := browser.Start(*config)
-	if err != nil {
-		log.Fatal(err)
+	client := &http.Client{Timeout: 10 * time.Second}
+
+	for {
+		rand.Seed(time.Now().UnixNano())
+		n := rand.Intn(5)
+		time.Sleep(time.Duration(n) * time.Second)
+
+		info, err := rest.GetSkuInfo(*config.SKU, config.Locale, config.Currency, client)
+		if err != nil {
+			continue
+		}
+
+		log.Println(fmt.Sprintf("Product ID: %v", info.Products.Product[0].ID))
+		log.Println("Product Name: " + info.Products.Product[0].Name)
+		log.Println("Product Locale: " + config.Locale)
+		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
+
+		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
+			id := info.Products.Product[0].Name
+			ctx, err := browser.Start(*config)
+			if err != nil {
+				log.Fatal("Error attempting to open browser.")
+			}
+			browser.OpenProductPage(ctx, model, config.NvidiaLocale, *test)
+
+			if *twilio == true {
+				textErr := alert.SendText(id, config.TwilioConfig, client)
+				if textErr != nil {
+					log.Printf("Error sending SMS notification retrying...\n")
+					continue
+				}
+			}
+
+			if *twitter == true {
+				tweetErr := alert.SendTweet(id, config.TwitterConfig)
+				if tweetErr != nil {
+					log.Printf("Error sending Twitter notification retrying...\n")
+					continue
+				}
+			}
+
+			if *discord == true {
+				discordErr := alert.SendDiscordMessage(id, config.DiscordConfig, client)
+				if discordErr != nil {
+					log.Printf("Error sending discord notification retrying...\n")
+					continue
+				}
+			}
+
+			if *telegram == true {
+				telegramErr := alert.SendTelegramMessage(id, config.TelegramConfig, client)
+				if telegramErr != nil {
+					log.Printf("Error sending telegram notification retrying...\n")
+					continue
+				}
+			}
+
+			break
+		}
 	}
-
-	if config.SKU == nil {
-		LookupSKU(ctx, model, config)
-	}
-
-	MonitorRelease(ctx, config, *twilio, *discord, *twitter, *telegram)
-
-	os.Exit(0)
 }
 
 func ExecuteTests(config *config.Config, twilio bool, discord bool, twitter bool, telegram bool) {
@@ -121,97 +169,5 @@ func ExecuteTests(config *config.Config, twilio bool, discord bool, twitter bool
 	if testsHaveErrors == true {
 		log.Printf("Testing failed with errors, exiting...\n")
 		os.Exit(1)
-	}
-}
-
-// LookupSKU Looks up the SKU based on model name of a GPU in Digital River
-func LookupSKU(ctx context.Context, model string, config *config.Config) error {
-	for {
-		products, productsErr := browser.GetProducts(ctx, config.Locale, config.Delay)
-		if productsErr != nil {
-			log.Printf("Error getting Products Information retrying...\n")
-		}
-
-		for _, product := range products {
-			if strings.Contains(product.DisplayName, model) == true {
-				subs := strings.Split(product.URI, "/")
-				config.SKU = &subs[len(subs)-1]
-				return nil
-			}
-		}
-	}
-}
-
-// MonitorRelease Monitors for GPU launches.
-func MonitorRelease(ctx context.Context, config *config.Config, twilio bool, discord bool, twitter bool, telegram bool) {
-	client := &http.Client{Timeout: 10 * time.Second}
-
-	product, productErr := browser.GetProduct(ctx, *config.SKU, config.Locale, config.Delay)
-	if productErr != nil {
-		log.Printf("Error getting Product Information retrying...\n")
-	}
-
-	for {
-		invStatus, invStatusErr := browser.GetInventoryStatus(ctx, *config.SKU, config.Locale, config.Delay)
-		if invStatusErr != nil {
-			log.Printf("Error getting Iventory Status retrying...\n")
-			continue
-		}
-		id := invStatus.Product.ID
-		status := invStatus.Status
-
-		log.Println("Product ID: " + id)
-		log.Println("Product Name: " + product.Name)
-		log.Println("Product Locale: " + config.Locale)
-		log.Println("Product Status: " + status + "\n")
-
-		if status == "PRODUCT_INVENTORY_IN_STOCK" {
-			cartErr := browser.AddToCart(ctx, *config.SKU, config.Locale)
-
-			if cartErr != nil {
-				log.Printf("Error adding item to cart retrying...\n")
-				continue
-			}
-
-			checkoutErr := browser.Checkout(config.Locale)
-			if checkoutErr != nil {
-				log.Printf("Error adding item to checkout retrying...\n")
-				continue
-			}
-
-			if twilio == true {
-				textErr := alert.SendText(id, config.TwilioConfig, client)
-				if textErr != nil {
-					log.Printf("Error sending SMS notification retrying...\n")
-					continue
-				}
-			}
-
-			if twitter == true {
-				tweetErr := alert.SendTweet(id, config.TwitterConfig)
-				if tweetErr != nil {
-					log.Printf("Error sending Twitter notification retrying...\n")
-					continue
-				}
-			}
-
-			if discord == true {
-				discordErr := alert.SendDiscordMessage(id, config.DiscordConfig, client)
-				if discordErr != nil {
-					log.Printf("Error sending discord notification retrying...\n")
-					continue
-				}
-			}
-
-			if telegram == true {
-				telegramErr := alert.SendTelegramMessage(id, config.TelegramConfig, client)
-				if telegramErr != nil {
-					log.Printf("Error sending telegram notification retrying...\n")
-					continue
-				}
-			}
-
-			break
-		}
 	}
 }

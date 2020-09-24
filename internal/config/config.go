@@ -63,9 +63,10 @@ type TelegramConfig struct {
 }
 
 type Config struct {
-	Locale   string
-	Currency string
-	Delay    int64
+	Locale       string
+	NvidiaLocale string
+	Currency     string
+	Delay        int64
 
 	SKU            *string
 	TestSKU        *string
@@ -86,7 +87,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "de_de",
-		NvidiaLocale: "de_de",
+		NvidiaLocale: "de-de",
 		Currency:     "EUR",
 	},
 	"BEL": {
@@ -102,7 +103,7 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 		},
 		Locale:       "fr_fr",
-		NvidiaLocale: "fr_fr",
+		NvidiaLocale: "fr-fr",
 		Currency:     "EUR",
 	},
 	"CAN": {
@@ -114,7 +115,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_us",
-		NvidiaLocale: "en_ca",
+		NvidiaLocale: "en-ca",
 		Currency:     "CAN",
 	},
 	"CZE": {
@@ -126,7 +127,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_gb",
-		NvidiaLocale: "en_gb",
+		NvidiaLocale: "en-gb",
 		Currency:     "EUR",
 	},
 	"DNK": {
@@ -138,7 +139,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_gb",
-		NvidiaLocale: "en_gb",
+		NvidiaLocale: "en-gb",
 		Currency:     "EUR",
 	},
 	"FIN": {
@@ -150,7 +151,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_gb",
-		NvidiaLocale: "en_gb",
+		NvidiaLocale: "en-gb",
 		Currency:     "EUR",
 	},
 	"FRA": {
@@ -162,7 +163,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "fr_fr",
-		NvidiaLocale: "fr_fr",
+		NvidiaLocale: "fr-fr",
 		Currency:     "EUR",
 	},
 	"DEU": {
@@ -174,7 +175,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "de_de",
-		NvidiaLocale: "de_de",
+		NvidiaLocale: "de-de",
 		Currency:     "EUR",
 	},
 	"USA": {
@@ -186,7 +187,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_us",
-		NvidiaLocale: "en_us",
+		NvidiaLocale: "en-us",
 		Currency:     "USD",
 		TestSKU:      "5379432500",
 	},
@@ -199,7 +200,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_gb",
-		NvidiaLocale: "en_gb",
+		NvidiaLocale: "en-gb",
 		Currency:     "GBP",
 	},
 	"IRL": {
@@ -211,7 +212,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_gb",
-		NvidiaLocale: "en_gb",
+		NvidiaLocale: "en-gb",
 		Currency:     "GBP",
 	},
 	"ITA": {
@@ -223,7 +224,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "it_it",
-		NvidiaLocale: "it_it",
+		NvidiaLocale: "it-it",
 		Currency:     "EUR",
 	},
 	"SWE": {
@@ -235,7 +236,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "sv_SE",
-		NvidiaLocale: "sv_se",
+		NvidiaLocale: "sv-se",
 		Currency:     "SEK",
 	},
 	"LUX": {
@@ -247,7 +248,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "fr_fr",
-		NvidiaLocale: "fr_fr",
+		NvidiaLocale: "fr-fr",
 		Currency:     "EUR",
 	},
 	"POL": {
@@ -259,7 +260,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "pl_pl",
-		NvidiaLocale: "pl_pl",
+		NvidiaLocale: "pl-pl",
 		Currency:     "PLN",
 	},
 	"PRT": {
@@ -271,7 +272,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "en_gb",
-		NvidiaLocale: "en_gb",
+		NvidiaLocale: "en-gb",
 		Currency:     "EUR",
 	},
 	"ESP": {
@@ -283,7 +284,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "es_es",
-		NvidiaLocale: "es_es",
+		NvidiaLocale: "es-es",
 		Currency:     "EUR",
 	},
 	"NOR": {
@@ -295,7 +296,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "no_NO",
-		NvidiaLocale: "no_NO",
+		NvidiaLocale: "no-NO",
 		Currency:     "NOK",
 	},
 	"NLD": {
@@ -307,7 +308,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"3090": {},
 		},
 		Locale:       "nl_nl",
-		NvidiaLocale: "nl_nl",
+		NvidiaLocale: "nl-nl",
 		Currency:     "EUR",
 	},
 }
@@ -418,6 +419,7 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 		configuration.TestSKU = &regionConfig.TestSKU
 		configuration.Delay = delay
 		configuration.Locale = regionConfig.Locale
+		configuration.NvidiaLocale = regionConfig.NvidiaLocale
 		configuration.Currency = regionConfig.Currency
 
 		if sms == true {
