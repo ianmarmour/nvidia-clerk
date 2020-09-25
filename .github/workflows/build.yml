@@ -34,7 +34,7 @@ jobs:
     - name: Build Windows
       run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
 
-    - name: Build Windows
+    - name: Build Windows ARM
       run: env GGO_ENABLED=0 GOOS=windows GOARCH=arm go build -a -o nvidia-clerk-windows-arm.exe
 
     - name: Build Linux
