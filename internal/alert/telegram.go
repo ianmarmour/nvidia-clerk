@@ -9,15 +9,11 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 )
 
-type TelegramPayload struct {
-	ChatID string `json:"chat_id"`
-	Text   string `json:"text"`
-}
-
 //SendTelegramMessage Sends a notification message to a Telegram Webhook.
 func SendTelegramMessage(item string, nvidiaURL string, config config.TelegramConfig, client *http.Client) error {
-	body := fmt.Sprintf("%s Ready for Purchase: %s", item, nvidiaURL)
-	payload, err := json.Marshal(TelegramPayload{config.ChatID, body})
+	body := map[string]string{"Text": item + " Ready for Purchase: " + nvidiaURL, "ChatID": config.ChatID}
+
+	payload, err := json.Marshal(body)
 	if err != nil {
 		return err
 	}
