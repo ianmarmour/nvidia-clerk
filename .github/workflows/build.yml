@@ -50,10 +50,10 @@ jobs:
       run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
 
     - name: Run Tests 
-      run: go test -v -cover -race -coverprofile=coverage.out
+      run: go test -v -cover -race -coverprofile=coverage.out ./...
   
     - name: Get Coverage Tool
       run: go get github.com/mattn/goveralls
 
     - name: Upload Coverage
-      run: goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
+      run: goveralls -coverprofile=coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
