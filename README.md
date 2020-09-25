@@ -182,9 +182,8 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 ```
 
 ## FAQ
-### My issue is XXX
-
-First thing go to latest releases and download the latest version.
+| :exclamation:  Before you do anything or ask for help go get the [latest release](https://github.com/ianmarmour/nvidia-clerk/releases/latest)!   |
+|-----------------------------------------|
 
 #### exec: "google-chrome": executable file not found in %PATH%
 The path to google chrome needs to be added to the path. While reinstalling Chrome can fix it, a quick search on Google will show you how to do exactly this.
