@@ -33,15 +33,18 @@ jobs:
     # Per Architecture Static Builds
     - name: Build Windows
       run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
-    
-    - name: Build Linux
-      run: go build -a -o nvidia-clerk-linux
-  
-    - name: Build Linux ARM
-      run: go build GOOS=linux GOARCH=arm -a -o nvidia-clerk-linux-arm
 
-    - name: Build Linux ARM-64
-      run: go build GOOS=linux GOARCH=arm64 -a -o nvidia-clerk-linux-arm64
+    - name: Build Windows
+      run: env GGO_ENABLED=0 GOOS=windows GOARCH=arm go build -a -o nvidia-clerk-windows-arm.exe
+
+    - name: Build Linux
+      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-linux
+
+    - name: Build Linux ARM
+      run: env GOOS=linux GOARCH=arm go build -a -o nvidia-clerk-linux-arm
+
+    - name: Build Linux ARM64
+      run: env GOOS=linux GOARCH=arm64 go build -a -o nvidia-clerk-linux-arm64
 
     - name: Build Darwin
       run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
