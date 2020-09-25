@@ -1,3 +1,5 @@
+[![Go](https://github.com/ianmarmour/nvidia-clerk/workflows/Go/badge.svg) ![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/zFQxqPQ)
+
 # nvidia-clerk
 
 `nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
