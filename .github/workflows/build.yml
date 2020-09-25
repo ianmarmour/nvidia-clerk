@@ -37,6 +37,9 @@ jobs:
     - name: Build Linux
       run: go build -a -o nvidia-clerk-linux
 
+    - name: Build Linux ARM
+      run: go build -a -o nvidia-clerk-linux-arm
+
     - name: Build Darwin
       run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
 

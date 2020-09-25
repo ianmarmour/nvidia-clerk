@@ -21,13 +21,13 @@ type Products struct {
 }
 
 type Product struct {
-	ID                     int              `json:"id"`
+	ID                     int64            `json:"id"`
 	Name                   string           `json:"name"`
 	DisplayName            string           `json:"displayName"`
 	SKU                    string           `json:"sku"`
 	DisplayableProduct     string           `json:"displayableProduct"`
 	ManufacturerPartNumber string           `json:"manufacturerPartNumber"`
-	MaximumQuantity        int              `json:"maximumQuantity"`
+	MaximumQuantity        int64            `json:"maximumQuantity"`
 	ThumbnailImage         string           `json:"thumbnailImage"`
 	CustomAttributes       CustomAttributes `json:"customAttributes"`
 	Pricing                Pricing          `json:"pricing"`
@@ -63,11 +63,11 @@ type Pricing struct {
 
 type Price struct {
 	Currency string `json:"currency"`
-	Value    int    `json:"value"`
+	Value    int64  `json:"value"`
 }
 
 type Tax struct {
-	VatPercentage int `json:"vatPercentage"`
+	VatPercentage int64 `json:"vatPercentage"`
 }
 
 type FeePrice struct {
@@ -89,7 +89,7 @@ type InventoryStatus struct {
 type RelatedProducts []RelatedProduct
 
 type RelatedProduct struct {
-	ID    int    `json:"id"`
+	ID    int64  `json:"id"`
 	Name  string `json:"name"`
 	Image string `json:"image"`
 }
@@ -99,7 +99,7 @@ type Inventory struct {
 }
 
 type InventoryProduct struct {
-	AvailableQuantity int `json:"availableQuantity"`
+	AvailableQuantity int64 `json:"availableQuantity"`
 }
 
 type SessionToken struct {

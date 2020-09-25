@@ -45,12 +45,14 @@ jobs:
     - run: mkdir -p ianmarmour/nvidia-clerk/build
     - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-windows
     - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-linux
+    - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm
     - run: mkdir -p ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin
 
 
     # Copy Build Artifacts to Artifact Upload Directories
     - run: cp nvidia-clerk-windows.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
     - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
+    - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux-arm
     - run: cp nvidia-clerk-darwin ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
     
     # Publish Artifacts Windows
@@ -64,6 +66,12 @@ jobs:
       with:
         name: nvidia-clerk-linux
         path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
+    
+    # Publish Artifacts Linux
+    - uses: actions/upload-artifact@v2
+      with:
+        name: nvidia-clerk-linux-arm
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux-arm
 
     # Publish Artifacts Darwin
     - uses: actions/upload-artifact@v2
@@ -107,6 +115,17 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
         asset_name: nvidia-clerk-linux
+        asset_content_type: application/octet-stream
+
+    - name: Upload Linux ARM Assets
+      id: upload-release-asset-linux-arm
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm/nvidia-clerk-linux-arm
+        asset_name: nvidia-clerk-linux-arm
         asset_content_type: application/octet-stream
 
     - name: Upload Darwin Assets
