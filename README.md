@@ -1,4 +1,4 @@
-[![Go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go)![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/zFQxqPQ)
+![go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) [![Coverage Status](https://coveralls.io/repos/github/ianmarmour/nvidia-clerk/badge.svg?branch=master)](https://coveralls.io/github/ianmarmour/nvidia-clerk?branch=master) [![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/zFQxqPQ)
 
 # nvidia-clerk
 
