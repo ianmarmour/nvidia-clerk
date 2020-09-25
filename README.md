@@ -34,8 +34,6 @@ AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR, NLD
 3090 (GBR and USA Regions Only)
 
 ## Usage
-| :exclamation:  Once you execute the below commands make sure to leave the Google Chrome browser that it launches open   |
-|-----------------------------------------|
 
 ### Windows
 | :memo:        | All commands should be executed inside of cmd.exe |
