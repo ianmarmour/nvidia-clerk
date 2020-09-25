@@ -20,7 +20,7 @@ Download the latest release from [Releases](https://github.com/ianmarmour/nvidia
 
 ### Supported Region Codes
 
-AUT,BEL,CAN,CZE,DNK,FIN,FRA,DEU,USA,GBR,IRL,ITA,SWE,LUX,POL,PRT,ESP, NOR, NLD
+AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, ESP, NOR, NLD
 
 ### Supported Models
 
