@@ -29,10 +29,12 @@ func SendText(item string, nvidiaURL string, config config.TwilioConfig, client 
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
-	_, err = client.Do(req)
+	r, err := client.Do(req)
 	if err != nil {
 		return err
 	}
+
+	defer r.Body.Close()
 
 	return nil
 }

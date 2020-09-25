@@ -85,9 +85,9 @@ func main() {
 					log.Fatal("Error attempting to open browser.", err)
 				}
 			}
-		}
 
-		break
+			break
+		}
 	}
 }
 

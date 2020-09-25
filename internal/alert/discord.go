@@ -10,7 +10,8 @@ import (
 
 //SendDiscordMessage Sends a notification message to a Discord Webhook.
 func SendDiscordMessage(item string, nvidiaURL string, config config.DiscordConfig, client *http.Client) error {
-	body := map[string]string{"content": item + " Ready for Purchase: " + nvidiaURL}
+	base := "<" + nvidiaURL + ">"
+	body := map[string]string{"content": base}
 
 	json, err := json.Marshal(body)
 	if err != nil {

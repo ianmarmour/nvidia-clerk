@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 // ProductsResponse Used for unmarshalling JSON response from api.nvidia.partners
@@ -111,7 +112,7 @@ type AddToCartResponse struct {
 
 //GetSessionToken Retrieves the session token for NVIDIA store.
 func GetSessionToken(client *http.Client) (*SessionToken, error) {
-	url := "https://store.nvidia.com/store/nvidia/SessionToken?format=json"
+	url := "https://store.nvidia.com/store/nvidia/SessionToken?format=json" + urlTime()
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -159,6 +160,8 @@ func AddToCheckout(sku string, token string, locale string, client *http.Client)
 	if jsonErr != nil {
 		return nil, jsonErr
 	}
+
+	cart.URL = cart.URL + urlTime()
 
 	return &cart, nil
 }
@@ -210,4 +213,10 @@ func getBody(request *http.Request, client *http.Client) ([]byte, error) {
 	}
 
 	return body, nil
+}
+
+//urlTime Generates a url encoded datetime parameter used for cache invalidation in browsers.
+func urlTime() string {
+	sec := time.Now().Unix()
+	return fmt.Sprintf("&=%v", sec)
 }
