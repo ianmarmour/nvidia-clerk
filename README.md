@@ -2,10 +2,7 @@
 
 DOWNLOAD UPDATE HERE -> [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest) <-
 
-All functionaly is restored and improved for adding cards to checkout, please see the new usage section for users who are away from their computer!
-
-IF YOU USE NOTIFICATIONS THE LINKS WILL ONLY WORK WITH -REMOTE
-> Links can only be used a single time either on your desktop (default behavior) or on another system with -remote enabled.
+All functionaly is restored and improved for adding cards to checkout, please see the new remote usage section for users who are away from their computer!
 
 # nvidia-clerk
 
