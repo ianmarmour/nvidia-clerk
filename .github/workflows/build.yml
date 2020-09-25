@@ -49,5 +49,12 @@ jobs:
     - name: Build Darwin
       run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
 
-    - name: Test 
-      run: go test -v ./...
+    - name: Get Coverage Dependencies
+      run: |
+        - go get github.com/mattn/goveralls
+
+    - name: Run Tests 
+      run: go test -v -cover -race -coverprofile=coverage.out
+    
+    - name: Upload Coverage
+      run: goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
