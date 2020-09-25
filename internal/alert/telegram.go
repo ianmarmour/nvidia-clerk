@@ -18,7 +18,7 @@ func SendTelegramMessage(item string, nvidiaURL string, config config.TelegramCo
 		return err
 	}
 
-	req, err := http.NewRequest("POST", fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", config.APIKey), bytes.NewBuffer(payload))
+	req, err := http.NewRequest("POST", fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage&disable_web_page_preview=true", config.APIKey), bytes.NewBuffer(payload))
 	if err != nil {
 		return err
 	}
