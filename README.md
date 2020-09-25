@@ -106,6 +106,8 @@ nvidia-clerk-windows.exe -region=USA -delay=1000
 ```
 
 ## SMS Notifications
+| :exclamation:  Android users must disable the link preview feature in their messaging app of choice!!!!   |
+|-----------------------------------------|
 
 ### Configuration
 ```Batchfile
