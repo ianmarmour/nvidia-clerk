@@ -1,4 +1,4 @@
-[![Go](https://github.com/ianmarmour/nvidia-clerk/workflows/Go/badge.svg) ![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/zFQxqPQ)
+[![Go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) ![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/zFQxqPQ)
 
 # nvidia-clerk
 
