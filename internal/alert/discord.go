@@ -10,6 +10,7 @@ import (
 
 //SendDiscordMessage Sends a notification message to a Discord Webhook.
 func SendDiscordMessage(item string, nvidiaURL string, config config.DiscordConfig, client *http.Client) error {
+	// The wrapping tags for the URL here stop discord from pulling metadata from our link disabling the checkout functionality.
 	base := "<" + nvidiaURL + ">"
 	body := map[string]string{"content": base}
 

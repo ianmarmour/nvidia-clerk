@@ -18,6 +18,7 @@ func SendTelegramMessage(item string, nvidiaURL string, config config.TelegramCo
 		return err
 	}
 
+	// We're required to disable web page previews to ensure that the cart links don't get invalidated
 	req, err := http.NewRequest("POST", fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage&disable_web_page_preview=true", config.APIKey), bytes.NewBuffer(payload))
 	if err != nil {
 		return err
