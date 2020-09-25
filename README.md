@@ -1,9 +1,3 @@
-# UPDATE - v3.0 Autocheckout is Back
-
-DOWNLOAD UPDATE HERE -> [Releases](https://github.com/ianmarmour/nvidia-clerk/releases/latest) <-
-
-All functionaly is restored and improved for adding cards to checkout, please see the new remote usage section for users who are away from their computer!
-
 # nvidia-clerk
 
 `nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
@@ -188,6 +182,9 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 ```
 
 ## FAQ
+### My issue is XXX
+
+First thing go to latest releases and download the latest version.
 
 #### exec: "google-chrome": executable file not found in %PATH%
 The path to google chrome needs to be added to the path. While reinstalling Chrome can fix it, a quick search on Google will show you how to do exactly this.
