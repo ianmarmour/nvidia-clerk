@@ -117,6 +117,7 @@ func GetSessionToken(client *http.Client) (*SessionToken, error) {
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Set("User-Agent", getUserAgent())
 
 	resBody, err := getBody(req, client)
 	if err != nil {
@@ -145,6 +146,7 @@ func AddToCheckout(sku string, token string, locale string, client *http.Client)
 	req.Header.Set("locale", locale)
 	req.Header.Set("content-type", "application/json")
 	req.Header.Set("nvidia_shop_id", token)
+	req.Header.Add("charset", "utf-8")
 
 	resBody, err := getBody(req, client)
 	if err != nil {
@@ -186,6 +188,11 @@ func GetSkuInfo(sku string, locale string, currency string, client *http.Client)
 	return &products, nil
 }
 
+func getUserAgent() string {
+	agent := "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
+	return agent
+}
+
 // Gets the byte data out of a request body.
 func getBody(request *http.Request, client *http.Client) ([]byte, error) {
 	r, err := client.Do(request)
@@ -196,6 +203,8 @@ func getBody(request *http.Request, client *http.Client) ([]byte, error) {
 		return nil, err
 	}
 	defer r.Body.Close()
+
+	log.Println(r)
 
 	body, readErr := ioutil.ReadAll(r.Body)
 	if readErr != nil {

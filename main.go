@@ -44,16 +44,7 @@ func main() {
 
 	token, err := rest.GetSessionToken(client)
 	if err != nil {
-		log.Printf("Error getting session token from NVIDIA retrying...")
-	}
-
-	for token == nil {
-		sleep(delay)
-		token, err = rest.GetSessionToken(client)
-		if err != nil {
-			log.Printf("Error getting session token from NVIDIA retrying...")
-			continue
-		}
+		log.Fatal("Error getting session token from NVIDIA retrying...")
 	}
 
 	for {
@@ -78,12 +69,14 @@ func main() {
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" || *test == true {
 			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.Locale, client)
 			if err != nil {
-				log.Fatal("Error adding card to checkout.")
+				log.Println("Error adding card to checkout retrying...")
+				continue
 			}
 
-			err = notify(info.Products.Product[0].Name, cart.URL, config, client)
+			err = notify(info.Products.Product[0].Name, cart.URL, *remote, config, client)
 			if err != nil {
-				log.Fatal("Error attempting to send notification.", err)
+				log.Println("Error attempting to send notification retrying...")
+				continue
 			}
 
 			if *remote != true {
@@ -92,17 +85,21 @@ func main() {
 					log.Fatal("Error attempting to open browser.", err)
 				}
 			}
-
-			break
 		}
+
+		break
 	}
 }
 
-func notify(id string, url string, config *config.Config, client *http.Client) error {
+func notify(id string, url string, remote bool, config *config.Config, client *http.Client) error {
+	if remote != true {
+		url = "Checkout avaliable on system running this program"
+	}
+
 	if config.TwilioConfig != nil {
 		err := alert.SendText(id, url, *config.TwilioConfig, client)
 		if err != nil {
-			log.Printf("Error sending SMS notification\n")
+			log.Println("Error sending SMS notification, retrying...")
 			return err
 		}
 	}
@@ -110,7 +107,7 @@ func notify(id string, url string, config *config.Config, client *http.Client) e
 	if config.TwitterConfig != nil {
 		err := alert.SendTweet(id, url, *config.TwitterConfig)
 		if err != nil {
-			log.Printf("Error sending Twitter notification\n")
+			log.Println("Error sending Twitter notification, retrying...")
 			return err
 		}
 	}
@@ -118,7 +115,7 @@ func notify(id string, url string, config *config.Config, client *http.Client) e
 	if config.DiscordConfig != nil {
 		err := alert.SendDiscordMessage(id, url, *config.DiscordConfig, client)
 		if err != nil {
-			log.Printf("Error sending Discord notification\n")
+			log.Println("Error sending Discord notification, retrying...")
 			return err
 		}
 	}
@@ -126,7 +123,7 @@ func notify(id string, url string, config *config.Config, client *http.Client) e
 	if config.TelegramConfig != nil {
 		err := alert.SendTelegramMessage(id, url, *config.TelegramConfig, client)
 		if err != nil {
-			log.Printf("Error sending Telegram notification\n")
+			log.Println("Error sending Telegram notification, retrying...")
 			return err
 		}
 	}
