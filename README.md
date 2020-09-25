@@ -22,10 +22,10 @@ Download the latest release from [Releases](https://github.com/ianmarmour/nvidia
 
 AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, ESP, NOR, NLD
 
-### Supported Models
+### Supported Models By Region
 
-3080 (All regions)
-3090 (GBR and USA Regions Only)
+3080 - All Region Codes
+3090 - GBR and USA Region Codes
 
 ## Usage
 
