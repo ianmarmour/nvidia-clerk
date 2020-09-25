@@ -3,7 +3,6 @@ package alert
 import (
 	"bytes"
 	"encoding/json"
-	"log"
 	"net/http"
 
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
@@ -24,8 +23,6 @@ func SendDiscordMessage(item string, nvidiaURL string, config config.DiscordConf
 	}
 	req.Header.Add("Content-Type", "application/json")
 
-	log.Println(json)
-
 	r, err := client.Do(req)
 	if err != nil {
 		return err
@@ -33,8 +30,6 @@ func SendDiscordMessage(item string, nvidiaURL string, config config.DiscordConf
 	if r.StatusCode > 400 {
 		return err
 	}
-
-	log.Println(r)
 
 	defer r.Body.Close()
 

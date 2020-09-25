@@ -204,8 +204,6 @@ func getBody(request *http.Request, client *http.Client) ([]byte, error) {
 	}
 	defer r.Body.Close()
 
-	log.Println(r)
-
 	body, readErr := ioutil.ReadAll(r.Body)
 	if readErr != nil {
 		return nil, readErr
