@@ -78,7 +78,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: nvidia-clerk-windows-arm
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows-arm.exe
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-windows-arm/nvidia-clerk-windows-arm.exe
     
     # Publish Artifacts Linux
     - uses: actions/upload-artifact@v2
@@ -90,13 +90,13 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: nvidia-clerk-linux-arm
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux-arm
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm/nvidia-clerk-linux-arm
 
     # Publish Artifacts Linux ARM64
     - uses: actions/upload-artifact@v2
       with:
         name: nvidia-clerk-linux-arm64
-        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux-arm64
+        path: ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm64/nvidia-clerk-linux-arm64
 
     # Publish Artifacts Darwin
     - uses: actions/upload-artifact@v2
