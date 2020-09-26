@@ -7,7 +7,7 @@
 ![alt text](.github/resources/images/example.png)
 
 ## Known Issues
-To here about any wide spread issues of this tool join the Discord by clicking that chat button above.
+To hear about any wide spread issues of this tool join the Discord by clicking that chat button above.
 
 ## Background
 `nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
