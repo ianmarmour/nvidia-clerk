@@ -11,7 +11,7 @@ import (
 
 //SendText Sends an SMS notification using Twilio Service.
 func SendText(item string, nvidiaURL string, config config.TwilioConfig, client *http.Client) error {
-	str := item + " Ready for Purchase: " + nvidiaURL
+	str := item + " Ready for Purchase: " + "." + nvidiaURL + "."
 	api := fmt.Sprintf("https://api.twilio.com/2010-04-01/Accounts/%s/Messages", config.AccountSID)
 	data := url.Values{
 		"To":   {config.DestinationNumber},
