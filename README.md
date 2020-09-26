@@ -31,7 +31,7 @@ AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, 
 
 3080 - All Region Codes
 
-3090 - GBR and USA Region Codes
+3090 - All Region Codes Minus PRT
 
 ## Usage
 
