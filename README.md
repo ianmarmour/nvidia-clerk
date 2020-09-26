@@ -1,10 +1,13 @@
-![go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) [![Coverage Status](https://coveralls.io/repos/github/ianmarmour/nvidia-clerk/badge.svg?branch=master)](https://coveralls.io/github/ianmarmour/nvidia-clerk?branch=master) [![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/zFQxqPQ)
+![go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) [![Coverage Status](https://coveralls.io/repos/github/ianmarmour/nvidia-clerk/badge.svg?branch=master)](https://coveralls.io/github/ianmarmour/nvidia-clerk?branch=master) [![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/gTgJRz7)
 
 # nvidia-clerk
 
 `nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
 
 ![alt text](.github/resources/images/example.png)
+
+## Known Issues
+To here about any wide spread issues of this tool join the Discord by clicking that chat button above.
 
 ## Background
 `nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
