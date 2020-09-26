@@ -53,7 +53,7 @@ jobs:
       run: go test -v -cover -race -coverprofile=coverage.out ./...
   
     - name: Get Coverage Tool
-      run: go get github.com/mattn/goveralls
+      run: go get https://github.com/mattn/goveralls
 
     - name: Upload Coverage
-      run: goveralls -coverprofile=coverage.out -service=circle-ci
+      run: goveralls -coverprofile=coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
