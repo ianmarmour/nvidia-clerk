@@ -51,12 +51,13 @@ jobs:
 
     - name: Run Tests 
       run: go test -v -cover -race -coverprofile=coverage.out ./...
-
-    - name: Coveralls-pre
+  
+    - name: Get Coverage Tool
+      env:
+        GO111MODULE: off
       run: go get github.com/mattn/goveralls
- 
-    - name: Coveralls-override
-      run: go test -v -cover -race -coverprofile=/home/ubuntu/coverage.out
-
-    - name: Coveralls-post:
-      run: /home/ubuntu/.go_workspace/bin/goveralls -coverprofile=/home/ubuntu/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
+      
+    - name: Upload Coverage
+      env:
+        COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: goveralls -coverprofile=coverage.out -service=circle-ci
