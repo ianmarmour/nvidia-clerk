@@ -44,7 +44,19 @@ func main() {
 
 	token, err := rest.GetSessionToken(client)
 	if err != nil {
-		log.Fatal("Error getting session token from NVIDIA retrying...")
+		log.Println("Error getting session token from NVIDIA retrying...")
+	}
+
+	// For when NVIDIAs store APIs are down.
+	for token == nil {
+		sleep(delay)
+		token, err = rest.GetSessionToken(client)
+		if err != nil {
+			log.Printf("Error getting session token from NVIDIA retrying...")
+			continue
+		}
+
+		break
 	}
 
 	for {

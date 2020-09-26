@@ -84,7 +84,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5440853700"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5444941400"),
+			},
 		},
 		Locale:       "de_de",
 		NvidiaLocale: "de-de",
@@ -99,7 +101,7 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5438795700"),
 			},
 			"3090": {
-				SKU: nil,
+				SKU: strPtr("5438795600"),
 			},
 		},
 		Locale:       "fr_fr",
@@ -112,7 +114,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438481700"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438481600"),
+			},
 		},
 		Locale:       "en_us",
 		NvidiaLocale: "en-ca",
@@ -124,7 +128,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438793800"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438793600"),
+			},
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
@@ -136,7 +142,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438793300"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438793500"),
+			},
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
@@ -148,7 +156,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438793300"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438793500"),
+			},
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
@@ -160,7 +170,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438795200"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438761500"),
+			},
 		},
 		Locale:       "fr_fr",
 		NvidiaLocale: "fr-fr",
@@ -172,7 +184,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438792300"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438761400"),
+			},
 		},
 		Locale:       "de_de",
 		NvidiaLocale: "de-de",
@@ -216,7 +230,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438792800"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438792700"),
+			},
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
@@ -228,7 +244,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438796200"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438796100"),
+			},
 		},
 		Locale:       "it_it",
 		NvidiaLocale: "it-it",
@@ -240,7 +258,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438798100"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438761600"),
+			},
 		},
 		Locale:       "sv_SE",
 		NvidiaLocale: "sv-se",
@@ -252,7 +272,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438795700"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438795600"),
+			},
 		},
 		Locale:       "fr_fr",
 		NvidiaLocale: "fr-fr",
@@ -264,7 +286,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438797700"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438797600"),
+			},
 		},
 		Locale:       "pl_pl",
 		NvidiaLocale: "pl-pl",
@@ -288,7 +312,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438794800"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438794700"),
+			},
 		},
 		Locale:       "es_es",
 		NvidiaLocale: "es-es",
@@ -300,7 +326,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438797200"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438797100"),
+			},
 		},
 		Locale:       "no_NO",
 		NvidiaLocale: "no-NO",
@@ -312,7 +340,9 @@ var regionalConfig = map[string]RegionalConfig{
 			"3080": {
 				SKU: strPtr("5438796700"),
 			},
-			"3090": {},
+			"3090": {
+				SKU: strPtr("5438796600"),
+			},
 		},
 		Locale:       "nl_nl",
 		NvidiaLocale: "nl-nl",
