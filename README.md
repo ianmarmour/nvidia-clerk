@@ -7,13 +7,7 @@
 ![alt text](.github/resources/images/example.png)
 
 ## Known Issues
-Currently `nvidia-clerk`is not functioning correctly because NVIDIA's shopping site is under maintenance and halting all purchases due to a security leak and you may get an error reading:
-
-`2020/09/25 21:08:58 invalid character '<' looking for beginning of value`
-
-`2020/09/25 21:08:58 Error getting session token from NVIDIA retrying...`
-
-Please refrain from posting new issues about this.
+No currently known problems at NVIDIA.
 
 ## Background
 `nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
