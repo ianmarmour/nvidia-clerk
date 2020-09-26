@@ -7,7 +7,7 @@
 ![alt text](.github/resources/images/example.png)
 
 ## Known Issues
-Currently `nvidia-clerk`is not functioning correctly because NVIDIA's shopping site is under maintenance and halting all purchases due to a security leak and you may get an error reading:
+Currently `nvidia-clerk`is not functioning correctly because NVIDIA's API is down and you may get an error reading:
 
 `2020/09/25 21:08:58 invalid character '<' looking for beginning of value`
 
