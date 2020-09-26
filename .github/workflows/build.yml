@@ -56,4 +56,4 @@ jobs:
       run: go get github.com/mattn/goveralls
 
     - name: Upload Coverage
-      run: goveralls -coverprofile=coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
+      run: goveralls -coverprofile=coverage.out -service=circle-ci
