@@ -33,10 +33,11 @@ func main() {
 	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	remote := flag.Bool("remote", false, "Enable notification only mode.")
+	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
 	test := flag.Bool("test", false, "Enable remote mode for when you're away from computer.")
 	flag.Parse()
 
-	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram)
+	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
@@ -136,6 +137,14 @@ func notify(id string, url string, remote bool, config *config.Config, client *h
 		err := alert.SendTelegramMessage(id, url, *config.TelegramConfig, client)
 		if err != nil {
 			log.Println("Error sending Telegram notification, retrying...")
+			return err
+		}
+	}
+
+	if config.ToastConfig != nil {
+		err := alert.SendToast(config.ToastConfig.OS, id)
+		if err != nil {
+			log.Println("Error sending Windows Desktop notification, retrying...")
 			return err
 		}
 	}

@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"runtime"
 )
 
 func strPtr(in string) *string {
@@ -29,6 +30,10 @@ func (w *ConfigError) Error() string {
 
 type Model struct {
 	SKU *string
+}
+
+type ToastConfig struct {
+	OS string
 }
 
 type RegionalConfig struct {
@@ -74,6 +79,7 @@ type Config struct {
 	TwitterConfig  *TwitterConfig
 	DiscordConfig  *DiscordConfig
 	TelegramConfig *TelegramConfig
+	ToastConfig    *ToastConfig
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
@@ -350,6 +356,23 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 }
 
+func getToast() (*ToastConfig, error) {
+	var err error
+
+	switch runtime.GOOS {
+	case "linux":
+		return &ToastConfig{"linux"}, nil
+	case "windows":
+		return &ToastConfig{"windows"}, nil
+	case "darwin":
+		return &ToastConfig{"darwin"}, nil
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+
+	return nil, err
+}
+
 //getTwitter Generates TwitterConfiguration for application from environmental variables.
 func getTwitter() (*TwitterConfig, error) {
 	c := TwitterConfig{}
@@ -448,7 +471,7 @@ func getTelegram() (*TelegramConfig, error) {
 }
 
 //Get Generates Configuration for application from environmental variables.
-func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool) (*Config, error) {
+func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
 		configuration := Config{}
 
@@ -489,6 +512,14 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 				return nil, err
 			}
 			configuration.TelegramConfig = cfg
+		}
+
+		if toast == true {
+			cfg, err := getToast()
+			if err != nil {
+				return nil, err
+			}
+			configuration.ToastConfig = cfg
 		}
 
 		return &configuration, nil
