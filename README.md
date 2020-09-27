@@ -88,6 +88,12 @@ nvidia-clerk-windows.exe -region=USA -test
 
 # Advanced Usage
 
+## Desktop Notifications
+Can be used in conjunction with sms/telegram/etc adds popup notifications on your desktop with sound/visual indicator.
+```
+nvidia-clerk-windows.exe -model=3080 -desktop
+```
+
 ## Remote Mode
 Disables browser automation and instead sends you the checkout link via one of the below notification services you can click the link on any device to get to your checkout with the card added. This is great for people who can't be at their computer during the day! (Try testing with -model=2060 to see how this new feature works)
 ```
