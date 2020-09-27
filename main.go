@@ -32,7 +32,7 @@ func main() {
 	twilio := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
 	discord := flag.Bool("discord", false, "Enable Discord webhook notifications for whenever SKU is in stock.")
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
-	remote := flag.Bool("remote", false, "Enable notification only mode.")
+	remote := flag.Bool("remote", false, "Enable remote notification only mode.")
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
 	test := flag.Bool("test", false, "Enable remote mode for when you're away from computer.")
 	flag.Parse()
