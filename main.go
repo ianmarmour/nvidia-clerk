@@ -80,7 +80,7 @@ func main() {
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" || *test == true {
-			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.Locale, client)
+			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.NvidiaLocale, client)
 			if err != nil {
 				log.Println("Error adding card to checkout retrying...")
 				continue

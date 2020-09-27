@@ -116,6 +116,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"CAN": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5379432500"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438481700"),
@@ -126,7 +129,7 @@ var regionalConfig = map[string]RegionalConfig{
 		},
 		Locale:       "en_us",
 		NvidiaLocale: "en-ca",
-		Currency:     "CAN",
+		Currency:     "CAD",
 	},
 	"CZE": {
 		Models: map[string]Model{
