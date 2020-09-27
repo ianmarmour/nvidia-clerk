@@ -74,7 +74,6 @@ type Config struct {
 	Delay        int64
 
 	SKU            *string
-	TestSKU        *string
 	TwilioConfig   *TwilioConfig
 	TwitterConfig  *TwitterConfig
 	DiscordConfig  *DiscordConfig
@@ -86,10 +85,23 @@ type Config struct {
 var regionalConfig = map[string]RegionalConfig{
 	"AUT": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394902900"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394901600"),
+			},
+			"2080S": {
+				SKU: strPtr("5335703700"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984600"),	
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301000"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5440853700"),
 			},
@@ -103,11 +115,19 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"BEL": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S: {
 				SKU: strPtr("5394902700"),
 			},
+			"2070S": {
+				SKU: strPtr("5336534300"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531500"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218987100"),
+			},
 			"3070": {
-				SKU: nil,
 			},
 			"3080": {
 				SKU: strPtr("5438795700"),
@@ -122,10 +142,20 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"CAN": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5379432500"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5379432400"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984100"),	
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5254456900"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438481700"),
 			},
@@ -139,10 +169,26 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"CZE": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394902800"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394901500"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531900"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218613300"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301900"),
+			},
+			"TITAN-V": {
+				SKU: strPtr("5144941300"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438793800"),
 			},
@@ -152,14 +198,30 @@ var regionalConfig = map[string]RegionalConfig{
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
-		Currency:     "EUR",
+		Currency:     "CZK",
 	},
 	"DNK": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903100"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394901800"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531800"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218988600"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301800"),
+			},
+			"TITAN-V": {
+				SKU: strPtr("5144941100"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438793300"),
 			},
@@ -169,12 +231,27 @@ var regionalConfig = map[string]RegionalConfig{
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
-		Currency:     "EUR",
+		Currency:     "DKK",
 	},
 	"FIN": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903100"),
+			},
+			"2070S": {
+				SKU: strPtr("5394901800"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531800"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218988600"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301800"),
+			},
+			"TITAN-V": {
+				SKU: strPtr("5144941100"),
 			},
 			"3070": {},
 			"3080": {
@@ -190,10 +267,20 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"FRA": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903200"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394901900"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531100"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301100"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438795200"),
 			},
@@ -207,10 +294,23 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"DEU": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394902900"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394901600"),
+			},
+			"2080S": {
+				SKU: strPtr("5335703700"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984600"),	
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301000"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438792300"),
 			},
@@ -224,10 +324,26 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"USA": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5379432500"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5379432400"),
+			},
+			"2080S": {
+				SKU: strPtr("5334463900"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984100"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5254456900"),
+			},
+			"TITAN-V": {
+				SKU: strPtr("5144751300"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438481700"),
 			},
@@ -238,14 +354,26 @@ var regionalConfig = map[string]RegionalConfig{
 		Locale:       "en_us",
 		NvidiaLocale: "en-us",
 		Currency:     "USD",
-		TestSKU:      "5379432500",
 	},
 	"GBR": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903300"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394902000"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531200"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218985600"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301200"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438792800"),
 			},
@@ -259,10 +387,23 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"IRL": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903300"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394902000"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531200"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218985600"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301200"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438792800"),
 			},
@@ -276,10 +417,23 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"ITA": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903400"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394902100"),
+			},
+			"2080S": {
+				SKU: strPtr("5336532000"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218613900"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256302000"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438796200"),
 			},
@@ -293,10 +447,26 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"SWE": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903900"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394902500"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531300"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218986100"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301300"),
+			},
+			"TITAN-V": {
+				SKU: strPtr("5144941000"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438798100"),
 			},
@@ -304,16 +474,26 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5438761600"),
 			},
 		},
-		Locale:       "sv_SE",
+		Locale:       "sv_se",
 		NvidiaLocale: "sv-se",
 		Currency:     "SEK",
 	},
 	"LUX": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S: {
 				SKU: strPtr("5394902700"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5336534300"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531500"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218987100"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438795700"),
 			},
@@ -327,10 +507,23 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"POL": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903700"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394902300"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531600"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218987600"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301600"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438797700"),
 			},
@@ -344,12 +537,15 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"PRT": {
 		Models: map[string]Model{
-			"2060": {},
-			"3070": {},
+			"2060S": {
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438794300"),
 			},
-			"3090": {},
+			"3090": {
+			},
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
@@ -357,10 +553,23 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"ESP": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903000"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394901700"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531400"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218986600"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301400"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438794800"),
 			},
@@ -374,10 +583,26 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"NOR": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903600"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394902600"),
+			},
+			"2080S": {
+				SKU: strPtr("5336531700"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218988100"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256301700"),
+			},
+			"TITAN-V": {
+				SKU: strPtr("5145366000"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438797200"),
 			},
@@ -385,16 +610,32 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5438797100"),
 			},
 		},
-		Locale:       "no_NO",
-		NvidiaLocale: "no-NO",
+		Locale:       "no_no",
+		NvidiaLocale: "no-no",
 		Currency:     "NOK",
 	},
 	"NLD": {
 		Models: map[string]Model{
-			"2060": {
+			"2060S": {
 				SKU: strPtr("5394903500"),
 			},
-			"3070": {},
+			"2070S": {
+				SKU: strPtr("5394902200"),
+			},
+			"2080S": {
+				SKU: strPtr("5336532100"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218614400"),
+			},
+			"TITAN-RTX": {
+				SKU: strPtr("5256302100"),
+			},
+			"TITAN-V": {
+				SKU: strPtr("5144941200"),
+			},
+			"3070": {
+			},
 			"3080": {
 				SKU: strPtr("5438796700"),
 			},
