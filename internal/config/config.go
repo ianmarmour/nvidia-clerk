@@ -86,6 +86,9 @@ type Config struct {
 var regionalConfig = map[string]RegionalConfig{
 	"AUT": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394902900"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5440853700"),
@@ -100,6 +103,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"BEL": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394902700"),
+			},
 			"3070": {
 				SKU: nil,
 			},
@@ -133,6 +139,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"CZE": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394902800"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438793800"),
@@ -147,6 +156,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"DNK": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903100"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438793300"),
@@ -161,6 +173,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"FIN": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903100"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438793300"),
@@ -175,6 +190,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"FRA": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903200"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438795200"),
@@ -189,6 +207,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"DEU": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394902900"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438792300"),
@@ -221,6 +242,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"GBR": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903300"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438792800"),
@@ -235,6 +259,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"IRL": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903300"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438792800"),
@@ -249,6 +276,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"ITA": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903400"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438796200"),
@@ -263,6 +293,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"SWE": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903900"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438798100"),
@@ -277,6 +310,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"LUX": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394902700"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438795700"),
@@ -291,6 +327,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"POL": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903700"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438797700"),
@@ -305,6 +344,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"PRT": {
 		Models: map[string]Model{
+			"2060": {},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438794300"),
@@ -317,6 +357,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"ESP": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903000"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438794800"),
@@ -331,6 +374,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"NOR": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903600"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438797200"),
@@ -345,6 +391,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"NLD": {
 		Models: map[string]Model{
+			"2060": {
+				SKU: strPtr("5394903500"),
+			},
 			"3070": {},
 			"3080": {
 				SKU: strPtr("5438796700"),
