@@ -125,7 +125,7 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 		},
 		Locale:       "en_us",
-		NvidiaLocale: "en-ca",
+		NvidiaLocale: "en-US",
 		Currency:     "CAN",
 	},
 	"CZE": {
