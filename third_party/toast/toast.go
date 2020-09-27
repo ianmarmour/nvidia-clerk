@@ -350,6 +350,8 @@ func invokeTemporaryScript(content string) error {
 		return err
 	}
 	cmd := exec.Command("PowerShell", "-ExecutionPolicy", "Bypass", "-File", file)
+
+	// Had to fork this library into third party to update this line
 	cmd.SysProcAttr = &syscall.SysProcAttr{}
 	if err = cmd.Run(); err != nil {
 		return err

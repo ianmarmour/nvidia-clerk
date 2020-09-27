@@ -7,8 +7,10 @@ import (
 	"github.com/ianmarmour/nvidia-clerk/third_party/toast"
 )
 
+var execCommand = exec.Command
+
 func linuxToast(name string) error {
-	err := exec.Command("notify-send", "NVIDIA Clerk", fmt.Sprintf("%s Is ready for checkout", name), "-u", "critical").Start()
+	err := execCommand("notify-send", "NVIDIA Clerk", fmt.Sprintf("%s Is ready for checkout", name), "-u", "critical").Start()
 	if err != nil {
 		return err
 	}
@@ -18,7 +20,7 @@ func linuxToast(name string) error {
 
 func darwinToast(name string) error {
 	notification := fmt.Sprintf("display notification \"NVIDIA Clerk\" with title \"NVIDIA Clerk Inventory Alert\" subtitle \"%s\"", fmt.Sprintf("%s Is ready for checkout", name))
-	err := exec.Command("osascript", "-e", notification).Start()
+	err := execCommand("osascript", "-e", notification).Start()
 	if err != nil {
 		return err
 	}
