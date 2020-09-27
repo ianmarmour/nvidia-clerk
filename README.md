@@ -68,21 +68,21 @@ Testing is currenly only supported for the USA region but it should show you wha
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
 ```Batchfile
-nvidia-clerk-windows.exe -region=USA -test
+nvidia-clerk-windows.exe -region=USA -test -model=2060
 ```
 
 ### Mac OSX
 | :memo:        | All commands should be executed inside of Terminal.app |
 |---------------|:------------------------|
 ```shell
-./nvidia-clerk-darwin -region=USA -test
+./nvidia-clerk-darwin -region=USA -test -model=2060
 ```
 
 ### Linux
 | :memo:        | All commands should be executed inside of Shell |
 |---------------|:------------------------|
 ```shell
-./nvidia-clerk-linux -region=USA -test
+./nvidia-clerk-linux -region=USA -test -model=2060
 ```
 
 
@@ -97,13 +97,13 @@ nvidia-clerk-windows.exe -model=3080 -desktop
 ## Remote Mode
 Disables browser automation and instead sends you the checkout link via one of the below notification services you can click the link on any device to get to your checkout with the card added. This is great for people who can't be at their computer during the day! (Try testing with -model=2060 to see how this new feature works)
 ```
-nvidia-clerk-windows.exe -model=3090 -sms -remote
+nvidia-clerk-windows.exe -model=3080 -sms -remote
 ```
 
 ## Manual Delay Usage
 Example of setting a 1 second delay (delay is specificed in miliseconds)
 ```Batch
-nvidia-clerk-windows.exe -region=USA -delay=1000
+nvidia-clerk-windows.exe -region=USA  -model=3080 -delay=1000
 ```
 
 ## SMS Notifications
@@ -139,7 +139,7 @@ set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
 
 ### Testing
 ```Batchfile
-./nvidia-clerk-windows.exe -discord -test
+./nvidia-clerk-windows.exe -discord -test -model=2060
 ```
 
 ### Usage
@@ -160,7 +160,7 @@ set TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_HERE
 
 ### Testing
 ```Batchfile
-./nvidia-clerk-windows.exe -twitter -test
+./nvidia-clerk-windows.exe -twitter -test -model=2060
 ```
 
 ### Usage
@@ -184,7 +184,7 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 
 ### Testing
 ```Batchfile
-./nvidia-clerk-windows.exe -telegram -test
+./nvidia-clerk-windows.exe -telegram -test -model=2060
 ```
 
 ### Usage
