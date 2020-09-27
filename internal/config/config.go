@@ -125,7 +125,7 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 		},
 		Locale:       "en_us",
-		NvidiaLocale: "en-US",
+		NvidiaLocale: "en-ca",
 		Currency:     "CAN",
 	},
 	"CZE": {
@@ -336,8 +336,8 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5438797100"),
 			},
 		},
-		Locale:       "nb_NO",
-		NvidiaLocale: "nb-NO",
+		Locale:       "no_NO",
+		NvidiaLocale: "no-NO",
 		Currency:     "NOK",
 	},
 	"NLD": {
