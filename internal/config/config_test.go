@@ -89,7 +89,6 @@ func TestGet(t *testing.T) {
 				Currency:     "USD",
 				Delay:        500,
 				SKU:          strPtr("5438481700"),
-				TestSKU:      strPtr("5379432500"),
 			},
 		},
 		"with sms": {
@@ -106,7 +105,6 @@ func TestGet(t *testing.T) {
 				Currency:     "USD",
 				Delay:        0,
 				SKU:          strPtr("5438481700"),
-				TestSKU:      strPtr("5379432500"),
 				TwilioConfig: &TwilioConfig{
 					AccountSID:        "1",
 					Token:             "2",
@@ -129,7 +127,6 @@ func TestGet(t *testing.T) {
 				Currency:     "USD",
 				Delay:        0,
 				SKU:          strPtr("5438481700"),
-				TestSKU:      strPtr("5379432500"),
 				DiscordConfig: &DiscordConfig{
 					WebhookURL: "1",
 				},
@@ -149,7 +146,6 @@ func TestGet(t *testing.T) {
 				Currency:     "USD",
 				Delay:        0,
 				SKU:          strPtr("5438481700"),
-				TestSKU:      strPtr("5379432500"),
 				TwitterConfig: &TwitterConfig{
 					ConsumerKey:    "1",
 					ConsumerSecret: "2",
@@ -173,7 +169,6 @@ func TestGet(t *testing.T) {
 				Currency: "USD",
 				Delay:    0,
 				SKU:      strPtr("5438481700"),
-				TestSKU:  strPtr("5379432500"),
 				TelegramConfig: &TelegramConfig{
 					APIKey: "1",
 					ChatID: "2",
