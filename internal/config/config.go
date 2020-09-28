@@ -85,7 +85,7 @@ type Config struct {
 var regionalConfig = map[string]RegionalConfig{
 	"AUT": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394902900"),
 			},
 			"2070S": {
@@ -115,7 +115,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"BEL": {
 		Models: map[string]Model{
-			"2060S: {
+			"2060": {
 				SKU: strPtr("5394902700"),
 			},
 			"2070S": {
@@ -142,7 +142,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"CAN": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5379432500"),
 			},
 			"2070S": {
@@ -169,7 +169,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"CZE": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394902800"),
 			},
 			"2070S": {
@@ -202,7 +202,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"DNK": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903100"),
 			},
 			"2070S": {
@@ -235,7 +235,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"FIN": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903100"),
 			},
 			"2070S": {
@@ -267,7 +267,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"FRA": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903200"),
 			},
 			"2070S": {
@@ -294,7 +294,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"DEU": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394902900"),
 			},
 			"2070S": {
@@ -324,7 +324,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"USA": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5379432500"),
 			},
 			"2070S": {
@@ -357,7 +357,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"GBR": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903300"),
 			},
 			"2070S": {
@@ -387,7 +387,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"IRL": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903300"),
 			},
 			"2070S": {
@@ -417,7 +417,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"ITA": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903400"),
 			},
 			"2070S": {
@@ -447,7 +447,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"SWE": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903900"),
 			},
 			"2070S": {
@@ -480,7 +480,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"LUX": {
 		Models: map[string]Model{
-			"2060S: {
+			"2060": {
 				SKU: strPtr("5394902700"),
 			},
 			"2070S": {
@@ -507,7 +507,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"POL": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903700"),
 			},
 			"2070S": {
@@ -537,7 +537,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"PRT": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 			},
 			"3070": {
 			},
@@ -553,7 +553,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"ESP": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903000"),
 			},
 			"2070S": {
@@ -583,7 +583,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"NOR": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903600"),
 			},
 			"2070S": {
@@ -616,7 +616,7 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"NLD": {
 		Models: map[string]Model{
-			"2060S": {
+			"2060": {
 				SKU: strPtr("5394903500"),
 			},
 			"2070S": {
