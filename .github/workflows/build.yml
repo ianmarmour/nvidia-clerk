@@ -33,7 +33,7 @@ jobs:
     - name: Get Coverage Tools
       run:  go get github.com/mattn/goveralls
 
-    # Per Architecture Static Builds
+    # Per Architecture Static Builds NVIDIA-Clerk
     - name: Build Windows
       run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe ./cmd/nvidia-clerk 
 
@@ -52,6 +52,10 @@ jobs:
     - name: Build Darwin
       run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin ./cmd/nvidia-clerk
 
+    # Per Architecture Static Builds NVIDIA-Clerk-API-Status
+    - name: Build Linux NVIDIA Clerk API Status
+      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-api-status ./cmd/nvidia-clerk-api-status
+
     - name: Run Tests 
       run: go test -v -cover -race -coverprofile=coverage.out ./...
   
@@ -63,17 +67,22 @@ jobs:
     - name: Upload Coverage
       run: goveralls -coverprofile=coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
 
-    # Make Bin Directory incase it doesn't exist
-    - name: Make BIN Directory
-      run: mkdir -p bin
+    # Make Bin Directories incase they don't exist.
+    - run: mkdir -p bin
+    - run: mkdir -p bin/nvidia-clerk
+    - run: mkdir -p bin/nvidia-clerk-api-status
 
-    # Copy Build Artifacts to bin
+    # Copy nvidia-clerk build Artifacts to bin
     - run: mv nvidia-clerk-windows.exe ./bin/nvidia-clerk-windows.exe
     - run: mv nvidia-clerk-windows-arm.exe ./bin/nvidia-clerk-windows-arm.exe
     - run: mv nvidia-clerk-linux ./bin/nvidia-clerk-linux
     - run: mv nvidia-clerk-linux-arm ./bin/nvidia-clerk-linux-arm
     - run: mv nvidia-clerk-linux-arm64 ./bin/nvidia-clerk-linux-arm64
     - run: mv nvidia-clerk-darwin ./bin/nvidia-clerk-darwin
+
+    # Copy nvidia-clerk-api-status build Artifacts to bin
+    - run: mv nvidia-clerk-api-status ./bin/nvidia-clerk-api-status/nvidia-clerk-api-status
+
     - name: Commit to repository
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
