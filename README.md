@@ -2,25 +2,24 @@
 
 # nvidia-clerk
 
-`nvidia-clerk` is a command line tool written to help you get an RTX 30XX or RTX 20XX series GPU.
+`nvidia-clerk` is a command-line tool written to help you get an RTX 30XX or RTX 20XX series GPU.
 
 ![alt text](.github/resources/images/example.png)
 
 ## Discord Server
-To hear about any wide spread issues or new releases of this tool join the Discord by clicking that chat button above.
+To hear about any widespread issues or new releases of this tool join the Discord by clicking that chat button above.
 
 ## Background
-`nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
-private bots to procure large quantities of NVIDIA GPU's and most consumers were left without being able to purchase the product. This 
-project will provide a short term solution so that customers can ensure they can buy a GPU and compete with these scalpers.
+`nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch, multiple different groups of scalpers used
+private bots to procure large quantities of NVIDIA GPU's and most consumers were left without being able to purchase the product. This project will provide a short term solution so that customers can ensure they can buy a GPU and compete with these scalpers.
 
-NVIDIA Clerk doesn't actually purchase products for customers, it simply tracks the avaliable inventory from NVIDIAs APIs when a card becomes avaliable it can automatically notify you or open your browser to the page with a cart containing your item.
+NVIDIA Clerk doesn't purchase products for customers, it simply tracks the available inventory from NVIDIAs APIs when a card becomes available it can automatically notify you or open your browser to the page with a cart containing your item.
 
 ## Install
 
 ### Download
 Download the latest release from **[RELEASES](https://github.com/ianmarmour/nvidia-clerk/releases/latest)**
-| :exclamation:  Make sure you accept any browser warnings, these warnings are due to the fact that these release binaries are not "signed" (this costs money and as a free project we haven't paid for a signing certificate)   |
+| :exclamation:  Make sure you accept any browser warnings, these warnings are because these release binaries are not "signed" (this costs money and as a free project we haven't paid for a signing certificate)   |
 |-----------------------------------------|
 
 ### Supported Region Codes
@@ -29,17 +28,17 @@ AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, 
 
 ### Supported Models By Region
 
-`-model=2060` NVIDIA RTX 2060 SUPER - All Region Codes Except PRT
+`-model=2060` NVIDIA RTX 2060 SUPER - All-Region Codes Except PRT
 
-`-model=2070` NVIDIA RTX 2070 SUPER - All Region Codes Except PRT
+`-model=2070` NVIDIA RTX 2070 SUPER - All-Region Codes Except PRT
 
-`-model=2080` NVIDIA RTX 2080 SUPER - All Region Codes Except CAN, PRT
+`-model=2080` NVIDIA RTX 2080 SUPER - All-Region Codes Except CAN, PRT
 
-`-model=2080TI` NVIDIA RTX 2080 TI - All Region Codes Except FRA, PRT
+`-model=2080TI` NVIDIA RTX 2080 TI - All-Region Codes Except FRA, PRT
 
-`-model=3080` NVIDIA RTX 3080 - All Region Codes
+`-model=3080` NVIDIA RTX 3080 - All-Region Codes
 
-`-model=3090` NVIDIA RTX 3090 - All Region Codes Except PRT
+`-model=3090` NVIDIA RTX 3090 - All-Region Codes Except PRT
 
 ## Usage
 
@@ -221,17 +220,17 @@ nvidia-clerk-windows.exe -region={REGION_CODE_HERE} -model=3080
 ``` 
 
 #### The log says "Access Denied" and then quits
-This can be caused by a myriad of things. However, here's some items to check:
+This can be caused by a myriad of things. However, here are some items to check:
 1. Is your antivirus blocking it? Some AVs will copy the threatening file into a separate directory and give a notification
 2. Is your firewall blocking access?
 3. Do you have the right permissions to run this program?
 
-#### It's still not working... halp
+#### It's still not working...help!
 Please search in the Issues tab of this repository for solutions, and if you can't find anything, post a detailed listing. Please follow the following structure for asking questions:
 
 ```
 Operating system: 
-Version of nvidia-clerk you're running:
+The version of nvidia-clerk you're running:
 Parameters passed in (redact sensitive info):
 Additional info:
 ```
