@@ -26,6 +26,7 @@ func main() {
 
 	// Parse Argument Flags
 	flag.StringVar(&region, "region", "USA", "3 Letter region code")
+	flag.StringVar(&list, "list", "USA", "List supported models for a region")
 	flag.StringVar(&model, "model", "3080", "GPU Model number E.X. 3070, 3080, 3090")
 	flag.Int64Var(&delay, "delay", 1, "Delay for refreshing in miliseconds")
 	twitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
@@ -36,7 +37,7 @@ func main() {
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
 	flag.Parse()
 
-	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
+	config, configErr := config.Get(region, list, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
@@ -180,3 +181,80 @@ func sleep(delay int64) {
 	ds := time.Duration(delay/1000) * time.Second
 	time.Sleep(time.Duration(ns + ds))
 }
+
+if list="AUT" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="BEL" {
+	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
+} else {
+	return nil
+if list="CAN" {
+	fmt.Println("2060, 2070, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="CZE" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
+} else {
+	return nil
+if list="DNK" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
+} else {
+	return nil
+if list="FIN" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
+} else {
+	return nil
+if list="FRA" {
+	fmt.Println("2060, 2070, 2080, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="DEU" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="USA" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
+} else {
+	return nil
+if list="GBR" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="IRL" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="ITA" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="SWE" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
+} else {
+	return nil
+if list="LUX" {
+	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
+} else {
+	return nil
+if list="POL" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="PRT" {
+	fmt.Println("3080")
+} else {
+	return nil
+if list="ESP" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+} else {
+	return nil
+if list="NOR" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
+} else {
+	return nil
+if list="NLD" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
+} else {
+	return nil
