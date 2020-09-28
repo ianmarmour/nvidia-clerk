@@ -65,14 +65,14 @@ jobs:
 
     # Make Bin Directory incase it doesn't exist
     - run: mkdir -p bin
-    
+
     # Copy Build Artifacts to bin
-    - run: cp nvidia-clerk-windows.exe ./bin/nvidia-clerk-windows.exe
-    - run: cp nvidia-clerk-windows-arm.exe ./bin/nvidia-clerk-windows-arm.exe
-    - run: cp nvidia-clerk-linux ./bin/nvidia-clerk-linux
-    - run: cp nvidia-clerk-linux-arm ./bin/nvidia-clerk-linux-arm
-    - run: cp nvidia-clerk-linux-arm64 ./bin/nvidia-clerk-linux-arm64
-    - run: cp nvidia-clerk-darwin ./bin/nvidia-clerk-darwin
+    - run: mv nvidia-clerk-windows.exe ./bin/nvidia-clerk-windows.exe
+    - run: mv nvidia-clerk-windows-arm.exe ./bin/nvidia-clerk-windows-arm.exe
+    - run: mv nvidia-clerk-linux ./bin/nvidia-clerk-linux
+    - run: mv nvidia-clerk-linux-arm ./bin/nvidia-clerk-linux-arm
+    - run: mv nvidia-clerk-linux-arm64 ./bin/nvidia-clerk-linux-arm64
+    - run: mv nvidia-clerk-darwin ./bin/nvidia-clerk-darwin
 
     - name: Commit to repository
       env:
@@ -88,6 +88,6 @@ jobs:
         git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
         # Checkout the branch so we can push back to it
         git checkout master
-        git add .
+        git add bin
         # Only commit and push if we have changes
         git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
