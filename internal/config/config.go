@@ -606,7 +606,7 @@ func contains(s []string, e string) bool {
 	return false
 }
 
-// getSupportedModels Gets a list of all supported model names in a particular region
+// getSupportedRegions Gets a list of all supported region names
 func getSupportedRegions() []string {
 	keys := []string{}
 
