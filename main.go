@@ -182,97 +182,97 @@ func sleep(delay int64) {
 	ds := time.Duration(delay/1000) * time.Second
 	time.Sleep(time.Duration(ns + ds))
 }
-if list="AUT" {
+if list == "AUT" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="BEL" {
+if list == "BEL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
 } else {
 	continue
 }
-if list="CAN" {
+if list == "CAN" {
 	fmt.Println("2060, 2070, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="CZE" {
+if list == "CZE" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } else {
 	continue
 }
-if list="DNK" {
+if list == "DNK" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } else {
 	continue
 }
-if list="FIN" {
+if list == "FIN" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } else {
 	continue
 }
-if list="FRA" {
+if list == "FRA" {
 	fmt.Println("2060, 2070, 2080, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="DEU" {
+if list == "DEU" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="USA" {
+if list == "USA" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } else {
 	continue
 }
-if list="GBR" {
+if list == "GBR" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="IRL" {
+if list == "IRL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="ITA" {
+if list == "ITA" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="SWE" {
+if list == "SWE" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } else {
 	continue
 }
-if list="LUX" {
+if list == "LUX" {
 	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
 } else {
 	continue
 }
-if list="POL" {
+if list == "POL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="PRT" {
+if list == "PRT" {
 	fmt.Println("3080")
 } else {
 	continue
 }
-if list="ESP" {
+if list == "ESP" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 } else {
 	continue
 }
-if list="NOR" {
+if list == "NOR" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } else {
 	continue
 }
-if list="NLD" {
+if list == "NLD" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } else {
 	continue
