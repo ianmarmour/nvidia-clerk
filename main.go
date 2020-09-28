@@ -34,7 +34,6 @@ func main() {
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	remote := flag.Bool("remote", false, "Enable remote notification only mode.")
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
-	test := flag.Bool("test", false, "Enable remote mode for when you're away from computer.")
 	flag.Parse()
 
 	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
@@ -79,7 +78,7 @@ func main() {
 		log.Println("Product Locale: " + config.Locale)
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
-		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" || *test == true {
+		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
 			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.NvidiaLocale, client)
 			if err != nil {
 				log.Println("Error adding card to checkout retrying...")
