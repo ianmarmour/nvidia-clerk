@@ -62,3 +62,29 @@ jobs:
       
     - name: Upload Coverage
       run: goveralls -coverprofile=coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
+
+    # Copy Build Artifacts to bin
+    - run: cp nvidia-clerk-windows.exe ianmarmour/nvidia-clerk/bin/nvidia-clerk-windows.exe
+    - run: cp nvidia-clerk-windows-arm.exe ianmarmour/nvidia-clerk/bin/nvidia-clerk-windows-arm.exe
+    - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/bin/nvidia-clerk-linux
+    - run: cp nvidia-clerk-linux-arm ianmarmour/nvidia-clerk/bin/nvidia-clerk-linux-arm
+    - run: cp nvidia-clerk-linux-arm64 ianmarmour/nvidia-clerk/bin/nvidia-clerk-linux-arm64
+    - run: cp nvidia-clerk-darwin ianmarmour/nvidia-clerk/bin/nvidia-clerk-darwin
+
+    - name: Commit to repository
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+        COMMIT_MSG: |
+          <Autobuilt bin>
+          skip-checks: true
+      run: |
+        # Hard-code user configuration
+        git config user.email "<ianmarmour@gmail.com>"
+        git config user.name "<Ian Armour>"
+        # Update origin with token
+        git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        # Checkout the branch so we can push back to it
+        git checkout master
+        git add .
+        # Only commit and push if we have changes
+        git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
