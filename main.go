@@ -36,7 +36,7 @@ func main() {
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
 	flag.Parse()
 
-	config, configErr := config.Get(region, list, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
+	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
