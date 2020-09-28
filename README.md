@@ -62,7 +62,7 @@ chmod +x ./nvidia-clerk-linux
 
 ## Testing
 
-Testing is currenly only supported for the USA region but it should show you what the automated checkout will look like.
+Testing is currently only supported in regions with the 2060 but it should show you what the automated checkout will look like.
 
 ### Windows
 | :memo:        | All commands should be executed inside of cmd.exe |
@@ -121,7 +121,7 @@ set TWILIO_DESTINATION_NUMBER=YOUR_DESITNATION_NUMBER_FOR_NOTIFICATIONS_HERE
 ### Testing
 Testing only works fully with an in-stock card.
 ```shell
-nvidia-clerk-windows.exe -sms -test -model=2060
+nvidia-clerk-windows.exe -sms -model=2060
 ```
 
 ### Usage
@@ -139,7 +139,7 @@ set DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL_HERE
 
 ### Testing
 ```Batchfile
-./nvidia-clerk-windows.exe -discord -test -model=2060
+./nvidia-clerk-windows.exe -discord -model=2060
 ```
 
 ### Usage
@@ -160,7 +160,7 @@ set TWITTER_ACCESS_SECRET=YOUR_TWITTER_ACCESS_SECRET_HERE
 
 ### Testing
 ```Batchfile
-./nvidia-clerk-windows.exe -twitter -test -model=2060
+./nvidia-clerk-windows.exe -twitter -model=2060
 ```
 
 ### Usage
@@ -184,7 +184,7 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 
 ### Testing
 ```Batchfile
-./nvidia-clerk-windows.exe -telegram -test -model=2060
+./nvidia-clerk-windows.exe -telegram -model=2060
 ```
 
 ### Usage

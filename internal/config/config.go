@@ -50,7 +50,6 @@ type RegionalConfig struct {
 	Locale       string
 	NvidiaLocale string
 	Currency     string
-	TestSKU      string
 }
 
 type TwitterConfig struct {
@@ -83,7 +82,6 @@ type Config struct {
 	Delay        int64
 
 	SKU            *string
-	TestSKU        *string
 	TwilioConfig   *TwilioConfig
 	TwitterConfig  *TwitterConfig
 	DiscordConfig  *DiscordConfig
@@ -98,7 +96,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902900"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394901600"),
+			},
+			"2080": {
+				SKU: strPtr("5335703700"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984600"),	
+			},
 			"3080": {
 				SKU: strPtr("5440853700"),
 			},
@@ -115,8 +121,14 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902700"),
 			},
-			"3070": {
-				SKU: nil,
+			"2070": {
+				SKU: strPtr("5336534300"),
+			},
+			"2080": {
+				SKU: strPtr("5336531500"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218987100"),
 			},
 			"3080": {
 				SKU: strPtr("5438795700"),
@@ -134,7 +146,12 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5379432500"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5379432400"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984100"),	
+			},
 			"3080": {
 				SKU: strPtr("5438481700"),
 			},
@@ -151,7 +168,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902800"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394901500"),
+			},
+			"2080": {
+				SKU: strPtr("5336531900"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218613300"),
+			},
 			"3080": {
 				SKU: strPtr("5438793800"),
 			},
@@ -161,14 +186,22 @@ var regionalConfig = map[string]RegionalConfig{
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
-		Currency:     "EUR",
+		Currency:     "CZK",
 	},
 	"DNK": {
 		Models: map[string]Model{
 			"2060": {
 				SKU: strPtr("5394903100"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394901800"),
+			},
+			"2080": {
+				SKU: strPtr("5336531800"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218988600"),
+			},
 			"3080": {
 				SKU: strPtr("5438793300"),
 			},
@@ -178,14 +211,22 @@ var regionalConfig = map[string]RegionalConfig{
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
-		Currency:     "EUR",
+		Currency:     "DKK",
 	},
 	"FIN": {
 		Models: map[string]Model{
 			"2060": {
 				SKU: strPtr("5394903100"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394901800"),
+			},
+			"2080": {
+				SKU: strPtr("5336531800"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218988600"),
+			},
 			"3080": {
 				SKU: strPtr("5438793300"),
 			},
@@ -202,7 +243,12 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903200"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394901900"),
+			},
+			"2080": {
+				SKU: strPtr("5336531100"),
+			},
 			"3080": {
 				SKU: strPtr("5438795200"),
 			},
@@ -219,7 +265,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902900"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394901600"),
+			},
+			"2080": {
+				SKU: strPtr("5335703700"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984600"),	
+			},
 			"3080": {
 				SKU: strPtr("5438792300"),
 			},
@@ -236,7 +290,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5379432500"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5379432400"),
+			},
+			"2080": {
+				SKU: strPtr("5334463900"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218984100"),
+			},
 			"3080": {
 				SKU: strPtr("5438481700"),
 			},
@@ -247,14 +309,21 @@ var regionalConfig = map[string]RegionalConfig{
 		Locale:       "en_us",
 		NvidiaLocale: "en-us",
 		Currency:     "USD",
-		TestSKU:      "5379432500",
 	},
 	"GBR": {
 		Models: map[string]Model{
 			"2060": {
 				SKU: strPtr("5394903300"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394902000"),
+			},
+			"2080": {
+				SKU: strPtr("5336531200"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218985600"),
+			},
 			"3080": {
 				SKU: strPtr("5438792800"),
 			},
@@ -271,7 +340,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903300"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394902000"),
+			},
+			"2080": {
+				SKU: strPtr("5336531200"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218985600"),
+			},
 			"3080": {
 				SKU: strPtr("5438792800"),
 			},
@@ -288,7 +365,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903400"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394902100"),
+			},
+			"2080": {
+				SKU: strPtr("5336532000"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218613900"),
+			},
 			"3080": {
 				SKU: strPtr("5438796200"),
 			},
@@ -305,7 +390,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903900"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394902500"),
+			},
+			"2080": {
+				SKU: strPtr("5336531300"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218986100"),
+			},
 			"3080": {
 				SKU: strPtr("5438798100"),
 			},
@@ -313,7 +406,7 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5438761600"),
 			},
 		},
-		Locale:       "sv_SE",
+		Locale:       "sv_se",
 		NvidiaLocale: "sv-se",
 		Currency:     "SEK",
 	},
@@ -322,7 +415,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902700"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5336534300"),
+			},
+			"2080": {
+				SKU: strPtr("5336531500"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218987100"),
+			},
 			"3080": {
 				SKU: strPtr("5438795700"),
 			},
@@ -339,7 +440,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903700"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394902300"),
+			},
+			"2080": {
+				SKU: strPtr("5336531600"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218987600"),
+			},
 			"3080": {
 				SKU: strPtr("5438797700"),
 			},
@@ -353,12 +462,9 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"PRT": {
 		Models: map[string]Model{
-			"2060": {},
-			"3070": {},
 			"3080": {
 				SKU: strPtr("5438794300"),
 			},
-			"3090": {},
 		},
 		Locale:       "en_gb",
 		NvidiaLocale: "en-gb",
@@ -369,7 +475,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903000"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394901700"),
+			},
+			"2080": {
+				SKU: strPtr("5336531400"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218986600"),
+			},
 			"3080": {
 				SKU: strPtr("5438794800"),
 			},
@@ -386,7 +500,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903600"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394902600"),
+			},
+			"2080": {
+				SKU: strPtr("5336531700"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218988100"),
+			},
 			"3080": {
 				SKU: strPtr("5438797200"),
 			},
@@ -394,8 +516,8 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5438797100"),
 			},
 		},
-		Locale:       "no_NO",
-		NvidiaLocale: "no-NO",
+		Locale:       "no_no",
+		NvidiaLocale: "no-no",
 		Currency:     "NOK",
 	},
 	"NLD": {
@@ -403,7 +525,15 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903500"),
 			},
-			"3070": {},
+			"2070": {
+				SKU: strPtr("5394902200"),
+			},
+			"2080": {
+				SKU: strPtr("5336532100"),
+			},
+			"2080TI": {
+				SKU: strPtr("5218614400"),
+			},
 			"3080": {
 				SKU: strPtr("5438796700"),
 			},
@@ -540,10 +670,8 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 			log.Println(fmt.Sprintf("Please choose one of the following supported models: %v by using -model=XXX", models))
 			return nil, &ModelError{"unsupported model error"}
 		}
-
 		configuration := Config{}
 		configuration.SKU = regionConfig.Models[model].SKU
-		configuration.TestSKU = &regionConfig.TestSKU
 		configuration.Delay = delay
 		configuration.Locale = regionConfig.Locale
 		configuration.NvidiaLocale = regionConfig.NvidiaLocale
