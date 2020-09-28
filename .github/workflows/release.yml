@@ -33,22 +33,22 @@ jobs:
 
     # Per Architecture Static Builds
     - name: Build Windows
-      run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
+      run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build ./cmd/nvidia-clerk -a -o nvidia-clerk-windows.exe
 
     - name: Build Windows ARM
-      run: env GOARM=5 GGO_ENABLED=0 GOOS=windows GOARCH=arm go build -a -o nvidia-clerk-windows-arm.exe
+      run: env GOARM=5 GGO_ENABLED=0 GOOS=windows GOARCH=arm go build ./cmd/nvidia-clerk -a -o nvidia-clerk-windows-arm.exe
 
     - name: Build Linux
-      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-linux
+      run: env GOOS=linux GOARCH=amd64 go build ./cmd/nvidia-clerk -a -o nvidia-clerk-linux
 
     - name: Build Linux ARM
-      run: env GOARM=5 GOOS=linux GOARCH=arm go build -a -o nvidia-clerk-linux-arm
+      run: env GOARM=5 GOOS=linux GOARCH=arm go build ./cmd/nvidia-clerk -a -o nvidia-clerk-linux-arm
 
     - name: Build Linux ARM64
-      run: env GOARM=5 GOOS=linux GOARCH=arm64 go build -a -o nvidia-clerk-linux-arm64
+      run: env GOARM=5 GOOS=linux GOARCH=arm64 go build ./cmd/nvidia-clerk -a -o nvidia-clerk-linux-arm64
 
     - name: Build Darwin
-      run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
+      run: env GOOS=darwin GOARCH=amd64 go build ./cmd/nvidia-clerk -a -o nvidia-clerk-darwin
 
     # Create Artifact Upload Directories
     - run: mkdir -p ianmarmour/nvidia-clerk/build

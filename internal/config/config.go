@@ -7,11 +7,6 @@ import (
 	"runtime"
 )
 
-func strPtr(in string) *string {
-	i := in
-	return &i
-}
-
 type RegionError struct {
 	Code string
 }
@@ -75,6 +70,10 @@ type TelegramConfig struct {
 	ChatID string
 }
 
+type ShieldsConfig struct {
+	Port string
+}
+
 type Config struct {
 	Locale       string
 	NvidiaLocale string
@@ -87,6 +86,7 @@ type Config struct {
 	DiscordConfig  *DiscordConfig
 	TelegramConfig *TelegramConfig
 	ToastConfig    *ToastConfig
+	ShieldsConfig  *ShieldsConfig
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
@@ -103,7 +103,7 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5335703700"),
 			},
 			"2080TI": {
-				SKU: strPtr("5218984600"),	
+				SKU: strPtr("5218984600"),
 			},
 			"3080": {
 				SKU: strPtr("5440853700"),
@@ -150,7 +150,7 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5379432400"),
 			},
 			"2080TI": {
-				SKU: strPtr("5218984100"),	
+				SKU: strPtr("5218984100"),
 			},
 			"3080": {
 				SKU: strPtr("5438481700"),
@@ -272,7 +272,7 @@ var regionalConfig = map[string]RegionalConfig{
 				SKU: strPtr("5335703700"),
 			},
 			"2080TI": {
-				SKU: strPtr("5218984600"),	
+				SKU: strPtr("5218984600"),
 			},
 			"3080": {
 				SKU: strPtr("5438792300"),
@@ -661,8 +661,21 @@ func getTelegram() (*TelegramConfig, error) {
 	return &c, nil
 }
 
+//getShields Generates ShieldsConfig for application from environmental variables.
+func getShields() (*ShieldsConfig, error) {
+	c := ShieldsConfig{}
+
+	p, pOk := os.LookupEnv("PORT")
+	if pOk == false {
+		return nil, &ConfigError{"Shields", "PORT"}
+	}
+	c.Port = p
+
+	return &c, nil
+}
+
 //Get Generates Configuration for application from environmental variables.
-func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool) (*Config, error) {
+func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool, shields bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
 		models := getSupportedModels(regionalConfig[region])
 		isSupportedModel := contains(models, model)
@@ -717,6 +730,14 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 			configuration.ToastConfig = cfg
 		}
 
+		if shields == true {
+			cfg, err := getShields()
+			if err != nil {
+				return nil, err
+			}
+			configuration.ShieldsConfig = cfg
+		}
+
 		return &configuration, nil
 	}
 
@@ -754,4 +775,10 @@ func getSupportedModels(config RegionalConfig) []string {
 	}
 
 	return keys
+}
+
+// strPtr generates a pointer version of a string
+func strPtr(in string) *string {
+	i := in
+	return &i
 }
