@@ -62,7 +62,10 @@ jobs:
       
     - name: Upload Coverage
       run: goveralls -coverprofile=coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
-
+  update:
+    needs: build
+    runs-on: ubuntu-latest
+    
     # Make Bin Directory incase it doesn't exist
     - run: mkdir -p bin
 
