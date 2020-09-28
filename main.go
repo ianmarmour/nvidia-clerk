@@ -182,60 +182,61 @@ func sleep(delay int64) {
 	ds := time.Duration(delay/1000) * time.Second
 	time.Sleep(time.Duration(ns + ds))
 }
-if list = "AUT" {
+switch list = region {
+case "AUT":
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "BEL" {
+case "BEL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
 }
-if list = "CAN" {
+case "CAN" {
 	fmt.Println("2060, 2070, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "CZE" {
+case "CZE" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list = "DNK" {
+case "DNK" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list = "FIN" {
+case "FIN" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list = "FRA" {
+case "FRA" {
 	fmt.Println("2060, 2070, 2080, TITAN-RTX, 3080, 3090")
 }
-if list = "DEU" {
+case "DEU" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "USA" {
+case "USA" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list = "GBR" {
+case "GBR" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "IRL" {
+case "IRL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "ITA" {
+case "ITA" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "SWE" {
+case "SWE" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list = "LUX" {
+case "LUX" {
 	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
 }
-if list = "POL" {
+case "POL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "PRT" {
+case "PRT" {
 	fmt.Println("3080")
 }
-if list = "ESP" {
+case "ESP" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list = "NOR" {
+case "NOR" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list = "NLD" {
+case "NLD" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } 
