@@ -34,9 +34,10 @@ func main() {
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	remote := flag.Bool("remote", false, "Enable remote notification only mode.")
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
+	list := flag.Bool("list", false, "Allows you to list what models are supported in your region.")
 	flag.Parse()
 
-	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
+	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop, *list)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
