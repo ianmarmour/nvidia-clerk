@@ -105,11 +105,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218984600"),	
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301000"),
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5440853700"),
 			},
@@ -135,8 +130,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218987100"),
 			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438795700"),
 			},
@@ -158,11 +151,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080TI": {
 				SKU: strPtr("5218984100"),	
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5254456900"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438481700"),
@@ -189,14 +177,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218613300"),
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301900"),
-			},
-			"TITAN-V": {
-				SKU: strPtr("5144941300"),
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438793800"),
 			},
@@ -221,14 +201,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080TI": {
 				SKU: strPtr("5218988600"),
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301800"),
-			},
-			"TITAN-V": {
-				SKU: strPtr("5144941100"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438793300"),
@@ -255,13 +227,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218988600"),
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301800"),
-			},
-			"TITAN-V": {
-				SKU: strPtr("5144941100"),
-			},
-			"3070": {},
 			"3080": {
 				SKU: strPtr("5438793300"),
 			},
@@ -283,11 +248,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080": {
 				SKU: strPtr("5336531100"),
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301100"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438795200"),
@@ -314,11 +274,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218984600"),	
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301000"),
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438792300"),
 			},
@@ -343,14 +298,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080TI": {
 				SKU: strPtr("5218984100"),
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5254456900"),
-			},
-			"TITAN-V": {
-				SKU: strPtr("5144751300"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438481700"),
@@ -377,11 +324,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218985600"),
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301200"),
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438792800"),
 			},
@@ -406,11 +348,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080TI": {
 				SKU: strPtr("5218985600"),
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301200"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438792800"),
@@ -437,11 +374,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218613900"),
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256302000"),
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438796200"),
 			},
@@ -466,14 +398,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080TI": {
 				SKU: strPtr("5218986100"),
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301300"),
-			},
-			"TITAN-V": {
-				SKU: strPtr("5144941000"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438798100"),
@@ -500,8 +424,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218987100"),
 			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438795700"),
 			},
@@ -527,11 +449,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218987600"),
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301600"),
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438797700"),
 			},
@@ -545,14 +462,8 @@ var regionalConfig = map[string]RegionalConfig{
 	},
 	"PRT": {
 		Models: map[string]Model{
-			"2060": {
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438794300"),
-			},
-			"3090": {
 			},
 		},
 		Locale:       "en_gb",
@@ -572,11 +483,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080TI": {
 				SKU: strPtr("5218986600"),
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301400"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438794800"),
@@ -603,14 +509,6 @@ var regionalConfig = map[string]RegionalConfig{
 			"2080TI": {
 				SKU: strPtr("5218988100"),
 			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256301700"),
-			},
-			"TITAN-V": {
-				SKU: strPtr("5145366000"),
-			},
-			"3070": {
-			},
 			"3080": {
 				SKU: strPtr("5438797200"),
 			},
@@ -635,14 +533,6 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 			"2080TI": {
 				SKU: strPtr("5218614400"),
-			},
-			"TITAN-RTX": {
-				SKU: strPtr("5256302100"),
-			},
-			"TITAN-V": {
-				SKU: strPtr("5144941200"),
-			},
-			"3070": {
 			},
 			"3080": {
 				SKU: strPtr("5438796700"),
