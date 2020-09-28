@@ -78,7 +78,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
         COMMIT_MSG: |
-          <Autobuilt bin>
+          Auto build BIN
           skip-checks: true
       run: |
         # Hard-code user configuration
