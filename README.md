@@ -95,6 +95,8 @@ nvidia-clerk-windows.exe -region=USA -model=2060
 
 # Advanced Usage
 
+## Regional Product Listing
+
 ## Desktop Notifications
 Can be used in conjunction with sms/telegram/etc adds popup notifications on your desktop with sound/visual indicator.
 ```
