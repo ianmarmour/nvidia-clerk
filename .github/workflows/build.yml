@@ -63,6 +63,9 @@ jobs:
     - name: Upload Coverage
       run: goveralls -coverprofile=coverage.out -service=circle-ci -repotoken=${{ secrets.COVERALLS_TOKEN }}
 
+    # Make Bin Directory incase it doesn't exist
+    - run: mkdir -p bin
+    
     # Copy Build Artifacts to bin
     - run: cp nvidia-clerk-windows.exe ./bin/nvidia-clerk-windows.exe
     - run: cp nvidia-clerk-windows-arm.exe ./bin/nvidia-clerk-windows-arm.exe
