@@ -21,6 +21,7 @@ func main() {
 	log.SetFlags(log.LstdFlags)
 
 	var region string
+	var list string
 	var model string
 	var delay int64
 
