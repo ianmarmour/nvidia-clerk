@@ -182,7 +182,9 @@ func sleep(delay int64) {
 	ds := time.Duration(delay/1000) * time.Second
 	time.Sleep(time.Duration(ns + ds))
 }
-
+if list = "AUT" {
+	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
+}
 if list = "BEL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
 }
