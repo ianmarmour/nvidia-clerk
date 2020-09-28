@@ -1,5 +1,4 @@
-![go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) [![Coverage Status](https://coveralls.io/repos/github/ianmarmour/nvidia-clerk/badge.svg?branch=master)](https://coveralls.io/github/ianmarmour/nvidia-clerk?branch=master) [![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/gTgJRz7)
-
+![go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) [![Coverage Status](https://coveralls.io/repos/github/ianmarmour/nvidia-clerk/badge.svg?branch=master)](https://coveralls.io/github/ianmarmour/nvidia-clerk?branch=master) [![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/gTgJRz7) ![nvidia-api](https://img.shields.io/endpoint?url=https%3A%2F%2Fnvidia-clerk-api-status.herokuapp.com%2Fendpoint)
 # nvidia-clerk
 
 `nvidia-clerk` is a command-line tool written to help you get an RTX 30XX or RTX 20XX series GPU.
