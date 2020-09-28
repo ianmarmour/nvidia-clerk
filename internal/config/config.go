@@ -87,10 +87,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902900"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394901600"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5335703700"),
 			},
 			"2080TI": {
@@ -117,10 +117,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902700"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5336534300"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531500"),
 			},
 			"2080TI": {
@@ -144,7 +144,7 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5379432500"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5379432400"),
 			},
 			"2080TI": {
@@ -171,10 +171,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902800"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394901500"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531900"),
 			},
 			"2080TI": {
@@ -204,10 +204,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903100"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394901800"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531800"),
 			},
 			"2080TI": {
@@ -237,10 +237,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903100"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394901800"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531800"),
 			},
 			"2080TI": {
@@ -269,10 +269,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903200"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394901900"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531100"),
 			},
 			"TITAN-RTX": {
@@ -296,10 +296,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902900"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394901600"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5335703700"),
 			},
 			"2080TI": {
@@ -326,10 +326,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5379432500"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5379432400"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5334463900"),
 			},
 			"2080TI": {
@@ -359,10 +359,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903300"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394902000"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531200"),
 			},
 			"2080TI": {
@@ -389,10 +389,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903300"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394902000"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531200"),
 			},
 			"2080TI": {
@@ -419,10 +419,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903400"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394902100"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336532000"),
 			},
 			"2080TI": {
@@ -449,10 +449,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903900"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394902500"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531300"),
 			},
 			"2080TI": {
@@ -482,10 +482,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394902700"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5336534300"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531500"),
 			},
 			"2080TI": {
@@ -509,10 +509,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903700"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394902300"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531600"),
 			},
 			"2080TI": {
@@ -555,10 +555,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903000"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394901700"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531400"),
 			},
 			"2080TI": {
@@ -585,10 +585,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903600"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394902600"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336531700"),
 			},
 			"2080TI": {
@@ -618,10 +618,10 @@ var regionalConfig = map[string]RegionalConfig{
 			"2060": {
 				SKU: strPtr("5394903500"),
 			},
-			"2070S": {
+			"2070": {
 				SKU: strPtr("5394902200"),
 			},
-			"2080S": {
+			"2080": {
 				SKU: strPtr("5336532100"),
 			},
 			"2080TI": {
