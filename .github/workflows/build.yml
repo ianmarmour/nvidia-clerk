@@ -73,12 +73,12 @@ jobs:
     - run: mkdir -p bin/nvidia-clerk-api-status
 
     # Copy nvidia-clerk build Artifacts to bin
-    - run: mv nvidia-clerk-windows.exe ./bin/nvidia-clerk-windows.exe
-    - run: mv nvidia-clerk-windows-arm.exe ./bin/nvidia-clerk-windows-arm.exe
-    - run: mv nvidia-clerk-linux ./bin/nvidia-clerk-linux
-    - run: mv nvidia-clerk-linux-arm ./bin/nvidia-clerk-linux-arm
-    - run: mv nvidia-clerk-linux-arm64 ./bin/nvidia-clerk-linux-arm64
-    - run: mv nvidia-clerk-darwin ./bin/nvidia-clerk-darwin
+    - run: mv nvidia-clerk-windows.exe ./bin/nvidia-clerk/nvidia-clerk-windows.exe
+    - run: mv nvidia-clerk-windows-arm.exe ./bin/nvidia-clerk/nvidia-clerk-windows-arm.exe
+    - run: mv nvidia-clerk-linux ./bin/nvidia-clerk/nvidia-clerk-linux
+    - run: mv nvidia-clerk-linux-arm ./bin/nvidia-clerk/nvidia-clerk-linux-arm
+    - run: mv nvidia-clerk-linux-arm64 ./bin/nvidia-clerk/nvidia-clerk-linux-arm64
+    - run: mv nvidia-clerk-darwin ./bin/nvidia-clerk/nvidia-clerk-darwin
 
     # Copy nvidia-clerk-api-status build Artifacts to bin
     - run: mv nvidia-clerk-api-status ./bin/nvidia-clerk-api-status/nvidia-clerk-api-status
