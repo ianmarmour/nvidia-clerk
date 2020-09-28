@@ -200,7 +200,7 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 ```
 
 ## FAQ
-| :exclamation:  Before you or ask for help go get the [latest release](https://github.com/ianmarmour/nvidia-clerk/releases/latest)! and check [Discord](https://discord.gg/zFQxqPQ)   |
+| :exclamation:  Before you or ask for help go get the [latest release](https://github.com/ianmarmour/nvidia-clerk/releases/latest)! and check [Discord](https://github.com/ianmarmour/nvidia-clerk#discord-server)   |
 |-----------------------------------------|
 
 #### exec: "google-chrome": executable file not found in %PATH%
