@@ -2,12 +2,12 @@
 
 # nvidia-clerk
 
-`nvidia-clerk` is a command line tool written to help you get an RTX 3XXX series GPU.
+`nvidia-clerk` is a command line tool written to help you get an RTX 30XX or RTX 20XX series GPU.
 
 ![alt text](.github/resources/images/example.png)
 
-## Known Issues
-To hear about any wide spread issues of this tool join the Discord by clicking that chat button above.
+## Discord Server
+To hear about any wide spread issues or new releases of this tool join the Discord by clicking that chat button above.
 
 ## Background
 `nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch multiple different groups of scalpers used
@@ -29,9 +29,17 @@ AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, 
 
 ### Supported Models By Region
 
-3080 - All Region Codes
+`-model=2060` NVIDIA RTX 2060 SUPER - All Region Codes Except PRT
 
-3090 - All Region Codes Minus PRT
+`-model=2070` NVIDIA RTX 2070 SUPER - All Region Codes Except PRT
+
+`-model=2080` NVIDIA RTX 2080 SUPER - All Region Codes Except CAN, PRT
+
+`-model=2080TI` NVIDIA RTX 2080 TI - All Region Codes Except FRA, PRT
+
+`-model=3080` NVIDIA RTX 3080 - All Region Codes
+
+`-model=3090` NVIDIA RTX 3090 - All Region Codes Except PRT
 
 ## Usage
 
@@ -68,21 +76,21 @@ Testing is currently only supported in regions with the 2060 but it should show 
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
 ```Batchfile
-nvidia-clerk-windows.exe -region=USA -test -model=2060
+nvidia-clerk-windows.exe -region=USA -model=2060
 ```
 
 ### Mac OSX
 | :memo:        | All commands should be executed inside of Terminal.app |
 |---------------|:------------------------|
 ```shell
-./nvidia-clerk-darwin -region=USA -test -model=2060
+./nvidia-clerk-darwin -region=USA -model=2060
 ```
 
 ### Linux
 | :memo:        | All commands should be executed inside of Shell |
 |---------------|:------------------------|
 ```shell
-./nvidia-clerk-linux -region=USA -test -model=2060
+./nvidia-clerk-linux -region=USA -model=2060
 ```
 
 
