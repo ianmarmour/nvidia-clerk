@@ -100,7 +100,7 @@ func SendDiscordMessage(message DiscordMessage, config config.DiscordConfig, cli
 // StartDiscordAPINotifications Runs a loop and notifies discord when there is a status change.
 func StartDiscordAPINotifications(api string, config config.Config, wg *sync.WaitGroup) {
 	client := &http.Client{Timeout: 3 * time.Second}
-	previousStatus := "offline"
+	previousStatus := ""
 
 	ticker := time.NewTicker(time.Second)
 	defer ticker.Stop()
@@ -117,8 +117,8 @@ func StartDiscordAPINotifications(api string, config config.Config, wg *sync.Wai
 		case <-check:
 			switch api {
 			case "session":
-				_, err := rest.GetSessionToken(client)
-				if err != nil {
+				_, sessErr := rest.GetSessionToken(client)
+				if sessErr != nil {
 					if previousStatus != "offline" {
 						message := DiscordAPIMessage{}
 						message.Set("Store Session", "offline")
@@ -140,9 +140,8 @@ func StartDiscordAPINotifications(api string, config config.Config, wg *sync.Wai
 				previousStatus = "online"
 			case "checkout":
 				token, _ := rest.GetSessionToken(client)
-				_, err := rest.AddToCheckout(*config.SKU, token.Value, config.NvidiaLocale, client)
-
-				if err != nil {
+				_, chkErr := rest.AddToCheckout(*config.SKU, token.Value, config.NvidiaLocale, client)
+				if chkErr != nil {
 					if previousStatus != "offline" {
 						message := DiscordAPIMessage{}
 						message.Set("Store Product Checkout", "offline")
