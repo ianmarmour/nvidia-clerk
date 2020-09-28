@@ -8,6 +8,7 @@ require (
 	github.com/dghubble/oauth1 v0.6.0
 	github.com/gorilla/mux v1.8.0
 	github.com/ianmarmour/nvidia-clerk/third_party/toast v0.0.0-00010101000000-000000000000
+	github.com/mattn/goveralls v0.0.7 // indirect
 	github.com/stretchr/testify v1.3.0
 )
 
