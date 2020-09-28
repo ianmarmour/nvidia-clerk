@@ -21,14 +21,12 @@ func main() {
 	log.SetFlags(log.LstdFlags)
 
 	var region string
-	var list string
 	var model string
 	var delay int64
 
 	// Parse Argument Flags
-	flag.StringVar(&region, "region", "USA", "3 Letter region code")
-	flag.StringVar(&list, "list", "USA", "List supported models for a region")
-	flag.StringVar(&model, "model", "3080", "GPU Model number E.X. 3070, 3080, 3090")
+	flag.StringVar(&region, "region", "", "3 Letter region code E.X. USA, GBR, DEU")
+	flag.StringVar(&model, "model", "", "GPU Model number E.X. 3070, 3080, 3090")
 	flag.Int64Var(&delay, "delay", 1, "Delay for refreshing in miliseconds")
 	twitter := flag.Bool("twitter", false, "Enable Twitter Posts for whenever SKU is in stock.")
 	twilio := flag.Bool("sms", false, "Enable SMS notifications for whenever SKU is in stock.")
@@ -182,61 +180,3 @@ func sleep(delay int64) {
 	ds := time.Duration(delay/1000) * time.Second
 	time.Sleep(time.Duration(ns + ds))
 }
-switch list = region {
-case "AUT":
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "BEL" {
-	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
-}
-case "CAN" {
-	fmt.Println("2060, 2070, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "CZE" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
-}
-case "DNK" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
-}
-case "FIN" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
-}
-case "FRA" {
-	fmt.Println("2060, 2070, 2080, TITAN-RTX, 3080, 3090")
-}
-case "DEU" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "USA" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
-}
-case "GBR" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "IRL" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "ITA" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "SWE" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
-}
-case "LUX" {
-	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
-}
-case "POL" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "PRT" {
-	fmt.Println("3080")
-}
-case "ESP" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
-}
-case "NOR" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
-}
-case "NLD" {
-	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
-} 

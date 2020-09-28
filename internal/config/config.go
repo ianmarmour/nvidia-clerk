@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"runtime"
 )
@@ -16,7 +17,15 @@ type RegionError struct {
 }
 
 func (w *RegionError) Error() string {
-	return fmt.Sprintf("%s: Region unsupported", w.Code)
+	return fmt.Sprintf("%s: region unsupported", w.Code)
+}
+
+type ModelError struct {
+	Code string
+}
+
+func (w *ModelError) Error() string {
+	return fmt.Sprintf("%s: model unsupported", w.Code)
 }
 
 type ConfigError struct {
@@ -163,7 +172,7 @@ var regionalConfig = map[string]RegionalConfig{
 			},
 		},
 		Locale:       "en_us",
-		NvidiaLocale: "en-ca",
+		NvidiaLocale: "en-us",
 		Currency:     "CAD",
 	},
 	"CZE": {
@@ -765,6 +774,12 @@ func getTelegram() (*TelegramConfig, error) {
 //Get Generates Configuration for application from environmental variables.
 func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
+		models := getSupportedModels(regionalConfig[region])
+		isSupportedModel := contains(models, model)
+		if isSupportedModel == false {
+			log.Println(fmt.Sprintf("Please choose one of the following supported models: %v by using -model=XXX", models))
+			return nil, &ModelError{"unsupported model error"}
+		}
 		configuration := Config{}
 		configuration.SKU = regionConfig.Models[model].SKU
 		configuration.Delay = delay
@@ -815,5 +830,38 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 		return &configuration, nil
 	}
 
+	log.Println(fmt.Sprintf("Please choose one of the following supported regions: %v by using -region=XXX", getSupportedRegions()))
 	return nil, &RegionError{region}
+}
+
+// contains Determins if a string exists in a slice of strings.
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
+// getSupportedRegions Gets a list of all supported region names
+func getSupportedRegions() []string {
+	keys := []string{}
+
+	for k := range regionalConfig {
+		keys = append(keys, k)
+	}
+
+	return keys
+}
+
+// getSupportedModels Gets a list of all supported model names in a particular region
+func getSupportedModels(config RegionalConfig) []string {
+	keys := []string{}
+
+	for k := range config.Models {
+		keys = append(keys, k)
+	}
+
+	return keys
 }
