@@ -41,7 +41,6 @@ type RegionalConfig struct {
 	Locale       string
 	NvidiaLocale string
 	Currency     string
-	TestSKU      string
 }
 
 type TwitterConfig struct {
@@ -767,9 +766,7 @@ func getTelegram() (*TelegramConfig, error) {
 func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool) (*Config, error) {
 	if regionConfig, ok := regionalConfig[region]; ok {
 		configuration := Config{}
-
 		configuration.SKU = regionConfig.Models[model].SKU
-		configuration.TestSKU = &regionConfig.TestSKU
 		configuration.Delay = delay
 		configuration.Locale = regionConfig.Locale
 		configuration.NvidiaLocale = regionConfig.NvidiaLocale
