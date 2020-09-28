@@ -183,60 +183,60 @@ func sleep(delay int64) {
 	time.Sleep(time.Duration(ns + ds))
 }
 
-var list = "AUT" {
+if list = "AUT" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
 if list = "BEL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
 }
-if list == "CAN" {
+if list = "CAN" {
 	fmt.Println("2060, 2070, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list == "CZE" {
+if list = "CZE" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
 if list == "DNK" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list == "FIN" {
+if list = "FIN" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list == "FRA" {
+if list = "FRA" {
 	fmt.Println("2060, 2070, 2080, TITAN-RTX, 3080, 3090")
 }
-if list == "DEU" {
+if list = "DEU" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list == "USA" {
+if list = "USA" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list == "GBR" {
+if list = "GBR" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list == "IRL" {
+if list = "IRL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list == "ITA" {
+if list = "ITA" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list == "SWE" {
+if list = "SWE" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list == "LUX" {
+if list = "LUX" {
 	fmt.Println("2060, 2070, 2080, 2080TI, 3080, 3090")
 }
-if list == "POL" {
+if list = "POL" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list == "PRT" {
+if list = "PRT" {
 	fmt.Println("3080")
 }
-if list == "ESP" {
+if list = "ESP" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, 3080, 3090")
 }
-if list == "NOR" {
+if list = "NOR" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 }
-if list == "NLD" {
+if list = "NLD" {
 	fmt.Println("2060, 2070, 2080, 2080TI, TITAN-RTX, TITAN-V, 3080, 3090")
 } 
