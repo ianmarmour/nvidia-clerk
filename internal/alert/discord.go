@@ -162,3 +162,45 @@ func StartDiscordAPINotifications(region string, api string, config config.Confi
 		}
 	}
 }
+
+// StartDiscordProductNotifications Runs a loop and notifies discord when there is a status change.
+func StartDiscordProductNotifications(model string, config config.Config, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	client := &http.Client{Timeout: 10 * time.Second}
+	previousStatus := ""
+
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
+	check := make(chan bool)
+
+	go func() {
+		time.Sleep(61 * time.Second)
+		check <- true
+	}()
+
+	for {
+		select {
+		case <-check:
+			_, sessErr := rest.GetSessionToken(client)
+			if sessErr != nil {
+				info, err := rest.GetSkuInfo(*config.SKU, config.Locale, config.Currency, client)
+				if err != nil {
+					log.Println(fmt.Sprintf("Error attempting to get product information for %s in %s", *config.SKU, config.Locale))
+					return
+				}
+
+				if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
+					if previousStatus != "instock" {
+						message := DiscordProductMessage{}
+						message.Set(fmt.Sprintf("%s in stock now", model), "")
+						SendDiscordMessage(&message, *config.DiscordConfig, client)
+						previousStatus = "instock"
+						log.Println(fmt.Sprintf("Sending Discord Notification for %s", config.Locale))
+					}
+				}
+			}
+		}
+	}
+}
