@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"sync"
 	"time"
@@ -98,8 +99,10 @@ func SendDiscordMessage(message DiscordMessage, config config.DiscordConfig, cli
 }
 
 // StartDiscordAPINotifications Runs a loop and notifies discord when there is a status change.
-func StartDiscordAPINotifications(api string, config config.Config, wg *sync.WaitGroup) {
-	client := &http.Client{Timeout: 3 * time.Second}
+func StartDiscordAPINotifications(region string, api string, config config.Config, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	client := &http.Client{Timeout: 10 * time.Second}
 	previousStatus := ""
 
 	ticker := time.NewTicker(time.Second)
@@ -108,7 +111,7 @@ func StartDiscordAPINotifications(api string, config config.Config, wg *sync.Wai
 	check := make(chan bool)
 
 	go func() {
-		time.Sleep(10 * time.Second)
+		time.Sleep(61 * time.Second)
 		check <- true
 	}()
 
@@ -122,49 +125,40 @@ func StartDiscordAPINotifications(api string, config config.Config, wg *sync.Wai
 					if previousStatus != "offline" {
 						message := DiscordAPIMessage{}
 						message.Set("Store Session", "offline")
-
 						SendDiscordMessage(&message, *config.DiscordConfig, client)
+						previousStatus = "offline"
+						log.Println(fmt.Sprintf("Sending Discord Notification for %s", config.Locale))
 					}
-
-					previousStatus = "offline"
-
-					continue
+				} else {
+					if previousStatus != "online" {
+						message := DiscordAPIMessage{}
+						message.Set("Store Session", "online")
+						SendDiscordMessage(&message, *config.DiscordConfig, client)
+						previousStatus = "online"
+						log.Println(fmt.Sprintf("Sending Discord Notification for %s", config.Locale))
+					}
 				}
-				if previousStatus != "online" {
-					message := DiscordAPIMessage{}
-					message.Set("Store Session", "online")
-
-					SendDiscordMessage(&message, *config.DiscordConfig, client)
-				}
-
-				previousStatus = "online"
 			case "checkout":
 				token, _ := rest.GetSessionToken(client)
 				_, chkErr := rest.AddToCheckout(*config.SKU, token.Value, config.NvidiaLocale, client)
 				if chkErr != nil {
 					if previousStatus != "offline" {
 						message := DiscordAPIMessage{}
-						message.Set("Store Product Checkout", "offline")
-
+						message.Set(fmt.Sprintf("%s Store Product Checkout", region), "offline")
 						SendDiscordMessage(&message, *config.DiscordConfig, client)
+						log.Println(fmt.Sprintf("Sending Discord Notification for %s", config.Locale))
+						previousStatus = "offline"
 					}
-
-					previousStatus = "offline"
-
-					continue
+				} else {
+					if previousStatus != "online" {
+						message := DiscordAPIMessage{}
+						message.Set(fmt.Sprintf("%s Store Product Checkout", region), "online")
+						SendDiscordMessage(&message, *config.DiscordConfig, client)
+						log.Println(fmt.Sprintf("Sending Discord Notification for %s", config.Locale))
+						previousStatus = "online"
+					}
 				}
-
-				if previousStatus != "online" {
-					message := DiscordAPIMessage{}
-					message.Set("Store Product Checkout", "online")
-
-					SendDiscordMessage(&message, *config.DiscordConfig, client)
-				}
-
-				previousStatus = "online"
 			}
-
-			return
 		}
 	}
 }
