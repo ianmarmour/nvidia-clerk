@@ -17,7 +17,7 @@ NVIDIA Clerk doesn't purchase products for customers, it simply tracks the avail
 ## Install
 
 ### Download
-Download the latest release from **[RELEASES](https://github.com/ianmarmour/nvidia-clerk/releases/latest)**
+Download your correct os file from **[LATEST RELEASE.](https://github.com/ianmarmour/nvidia-clerk/releases/latest)** [What is ARM?](https://en.wikipedia.org/wiki/ARM_architecture)
 | :exclamation:  Make sure you accept any browser warnings, these warnings are because these release binaries are not "signed" (this costs money and as a free project we haven't paid for a signing certificate)   |
 |-----------------------------------------|
 
@@ -200,7 +200,7 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 ```
 
 ## FAQ
-| :exclamation:  Before you or ask for help go get the [latest release](https://github.com/ianmarmour/nvidia-clerk/releases/latest)! and check [Discord](https://discord.gg/zFQxqPQ)   |
+| :exclamation:  Before you or ask for help go get the [latest release](https://github.com/ianmarmour/nvidia-clerk/releases/latest)! and check [Discord](https://github.com/ianmarmour/nvidia-clerk#discord-server)   |
 |-----------------------------------------|
 
 #### exec: "google-chrome": executable file not found in %PATH%
