@@ -90,7 +90,7 @@ type Config struct {
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
-var regionalConfig = map[string]RegionalConfig{
+var RegionalConfigs = map[string]RegionalConfig{
 	"AUT": {
 		Models: map[string]Model{
 			"2060": {
@@ -676,8 +676,8 @@ func getShields() (*ShieldsConfig, error) {
 
 //Get Generates Configuration for application from environmental variables.
 func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool, shields bool) (*Config, error) {
-	if regionConfig, ok := regionalConfig[region]; ok {
-		models := getSupportedModels(regionalConfig[region])
+	if regionConfig, ok := RegionalConfigs[region]; ok {
+		models := getSupportedModels(RegionalConfigs[region])
 		isSupportedModel := contains(models, model)
 		if isSupportedModel == false {
 			log.Println(fmt.Sprintf("Please choose one of the following supported models: %v by using -model=XXX", models))
@@ -759,7 +759,7 @@ func contains(s []string, e string) bool {
 func getSupportedRegions() []string {
 	keys := []string{}
 
-	for k := range regionalConfig {
+	for k := range RegionalConfigs {
 		keys = append(keys, k)
 	}
 
