@@ -1,1 +1,1 @@
-web: ./bin/nvidia-clerk-api-status/nvidia-clerk-api-status
+web: bin/nvidia-clerk-api-status/nvidia-clerk-api-status
