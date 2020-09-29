@@ -34,7 +34,7 @@ func main() {
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
 	flag.Parse()
 
-	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop)
+	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop, false)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
@@ -123,7 +123,10 @@ func notify(id string, url string, remote bool, config *config.Config, client *h
 	}
 
 	if config.DiscordConfig != nil {
-		err := alert.SendDiscordMessage(id, url, *config.DiscordConfig, client)
+		message := alert.DiscordProductMessage{}
+		message.Set(url, "IN_STOCK")
+
+		err := alert.SendDiscordMessage(&message, *config.DiscordConfig, client)
 		if err != nil {
 			log.Println("Error sending Discord notification, retrying...")
 			return err

@@ -33,22 +33,22 @@ jobs:
 
     # Per Architecture Static Builds
     - name: Build Windows
-      run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
+      run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe ./cmd/nvidia-clerk
 
     - name: Build Windows ARM
-      run: env GOARM=5 GGO_ENABLED=0 GOOS=windows GOARCH=arm go build -a -o nvidia-clerk-windows-arm.exe
+      run: env GOARM=5 GGO_ENABLED=0 GOOS=windows GOARCH=arm go build -a -o nvidia-clerk-windows-arm.exe ./cmd/nvidia-clerk
 
     - name: Build Linux
-      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-linux
+      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-linux ./cmd/nvidia-clerk
 
     - name: Build Linux ARM
-      run: env GOARM=5 GOOS=linux GOARCH=arm go build -a -o nvidia-clerk-linux-arm
+      run: env GOARM=5 GOOS=linux GOARCH=arm go build -a -o nvidia-clerk-linux-arm ./cmd/nvidia-clerk
 
     - name: Build Linux ARM64
-      run: env GOARM=5 GOOS=linux GOARCH=arm64 go build -a -o nvidia-clerk-linux-arm64
+      run: env GOARM=5 GOOS=linux GOARCH=arm64 go build -a -o nvidia-clerk-linux-arm64 ./cmd/nvidia-clerk
 
     - name: Build Darwin
-      run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
+      run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin ./cmd/nvidia-clerk
 
     # Create Artifact Upload Directories
     - run: mkdir -p ianmarmour/nvidia-clerk/build
@@ -62,10 +62,10 @@ jobs:
 
     # Copy Build Artifacts to Artifact Upload Directories
     - run: cp nvidia-clerk-windows.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows/nvidia-clerk-windows.exe
-    - run: cp nvidia-clerk-windows.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows-arm/nvidia-clerk-windows-arm.exe
+    - run: cp nvidia-clerk-windows-arm.exe ianmarmour/nvidia-clerk/build/nvidia-clerk-windows-arm/nvidia-clerk-windows-arm.exe
     - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux/nvidia-clerk-linux
-    - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm/nvidia-clerk-linux-arm
-    - run: cp nvidia-clerk-linux ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm64/nvidia-clerk-linux-arm64
+    - run: cp nvidia-clerk-linux-arm ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm/nvidia-clerk-linux-arm
+    - run: cp nvidia-clerk-linux-arm64 ianmarmour/nvidia-clerk/build/nvidia-clerk-linux-arm64/nvidia-clerk-linux-arm64
     - run: cp nvidia-clerk-darwin ianmarmour/nvidia-clerk/build/nvidia-clerk-darwin/nvidia-clerk-darwin
     
     # Publish Artifacts Windows

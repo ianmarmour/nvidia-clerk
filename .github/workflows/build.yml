@@ -33,24 +33,28 @@ jobs:
     - name: Get Coverage Tools
       run:  go get github.com/mattn/goveralls
 
-    # Per Architecture Static Builds
+    # Per Architecture Static Builds NVIDIA-Clerk
     - name: Build Windows
-      run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe
+      run: env GGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o nvidia-clerk-windows.exe ./cmd/nvidia-clerk 
 
     - name: Build Windows ARM
-      run: env GOARM=5 GGO_ENABLED=0 GOOS=windows GOARCH=arm go build -a -o nvidia-clerk-windows-arm.exe
+      run: env GOARM=5 GGO_ENABLED=0 GOOS=windows GOARCH=arm go build -a -o nvidia-clerk-windows-arm.exe ./cmd/nvidia-clerk 
 
     - name: Build Linux
-      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-linux
+      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-linux ./cmd/nvidia-clerk 
 
     - name: Build Linux ARM
-      run: env GOARM=5 GOOS=linux GOARCH=arm go build -a -o nvidia-clerk-linux-arm
+      run: env GOARM=5 GOOS=linux GOARCH=arm go build -a -o nvidia-clerk-linux-arm ./cmd/nvidia-clerk
 
     - name: Build Linux ARM64
-      run: env GOARM=5 GOOS=linux GOARCH=arm64 go build -a -o nvidia-clerk-linux-arm64
+      run: env GOARM=5 GOOS=linux GOARCH=arm64 go build -a -o nvidia-clerk-linux-arm64 ./cmd/nvidia-clerk
 
     - name: Build Darwin
-      run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin
+      run: env GOOS=darwin GOARCH=amd64 go build -a -o nvidia-clerk-darwin ./cmd/nvidia-clerk
+
+    # Per Architecture Static Builds NVIDIA-Clerk-API-Status
+    - name: Build Linux NVIDIA Clerk API Status
+      run: env GOOS=linux GOARCH=amd64 go build -a -o nvidia-clerk-api-status ./cmd/nvidia-clerk-api-status
 
     - name: Run Tests 
       run: go test -v -cover -race -coverprofile=coverage.out ./...

@@ -30,7 +30,18 @@ func TestSendDiscordMessage(t *testing.T) {
 		WebhookURL: "http://testurl/webhook/",
 	}
 
-	err := SendDiscordMessage("FAKE_SKU_NUMBER", "fakeUrl", cfg, client)
+	productMsg := DiscordProductMessage{}
+	productMsg.Set("test", "test")
+
+	err := SendDiscordMessage(&productMsg, cfg, client)
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	apiMsg := DiscordAPIMessage{}
+	apiMsg.Set("test", "test")
+
+	err = SendDiscordMessage(&apiMsg, cfg, client)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
