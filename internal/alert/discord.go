@@ -32,7 +32,7 @@ func (d *DiscordAPIMessage) Get() string {
 
 // Set takes in an API name and returns the JSON body for a Discord POST request
 func (d *DiscordAPIMessage) Set(name string, status string) {
-	d.body = fmt.Sprintf("@here NVIDIA API %s is now %s", name, status)
+	d.body = fmt.Sprintf("NVIDIA API %s is now %s", name, status)
 }
 
 // JSON returns the JSON encoded bytes of a DiscordAPIMessage

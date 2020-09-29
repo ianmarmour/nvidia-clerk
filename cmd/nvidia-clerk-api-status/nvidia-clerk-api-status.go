@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"sync"
 	"time"
 
@@ -37,8 +38,18 @@ func main() {
 			continue
 		}
 
+		dcURL, dcURLOK := os.LookupEnv(fmt.Sprintf("DISCORD_WEBHOOK_URL_%s", tempID))
+		if dcURLOK == false {
+			log.Println(fmt.Sprintf("Error getting discord webhook configuration for %s", tempID))
+			wg.Add(-1)
+			continue
+		}
+
+		cc := *c
+		cc.DiscordConfig = &config.DiscordConfig{WebhookURL: dcURL}
+
 		log.Println(fmt.Sprintf("Starting goroutine for %s", tempID))
-		go alert.StartDiscordAPINotifications(tempID, "checkout", *c, &wg)
+		go alert.StartDiscordAPINotifications(tempID, "checkout", cc, &wg)
 	}
 
 	wg.Wait()
