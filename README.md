@@ -42,11 +42,18 @@ AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, 
 
 ## Usage
 
-### Windows
+### Windows - Command Prompt
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
 ```Batchfile
 nvidia-clerk-windows.exe -region=REGION_CODE_HERE -model=3080
+```
+
+### Windows - Powershell
+| :memo:        | All commands should be executed inside of cmd.exe |
+|---------------|:------------------------|
+```Batchfile
+.\nvidia-clerk-windows.exe -region=REGION_CODE_HERE -model=3080
 ```
 
 ### Mac OSX
