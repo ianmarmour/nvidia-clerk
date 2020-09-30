@@ -77,23 +77,10 @@ func main() {
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
-			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.NvidiaLocale, client)
-			if err != nil {
-				log.Println("Error adding card to checkout retrying...")
-				continue
-			}
-
-			err = notify(info.Products.Product[0].Name, cart.URL, *remote, config, client)
+			err = notify(info.Products.Product[0].Name, fmt.Sprintf("https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-%s/", model), *remote, config, client)
 			if err != nil {
 				log.Println("Error attempting to send notification retrying...")
 				continue
-			}
-
-			if *remote != true {
-				err = openbrowser(cart.URL)
-				if err != nil {
-					log.Fatal("Error attempting to open browser.", err)
-				}
 			}
 
 			break
