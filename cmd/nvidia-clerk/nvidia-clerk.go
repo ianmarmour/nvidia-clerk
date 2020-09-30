@@ -77,10 +77,29 @@ func main() {
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
-			err = notify(info.Products.Product[0].Name, fmt.Sprintf("https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-%s/", model), *remote, config, client)
+			var cartURL string
+			switch model {
+			case "2060":
+				cartURL = "https://www.nvidia.com/en-us/geforce/graphics-cards/20-series/"
+			case "3080":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-%s/", model)
+			case "3090":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-%s/", model)
+			default:
+				cartURL = "https://www.nvidia.com/"
+			}
+
+			err = notify(info.Products.Product[0].Name, fmt.Sprintf(cartURL, model), *remote, config, client)
 			if err != nil {
 				log.Println("Error attempting to send notification retrying...")
 				continue
+			}
+
+			if *remote != true {
+				err = openbrowser(cartURL)
+				if err != nil {
+					log.Fatal("Error attempting to open browser.", err)
+				}
 			}
 
 			break
