@@ -80,11 +80,11 @@ func main() {
 			var cartURL string
 			switch model {
 			case "2060":
-				cartURL = "https://www.nvidia.com/en-us/geforce/graphics-cards/20-series/"
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/20-series/", config.Locale)
 			case "3080":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-%s/", model)
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.Locale, model)
 			case "3090":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-%s/", model)
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.Locale, model)
 			default:
 				cartURL = "https://www.nvidia.com/"
 			}
