@@ -58,7 +58,7 @@ func (d *DiscordProductMessage) Get() string {
 
 // Set takes in a product URL and returns the JSON body for a Discord POST request
 func (d *DiscordProductMessage) Set(url string, status string) {
-	d.body = "<" + url + ">"
+	d.body = url
 }
 
 // JSON returns the JSON encoded bytes of a DiscordProductMessage

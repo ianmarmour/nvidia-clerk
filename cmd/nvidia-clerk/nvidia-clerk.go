@@ -8,11 +8,13 @@ import (
 	"net/http"
 	"os/exec"
 	"runtime"
+	"sync"
 	"time"
 
 	"github.com/ianmarmour/nvidia-clerk/internal/alert"
 	"github.com/ianmarmour/nvidia-clerk/internal/config"
 	"github.com/ianmarmour/nvidia-clerk/internal/rest"
+	"github.com/ianmarmour/nvidia-clerk/internal/update"
 )
 
 func main() {
@@ -32,31 +34,56 @@ func main() {
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	remote := flag.Bool("remote", false, "Enable remote notification only mode.")
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
-	update := flag.Bool("update", true, "Enable automatic updates, enabled by default.")
+	autoUpdate := flag.Bool("update", true, "Disable automatic updates, enabled by default.")
 	flag.Parse()
 
-	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop, false, *update)
+	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop, false, *autoUpdate)
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
 	client := &http.Client{Timeout: 10 * time.Second}
 
-	token, err := rest.GetSessionToken(client)
-	if err != nil {
-		log.Println("Error getting session token from NVIDIA retrying...")
-	}
+	var (
+		mu    sync.Mutex
+		token rest.SessionToken
+	)
+	var wg sync.WaitGroup
 
-	// For when NVIDIAs store APIs are down.
-	for token == nil {
-		sleep(delay)
-		token, err = rest.GetSessionToken(client)
+	wg.Add(3)
+	go update.FetchApply(config.SystemConfig.UpdateURL, &wg)
+	go getToken(client, delay, &token, &mu, &wg)
+	go getGPU(client, config, model, *remote, delay, &wg)
+
+	wg.Wait()
+}
+
+func getToken(client *http.Client, delay int64, token *rest.SessionToken, mu *sync.Mutex, wg *sync.WaitGroup) error {
+	defer wg.Done()
+
+	for {
+		newToken, err := rest.GetSessionToken(client)
 		if err != nil {
-			log.Printf("Error getting session token from NVIDIA retrying...")
-			continue
+			log.Println("Error getting session token from NVIDIA retrying...")
 		}
 
-		break
+		if token == nil {
+			mu.Lock()
+			token = newToken
+			mu.Unlock()
+		} else {
+			if token.Value != newToken.Value {
+				mu.Lock()
+				token = newToken
+				mu.Unlock()
+			}
+		}
+
+		sleep(delay)
 	}
+}
+
+func getGPU(client *http.Client, config *config.Config, model string, remote bool, delay int64, wg *sync.WaitGroup) error {
+	defer wg.Done()
 
 	for {
 		sleep(delay)
@@ -79,6 +106,7 @@ func main() {
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
 			var cartURL string
+
 			switch model {
 			case "2060":
 				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", config.NvidiaLocale, model)
@@ -96,13 +124,13 @@ func main() {
 				cartURL = "https://www.nvidia.com/"
 			}
 
-			err = notify(info.Products.Product[0].Name, fmt.Sprintf(cartURL, model), *remote, config, client)
+			err = notify(info.Products.Product[0].Name, fmt.Sprintf(cartURL, model), remote, config, client)
 			if err != nil {
 				log.Println("Error attempting to send notification retrying...")
 				continue
 			}
 
-			if *remote != true {
+			if remote != true {
 				err = openbrowser(cartURL)
 				if err != nil {
 					log.Fatal("Error attempting to open browser.", err)
@@ -112,6 +140,8 @@ func main() {
 			break
 		}
 	}
+
+	return nil
 }
 
 func notify(id string, url string, remote bool, config *config.Config, client *http.Client) error {
