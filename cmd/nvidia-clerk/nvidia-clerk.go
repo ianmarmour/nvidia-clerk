@@ -6,6 +6,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"os"
 	"os/exec"
 	"runtime"
 	"time"
@@ -32,6 +33,7 @@ func main() {
 	telegram := flag.Bool("telegram", false, "Enable Telegram webhook notifications for whenever SKU is in stock.")
 	remote := flag.Bool("remote", false, "Enable remote notification only mode.")
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
+	testNotify := flag.Bool("test-notify", false, "Test configured notifications and exit.")
 	flag.Parse()
 
 	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop, false)
@@ -39,6 +41,16 @@ func main() {
 		log.Fatal(configErr)
 	}
 	client := &http.Client{Timeout: 10 * time.Second}
+
+	if *testNotify {
+		err := notify("nvidia-clerk test message", "https://www.nvidia.com", *remote, config, client)
+		if err != nil {
+			log.Println("Error attempting to send notification...")
+			os.Exit(1)
+		}
+
+		os.Exit(0)
+	}
 
 	token, err := rest.GetSessionToken(client)
 	if err != nil {
