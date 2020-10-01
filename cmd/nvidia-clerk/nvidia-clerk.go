@@ -77,20 +77,32 @@ func main() {
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
-			cart, err := rest.AddToCheckout(*config.SKU, token.Value, config.NvidiaLocale, client)
-			if err != nil {
-				log.Println("Error adding card to checkout retrying...")
-				continue
+			var cartURL string
+			switch model {
+			case "2060":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", config.NvidiaLocale, model)
+			case "2070":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", config.NvidiaLocale, model)
+			case "2080":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", config.NvidiaLocale, model)
+			case "2080TI":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-ti/", config.NvidiaLocale, model)
+			case "3080":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.NvidiaLocale, model)
+			case "3090":
+				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.NvidiaLocale, model)
+			default:
+				cartURL = "https://www.nvidia.com/"
 			}
 
-			err = notify(info.Products.Product[0].Name, cart.URL, *remote, config, client)
+			err = notify(info.Products.Product[0].Name, fmt.Sprintf(cartURL, model), *remote, config, client)
 			if err != nil {
 				log.Println("Error attempting to send notification retrying...")
 				continue
 			}
 
 			if *remote != true {
-				err = openbrowser(cart.URL)
+				err = openbrowser(cartURL)
 				if err != nil {
 					log.Fatal("Error attempting to open browser.", err)
 				}
