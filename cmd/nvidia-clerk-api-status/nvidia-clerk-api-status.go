@@ -16,7 +16,7 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(len(config.RegionalConfigs) + 2)
 
-	cfg, err := config.Get("USA", "2060", 1, false, true, false, false, false, true)
+	cfg, err := config.Get("USA", "2060", 1, false, true, false, false, false, true, false)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,7 +31,7 @@ func main() {
 	for id := range config.RegionalConfigs {
 		time.Sleep(10 * time.Second)
 		tempID := id
-		c, err := config.Get(tempID, "2060", 1, false, true, false, false, false, false)
+		c, err := config.Get(tempID, "2060", 1, false, true, false, false, false, false, false)
 		if err != nil {
 			log.Println(fmt.Sprintf("Error getting configuration for %s", tempID))
 			wg.Add(-1)
@@ -57,7 +57,7 @@ func main() {
 	for id := range config.RegionalConfigs {
 		time.Sleep(10 * time.Second)
 		tempID := id
-		c, err := config.Get(tempID, "3080", 1, false, true, false, false, false, false)
+		c, err := config.Get(tempID, "3080", 1, false, true, false, false, false, false, false)
 		if err != nil {
 			log.Println(fmt.Sprintf("Error getting configuration for %s", tempID))
 			wg.Add(-1)
@@ -83,7 +83,7 @@ func main() {
 	for id := range config.RegionalConfigs {
 		time.Sleep(10 * time.Second)
 		tempID := id
-		c, err := config.Get(tempID, "3090", 1, false, true, false, false, false, false)
+		c, err := config.Get(tempID, "3090", 1, false, true, false, false, false, false, false)
 		if err != nil {
 			log.Println(fmt.Sprintf("Error getting configuration for %s", tempID))
 			wg.Add(-1)

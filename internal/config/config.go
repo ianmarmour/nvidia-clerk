@@ -74,6 +74,10 @@ type ShieldsConfig struct {
 	Port string
 }
 
+type SystemConfig struct {
+	UpdateURL string
+}
+
 type Config struct {
 	Locale       string
 	NvidiaLocale string
@@ -87,6 +91,34 @@ type Config struct {
 	TelegramConfig *TelegramConfig
 	ToastConfig    *ToastConfig
 	ShieldsConfig  *ShieldsConfig
+	SystemConfig   *SystemConfig
+}
+
+var SystemConfigs = map[string]map[string]SystemConfig{
+	"windows": {
+		"arm": {
+			UpdateURL: "https://github.com/ianmarmour/nvidia-clerk/releases/latest/download/nvidia-clerk-windows-arm.exe",
+		},
+		"amd64": {
+			UpdateURL: "https://github.com/ianmarmour/nvidia-clerk/releases/latest/download/nvidia-clerk-windows.exe",
+		},
+	},
+	"linux": {
+		"arm": {
+			UpdateURL: "https://github.com/ianmarmour/nvidia-clerk/releases/latest/download/nvidia-clerk-linux-arm",
+		},
+		"arm64": {
+			UpdateURL: "https://github.com/ianmarmour/nvidia-clerk/releases/latest/download/nvidia-clerk-linux-arm64",
+		},
+		"amd64": {
+			UpdateURL: "https://github.com/ianmarmour/nvidia-clerk/releases/latest/download/nvidia-clerk-linux",
+		},
+	},
+	"darwin": {
+		"amd64": {
+			UpdateURL: "https://github.com/ianmarmour/nvidia-clerk/releases/latest/download/nvidia-clerk-darwin",
+		},
+	},
 }
 
 // Hardcoded SKU to locale/currency mappings to avoid user pain of having to lookup and enter these.
@@ -674,8 +706,28 @@ func getShields() (*ShieldsConfig, error) {
 	return &c, nil
 }
 
+//getSystem Generates SystemConfig for application from environmental variables.
+func getSystem() (*SystemConfig, error) {
+	c := SystemConfig{}
+
+	os := runtime.GOOS
+	arch := runtime.GOARCH
+
+	if osConfig, ok := SystemConfigs[os]; ok {
+		if archConfig, ok := osConfig[arch]; ok {
+			c = archConfig
+		} else {
+			return nil, &ConfigError{"System", "GOARCH"}
+		}
+	} else {
+		return nil, &ConfigError{"System", "GOOS"}
+	}
+
+	return &c, nil
+}
+
 //Get Generates Configuration for application from environmental variables.
-func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool, shields bool) (*Config, error) {
+func Get(region string, model string, delay int64, sms bool, discord bool, twitter bool, telegram bool, toast bool, shields bool, update bool) (*Config, error) {
 	if regionConfig, ok := RegionalConfigs[region]; ok {
 		models := getSupportedModels(RegionalConfigs[region])
 		isSupportedModel := contains(models, model)
@@ -736,6 +788,14 @@ func Get(region string, model string, delay int64, sms bool, discord bool, twitt
 				return nil, err
 			}
 			configuration.ShieldsConfig = cfg
+		}
+
+		if update == true {
+			cfg, err := getSystem()
+			if err != nil {
+				return nil, err
+			}
+			configuration.SystemConfig = cfg
 		}
 
 		return &configuration, nil

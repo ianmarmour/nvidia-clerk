@@ -183,7 +183,7 @@ func TestGet(t *testing.T) {
 
 			test.environment()
 
-			result, err := Get(test.region, "3080", test.delay, test.sms, test.discord, test.twitter, test.telegram, test.desktop, false)
+			result, err := Get(test.region, "3080", test.delay, test.sms, test.discord, test.twitter, test.telegram, test.desktop, false, false)
 			if err != nil {
 				t.Errorf(err.Error())
 			}

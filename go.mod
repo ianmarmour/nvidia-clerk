@@ -8,4 +8,6 @@ require (
 	github.com/dghubble/oauth1 v0.6.0
 	github.com/gorilla/mux v1.8.0
 	github.com/ianmarmour/nvidia-clerk/third_party/toast v0.0.0-20200928234042-7bfe071b2f68
+	github.com/inconshreveable/go-update v0.0.0-20160112193335-8152e7eb6ccf
+	github.com/stretchr/testify v1.3.0
 )
