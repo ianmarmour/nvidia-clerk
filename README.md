@@ -50,7 +50,7 @@ nvidia-clerk-windows.exe -region=REGION_CODE_HERE -model=3080
 ```
 
 ### Windows - Powershell
-| :memo:        | All commands should be executed inside of cmd.exe |
+| :memo:        | All commands should be executed inside of powershell.exe |
 |---------------|:------------------------|
 ```Batchfile
 .\nvidia-clerk-windows.exe -region=REGION_CODE_HERE -model=3080
