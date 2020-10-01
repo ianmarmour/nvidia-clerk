@@ -1,3 +1,4 @@
+## Shield Badges
 ![go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) [![Coverage Status](https://coveralls.io/repos/github/ianmarmour/nvidia-clerk/badge.svg?branch=master)](https://coveralls.io/github/ianmarmour/nvidia-clerk?branch=master) [![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/gTgJRz7) ![nvidia-api](https://img.shields.io/endpoint?url=https%3A%2F%2Fnvidia-clerk-api-status.herokuapp.com%2Fendpoint)
 # nvidia-clerk
 
@@ -6,7 +7,7 @@
 ![alt text](.github/resources/images/example.png)
 
 ## Discord Server
-To hear about any widespread issues or new releases of this tool join the Discord by clicking that chat button above.
+To hear about any widespread issues or new releases of this tool join the Discord by clicking the [chat button](https://github.com/ianmarmour/nvidia-clerk/blob/master/README.md#shield-badges) above.
 
 ## Background
 `nvidia-clerk` was written in response to the recent NVIDIA RTX 3080 release debacle. During the launch, multiple different groups of scalpers used
@@ -41,11 +42,18 @@ AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, 
 
 ## Usage
 
-### Windows
+### Windows - Command Prompt
 | :memo:        | All commands should be executed inside of cmd.exe |
 |---------------|:------------------------|
 ```Batchfile
 nvidia-clerk-windows.exe -region=REGION_CODE_HERE -model=3080
+```
+
+### Windows - Powershell
+| :memo:        | All commands should be executed inside of cmd.exe |
+|---------------|:------------------------|
+```Batchfile
+.\nvidia-clerk-windows.exe -region=REGION_CODE_HERE -model=3080
 ```
 
 ### Mac OSX
@@ -200,7 +208,7 @@ set TELEGRAM_CHAT_ID=YOUR_TELEGRAM_CHAT_ID_HERE
 ```
 
 ## FAQ
-| :exclamation:  Before you or ask for help go get the [latest release](https://github.com/ianmarmour/nvidia-clerk/releases/latest)! and check [Discord](https://github.com/ianmarmour/nvidia-clerk#discord-server)   |
+| :exclamation:  Before you or ask for help go get the [latest release](https://github.com/ianmarmour/nvidia-clerk/releases/latest)! and check Discord by clicking the [chat button](https://github.com/ianmarmour/nvidia-clerk/blob/master/README.md#shield-badges) above.   |
 |-----------------------------------------|
 
 #### exec: "google-chrome": executable file not found in %PATH%
