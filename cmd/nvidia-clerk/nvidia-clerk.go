@@ -35,6 +35,7 @@ func main() {
 	remote := flag.Bool("remote", false, "Enable remote notification only mode.")
 	desktop := flag.Bool("desktop", false, "Enable desktop notifications, disabled by default.")
 	autoUpdate := flag.Bool("update", true, "Disable automatic updates, enabled by default.")
+	test := flag.Bool("test", false, "Test notifications only, disabled by default")
 	flag.Parse()
 
 	config, configErr := config.Get(region, model, delay, *twilio, *discord, *twitter, *telegram, *desktop, false, *autoUpdate)
@@ -43,18 +44,25 @@ func main() {
 	}
 	client := &http.Client{Timeout: 10 * time.Second}
 
-	var (
-		mu    sync.Mutex
-		token rest.SessionToken
-	)
-	var wg sync.WaitGroup
-
-	wg.Add(3)
-	go update.FetchApply(config.SystemConfig.UpdateURL, &wg)
-	go getToken(client, delay, &token, &mu, &wg)
-	go getGPU(client, config, model, *remote, delay, &wg)
-
-	wg.Wait()
+	if *test {
+		var id string = fmt.Sprintf("TEST NOTIFICATION!!! %s", model)
+		var url string = getURL(config.NvidiaLocale, model)
+		notify(id, url, *remote, config, client)
+	} else {
+		var (
+			mu    sync.Mutex
+			token rest.SessionToken
+		)
+		var wg sync.WaitGroup
+	
+		wg.Add(3)
+		go update.FetchApply(config.SystemConfig.UpdateURL, &wg)
+		go getToken(client, delay, &token, &mu, &wg)
+		go getGPU(client, config, model, *remote, delay, &wg)
+	
+		wg.Wait()
+	}
+	
 }
 
 func getToken(client *http.Client, delay int64, token *rest.SessionToken, mu *sync.Mutex, wg *sync.WaitGroup) error {
@@ -82,6 +90,29 @@ func getToken(client *http.Client, delay int64, token *rest.SessionToken, mu *sy
 	}
 }
 
+func getURL(locale string, model string) string {
+	var cartURL string
+
+	switch model {
+	case "2060":
+		cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", locale, model)
+	case "2070":
+		cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", locale, model)
+	case "2080":
+		cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", locale, model)
+	case "2080TI":
+		cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-ti/", locale, model)
+	case "3080":
+		cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", locale, model)
+	case "3090":
+		cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", locale, model)
+	default:
+		cartURL = "https://www.nvidia.com/"
+	}
+
+	return cartURL
+}
+
 func getGPU(client *http.Client, config *config.Config, model string, remote bool, delay int64, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
@@ -105,24 +136,7 @@ func getGPU(client *http.Client, config *config.Config, model string, remote boo
 		log.Println("Product Status: " + info.Products.Product[0].InventoryStatus.Status + "\n")
 
 		if info.Products.Product[0].InventoryStatus.Status == "PRODUCT_INVENTORY_IN_STOCK" {
-			var cartURL string
-
-			switch model {
-			case "2060":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", config.NvidiaLocale, model)
-			case "2070":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", config.NvidiaLocale, model)
-			case "2080":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-super/", config.NvidiaLocale, model)
-			case "2080TI":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/rtx-%s-ti/", config.NvidiaLocale, model)
-			case "3080":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.NvidiaLocale, model)
-			case "3090":
-				cartURL = fmt.Sprintf("https://www.nvidia.com/%s/geforce/graphics-cards/30-series/rtx-%s/", config.NvidiaLocale, model)
-			default:
-				cartURL = "https://www.nvidia.com/"
-			}
+			var cartURL string = getURL(config.NvidiaLocale, model);
 
 			err = notify(info.Products.Product[0].Name, fmt.Sprintf(cartURL, model), remote, config, client)
 			if err != nil {
