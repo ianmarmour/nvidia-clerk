@@ -5,6 +5,9 @@
 `nvidia-clerk` is a command-line tool written to help you get an RTX 30XX or RTX 20XX series GPU.
 
 ![alt text](.github/resources/images/example.png)
+## Known Issues
+### NVIDIA API
+If you have this message or similar please don't make an issue. `"https://api-prod.nvidia.com/direct-sales-shop/DR/products/en_us/USD/5438481700": context deadline exceeded (Client.Timeout exceeded while awaiting headers)`
 
 ## Discord Server
 To hear about any widespread issues or new releases of this tool join the Discord by clicking the [chat button](https://github.com/ianmarmour/nvidia-clerk/blob/master/README.md#shield-badges) above.
