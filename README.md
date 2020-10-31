@@ -41,7 +41,7 @@ AUT, BEL, CAN, CZE, DNK, FIN, FRA, DEU, USA, GBR, IRL, ITA, SWE, LUX, POL, PRT, 
 
 `-model=3080` NVIDIA RTX 3080 - All-Region Codes
 
-`-model=3090` NVIDIA RTX 3090 - All-Region Codes Except PRT
+`-model=3090` NVIDIA RTX 3090 - All-Region Codes
 
 ## Usage
 
