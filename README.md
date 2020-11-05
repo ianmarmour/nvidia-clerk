@@ -1,3 +1,9 @@
+# UPDATE
+
+Nvidia is sadly no longer selling their GPUs on their own store, for the foreseeable future all Founders Edition cards will be sold via 3rd party retailers (I believe only in North America) as such this project is deprecated. I thank everybody for all their support and feedback throughout the process of writing and maintaining Clerk. I'm going to be deprecating this project but will leave the code up as a historical reference for the future in case NVIDIA starts to sell cards again using their same digital storefront.
+
+
+
 ## Shield Badges
 ![go](https://img.shields.io/github/workflow/status/ianmarmour/nvidia-clerk/Go) [![Coverage Status](https://coveralls.io/repos/github/ianmarmour/nvidia-clerk/badge.svg?branch=master)](https://coveralls.io/github/ianmarmour/nvidia-clerk?branch=master) [![discord](https://img.shields.io/discord/759183179717541920)](https://discord.gg/gTgJRz7) ![nvidia-api](https://img.shields.io/endpoint?url=https%3A%2F%2Fnvidia-clerk-api-status.herokuapp.com%2Fendpoint)
 # nvidia-clerk
