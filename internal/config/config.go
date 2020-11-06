@@ -263,7 +263,7 @@ var RegionalConfigs = map[string]RegionalConfig{
 				SKU: strPtr("5438793300"),
 			},
 			"3090": {
-				SKU: strPtr("5438793500"),
+				SKU: strPtr("5438793200"),
 			},
 		},
 		Locale:       "en_gb",
@@ -496,6 +496,9 @@ var RegionalConfigs = map[string]RegionalConfig{
 		Models: map[string]Model{
 			"3080": {
 				SKU: strPtr("5438794300"),
+			},
+			"3090": {
+				SKU: strPtr("5438794200"),
 			},
 		},
 		Locale:       "en_gb",
